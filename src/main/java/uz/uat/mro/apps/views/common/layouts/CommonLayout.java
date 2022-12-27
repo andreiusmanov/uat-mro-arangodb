@@ -10,11 +10,12 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.about.AboutView;
 import uz.uat.mro.apps.views.common.views.CountriesView;
-import uz.uat.mro.apps.views.helloworld.HelloWorldView;
+import uz.uat.mro.apps.views.common.views.CurrenciesView;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -55,6 +56,7 @@ public class CommonLayout extends AppLayout {
         AppNav nav = new AppNav();
 
         nav.addItem(new AppNavItem("Страны", CountriesView.class, VaadinIcon.GLOBE.create()));
+        nav.addItem(new AppNavItem("Валюты", CurrenciesView.class, VaadinIcon.MONEY.create()));
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
 
         return nav;

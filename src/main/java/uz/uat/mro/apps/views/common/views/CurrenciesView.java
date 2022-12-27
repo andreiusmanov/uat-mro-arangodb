@@ -9,7 +9,6 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 
 import uz.uat.mro.apps.model.entity.Currency;
 import uz.uat.mro.apps.model.repository.CurrenciesRepository;
@@ -17,7 +16,6 @@ import uz.uat.mro.apps.views.common.layouts.CommonLayout;
 
 @PageTitle(value = "Страны")
 @Route(value = "common/currencies", layout = CommonLayout.class)
-@RouteAlias(value = "", layout = CommonLayout.class)
 public class CurrenciesView extends VerticalLayout {
 
     private CurrenciesRepository currencyRepo;
