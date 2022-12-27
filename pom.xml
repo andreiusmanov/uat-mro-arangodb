@@ -14,6 +14,8 @@
         <vaadin.version>23.3.1</vaadin.version>
         <!-- this parameter is needed as spring-boot bom overwrites it -->
         <selenium.version>4.5.3</selenium.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.targetEncoding>UTF-8</project.build.targetEncoding>
     </properties>
 
     <parent>
@@ -88,16 +90,25 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.arangodb/arangodb-spring-data -->
         <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>arangodb-spring-data</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+
+
+        <!--dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency-->
 
-        <dependency>
+        <!--dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -192,7 +203,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                             <productionMode>true</productionMode>
+                            <productionMode>true</productionMode>
                             <pnpmEnable>true</pnpmEnable>
                         </configuration>
                     </plugin>
