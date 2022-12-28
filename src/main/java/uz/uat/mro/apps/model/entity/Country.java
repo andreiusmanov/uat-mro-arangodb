@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.PersistentIndex;
-import com.arangodb.springframework.annotation.Relations;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,8 +29,7 @@ public class Country {
     private String code3;
     private String numeric;
     private String name;
-    @Relations(edges = LinkCountry.class, lazy = true)
-    private Collection<Currency> currency;
+    private Collection<Currency> currencies;
     /*
      * (non-Javadoc)
      * 
@@ -41,7 +39,7 @@ public class Country {
     @Override
     public String toString() {
         return "Country [id=" + id + ", arangoId=" + arangoId + ", shortName=" + shortName + ", code2=" + code2
-                + ", code3=" + code3 + ", numeric=" + numeric + ", name=" + name + ", currency=" + currency + "]";
+                + ", code3=" + code3 + ", numeric=" + numeric + ", name=" + name + ", currency=" + currencies + "]";
     }
 
 }

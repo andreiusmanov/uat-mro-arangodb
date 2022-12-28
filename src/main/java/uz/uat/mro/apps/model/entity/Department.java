@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
-import com.arangodb.springframework.annotation.PersistentIndex;
+import com.arangodb.springframework.annotation.Relations;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,16 +17,17 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("currencies")
-@PersistentIndex(fields = { "code" })
-public class Currency {
+@Document("departments")
+public class Department {
     @Id
     private String id;
     @ArangoId
     private String arangoId;
+    private String name;
     private String code;
-    private String numeric;
-    private Collection<Country> countries;
+    private String shortName;
+    @Relations(edges = OrganizedFirm.class, lazy = false)
+    private Collection<Firm> firm;
 
     @Override
     public int hashCode() {
@@ -34,11 +35,18 @@ public class Currency {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((arangoId == null) ? 0 : arangoId.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((code == null) ? 0 : code.hashCode());
-        result = prime * result + ((numeric == null) ? 0 : numeric.hashCode());
-        result = prime * result + ((countries == null) ? 0 : countries.hashCode());
+        result = prime * result + ((shortName == null) ? 0 : shortName.hashCode());
+        result = prime * result + ((firm == null) ? 0 : firm.hashCode());
         return result;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
 
     @Override
     public boolean equals(Object obj) {
@@ -48,7 +56,7 @@ public class Currency {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Currency other = (Currency) obj;
+        Department other = (Department) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -59,34 +67,33 @@ public class Currency {
                 return false;
         } else if (!arangoId.equals(other.arangoId))
             return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
         if (code == null) {
             if (other.code != null)
                 return false;
         } else if (!code.equals(other.code))
             return false;
-        if (numeric == null) {
-            if (other.numeric != null)
+        if (shortName == null) {
+            if (other.shortName != null)
                 return false;
-        } else if (!numeric.equals(other.numeric))
+        } else if (!shortName.equals(other.shortName))
             return false;
-        if (countries == null) {
-            if (other.countries != null)
+        if (firm == null) {
+            if (other.firm != null)
                 return false;
-        } else if (!countries.equals(other.countries))
+        } else if (!firm.equals(other.firm))
             return false;
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-
     @Override
     public String toString() {
-        return "Currency [id=" + id + ", arangoId=" + arangoId + ", code=" + code + ", numeric=" + numeric
-                + ", countries=" + countries + "]";
+        return "Department [id=" + id + ", arangoId=" + arangoId + ", name=" + name + ", code=" + code + ", shortName="
+                + shortName + ", firm=" + firm + "]";
     }
 
 }

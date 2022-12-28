@@ -29,7 +29,7 @@ public class CountriesView extends VerticalLayout {
     public CountriesView(CountriesRepository countryRepo) {
         this.countryRepo = countryRepo;
         countriesGrid();
-        add(new H3("Страница Стран"), countriesGrid);
+        add(new H3("Страны"), countriesGrid);
     }
 
     private void countriesGrid() {
