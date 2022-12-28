@@ -13,7 +13,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.about.AboutView;
-import uz.uat.mro.apps.views.helloworld.HelloWorldView;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -53,7 +52,6 @@ public class MainLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("Hello World", HelloWorldView.class, "la la-globe"));
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
 
         return nav;
