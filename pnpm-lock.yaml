@@ -9,6 +9,7 @@ specifiers:
   '@polymer/polymer': 3.5.1
   '@rollup/plugin-replace': 3.1.0
   '@rollup/pluginutils': 4.1.0
+  '@vaadin-component-factory/vcf-enhanced-crud': 1.6.0
   '@vaadin-component-factory/vcf-nav': 1.0.6
   '@vaadin/accordion': 23.3.1
   '@vaadin/app-layout': 23.3.1
@@ -130,6 +131,7 @@ dependencies:
   '@polymer/iron-meta': 3.0.1
   '@polymer/iron-resizable-behavior': 3.0.1
   '@polymer/polymer': 3.5.1
+  '@vaadin-component-factory/vcf-enhanced-crud': 1.6.0
   '@vaadin-component-factory/vcf-nav': 1.0.6
   '@vaadin/accordion': 23.3.1
   '@vaadin/app-layout': 23.3.1
@@ -1538,6 +1540,12 @@ packages:
       '@polymer/polymer': 3.5.1
     dev: false
 
+  /@polymer/iron-media-query/3.0.1:
+    resolution: {integrity: sha512-czUX1pm1zfmfcZtq5J57XFkcobBv08Y50exp0/3v8Bos5VL/jv2tU0RwiTfDBxUMhjicGbgwEBFQPY2V5DMzyw==}
+    dependencies:
+      '@polymer/polymer': 3.5.1
+    dev: false
+
   /@polymer/iron-meta/3.0.1:
     resolution: {integrity: sha512-pWguPugiLYmWFV9UWxLWzZ6gm4wBwQdDy4VULKwdHCqR7OP7u98h+XDdGZsSlDPv6qoryV/e3tGHlTIT0mbzJA==}
     dependencies:
@@ -1655,6 +1663,24 @@ packages:
 
   /@types/trusted-types/2.0.2:
     resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}
+
+  /@vaadin-component-factory/vcf-enhanced-crud/1.6.0:
+    resolution: {integrity: sha512-maGBlN2GoIQYfQAZ5Hm9G5Elr9NZPMXDjjzL8NsB4Ievq/tTYTGvvyfJLQTISiO88tRZWni+WnSZYgcppnXjJg==}
+    dependencies:
+      '@polymer/iron-media-query': 3.0.1
+      '@polymer/polymer': 3.5.1
+      '@vaadin/vaadin-button': 23.3.1
+      '@vaadin/vaadin-confirm-dialog': 23.3.1
+      '@vaadin/vaadin-dialog': 23.3.1
+      '@vaadin/vaadin-element-mixin': 2.4.2
+      '@vaadin/vaadin-form-layout': 23.3.1
+      '@vaadin/vaadin-grid': 23.3.1
+      '@vaadin/vaadin-license-checker': 2.1.2
+      '@vaadin/vaadin-lumo-styles': 23.3.1
+      '@vaadin/vaadin-material-styles': 23.3.1
+      '@vaadin/vaadin-text-field': 23.3.1
+      '@vaadin/vaadin-themable-mixin': 23.3.1
+    dev: false
 
   /@vaadin-component-factory/vcf-nav/1.0.6:
     resolution: {integrity: sha512-TKgNqpbO6QtXEDCCXeF2LT59l1jshDEwS+ErFR1axuiol+8ihAbvckO62WtfqhlKd67dwipjNDGic/D4GAyBhg==}
@@ -2664,6 +2690,14 @@ packages:
       '@vaadin/dialog': 23.3.1
     dev: false
 
+  /@vaadin/vaadin-element-mixin/2.4.2:
+    resolution: {integrity: sha512-VSDVK0XUsFe/RohpwSzQwgqb2Pwpok6sDNhIDS4CARr3HPhq2voMzT/FowFbkEy0J1hFtN/ZfC7tkv3kdEKKIQ==}
+    dependencies:
+      '@polymer/polymer': 3.5.1
+      '@vaadin/vaadin-development-mode-detector': 2.0.5
+      '@vaadin/vaadin-usage-statistics': 2.1.2
+    dev: false
+
   /@vaadin/vaadin-form-layout/23.3.1:
     resolution: {integrity: sha512-HajLhcszfk/4/vLo6X+W4dUZx5Xnlipbq/ULzWYFuJCPYOEK0cjJHtxinHZBxk2m82MTkOGNJ6dNl96QcQUw/Q==}
     dependencies:
@@ -2692,6 +2726,12 @@ packages:
     resolution: {integrity: sha512-Mp2+mR81+Xu1JiJtLEFdAUa7sgv2EIlRKNpRJI9zzpAK3TEhkJnDvISjVY84lEapeVw4fTnCerdRqJ8aXPobyg==}
     dependencies:
       '@vaadin/item': 23.3.1
+    dev: false
+
+  /@vaadin/vaadin-license-checker/2.1.2:
+    resolution: {integrity: sha512-oD6/MoavXyIZp6NWhkbJD5RKrpiWohhaQpgqjM0bFIthRr+1NoiG5R1w0uY3NIdMDuaXlsUFSQJ/Viz1v7F/jQ==}
+    dependencies:
+      '@vaadin/vaadin-development-mode-detector': 2.0.5
     dev: false
 
   /@vaadin/vaadin-list-box/23.3.1:

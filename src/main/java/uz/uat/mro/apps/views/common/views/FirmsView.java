@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import com.vaadin.flow.component.grid.Grid;
+import org.vaadin.crudui.crud.impl.GridCrud;
+
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -16,21 +17,22 @@ import uz.uat.mro.apps.model.repository.FirmsRepository;
 @PageTitle(value = "Организация")
 @Route(value = "common/firms")
 public class FirmsView extends VerticalLayout {
-    private FirmsRepository currencyRepo;
-    private Grid<Firm> firmsGrid;
+    private FirmsRepository firmsRepo;
+    private GridCrud<Firm> firmsGrid;
 
-
-    public FirmsView(FirmsRepository countryRepo) {
-        this.currencyRepo = countryRepo;
-        countriesGrid();
+    public FirmsView(FirmsRepository firmsRepo) {
+        this.firmsRepo = firmsRepo;
+        firmsGrid();
         add(new H3("Организации"), firmsGrid);
     }
 
-    private void countriesGrid() {
-        this.firmsGrid = new Grid<>(Firm.class);
-        Iterable<Firm> iterable = currencyRepo.findAll();
+    private void firmsGrid() {
+        this.firmsGrid = new GridCrud<>(Firm.class);
+        Iterable<Firm> iterable = firmsRepo.findAll();
         List<Firm> list = StreamSupport.stream(iterable.spliterator(), true).collect(Collectors.toList());
-        this.firmsGrid.setItems(list);
+        this.firmsGrid.getGrid().setItems(list);
+firmsGrid.setAddOperation(null);
+        
     }
 
 }

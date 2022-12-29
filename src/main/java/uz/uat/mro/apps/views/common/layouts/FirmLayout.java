@@ -13,19 +13,12 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.about.AboutView;
-import uz.uat.mro.apps.views.common.views.CountriesView;
-import uz.uat.mro.apps.views.common.views.CurrenciesView;
-import uz.uat.mro.apps.views.common.views.FirmsView;
+import uz.uat.mro.apps.views.common.views.DepartmentsView;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
-public class CommonLayout extends AppLayout {
-
+public class FirmLayout extends AppLayout{
     private H2 viewTitle;
 
-    public CommonLayout() {
+    public FirmLayout() {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -42,7 +35,7 @@ public class CommonLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("UAT MRO");
+        H1 appName = new H1("Организации");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -56,11 +49,7 @@ public class CommonLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("Страны", CountriesView.class, VaadinIcon.GLOBE.create()));
-        nav.addItem(new AppNavItem("Валюты", CurrenciesView.class, VaadinIcon.MONEY.create()));
-        nav.addItem(new AppNavItem("Организации", FirmsView.class, VaadinIcon.OFFICE.create()));
-        nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
-
+        nav.addItem(new AppNavItem("Отделы", DepartmentsView.class, VaadinIcon.ASTERISK.create()));
         return nav;
     }
 
