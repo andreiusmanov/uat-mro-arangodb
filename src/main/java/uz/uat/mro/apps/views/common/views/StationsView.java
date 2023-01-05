@@ -12,29 +12,34 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.entity.Country;
-import uz.uat.mro.apps.model.entity.Firm;
-import uz.uat.mro.apps.model.service.FirmsService;
+import uz.uat.mro.apps.model.entity.Station;
+import uz.uat.mro.apps.model.service.StationService;
+import uz.uat.mro.apps.views.common.layouts.CommonLayout;
 
-@PageTitle(value = "Организация")
-@Route(value = "common/firms")
-public class FirmsView extends VerticalLayout {
-    private FirmsService service;
-    private GridCrud<Firm> grid;
+@PageTitle(value = "Stations")
+@Route(value = "common/stations", layout = CommonLayout.class)
+public class StationsView extends VerticalLayout {
 
-    public FirmsView(FirmsService service) {
+    private StationService service;
+    private GridCrud<Station> grid;
+
+    /**
+     * 
+     */
+    public StationsView(StationService service) {
         this.service = service;
         grid();
-        add(new H3("Организации"), grid);
+        add(new H3("Страны"), grid);
     }
 
     private void grid() {
-        this.grid = new GridCrud<>(Firm.class);
-        List<Firm> list = service.findFirms();
+        this.grid = new GridCrud<>(Station.class);
+        List<Station> list = service.findStations();
         this.grid.getGrid().setItems(list);
 
-        CrudFormFactory<Firm> factory = grid.getCrudFormFactory();
-        factory.setVisibleProperties("country", "code", "name", "shortName");
-        factory.setFieldCaptions("Страна", "Код", "Наименование", "Аббревиатура");
+        CrudFormFactory<Station> factory = grid.getCrudFormFactory();
+        factory.setVisibleProperties("country", "code", "name");
+        factory.setFieldCaptions("Страна", "Код", "Наименование");
 
         factory.setFieldProvider("country", user -> {
             ComboBox<Country> countries = new ComboBox<>();
@@ -43,10 +48,10 @@ public class FirmsView extends VerticalLayout {
             return countries;
         });
 
+
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(service::findFirms);
+        grid.setFindAllOperation(service::findStations);
     }
-
 }
