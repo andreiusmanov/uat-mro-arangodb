@@ -5,16 +5,12 @@ import java.util.List;
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.CrudFormFactory;
 
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.entity.Country;
-import uz.uat.mro.apps.model.entity.Station;
 import uz.uat.mro.apps.model.entity.Uom;
-import uz.uat.mro.apps.model.service.StationService;
 import uz.uat.mro.apps.model.service.UomService;
 import uz.uat.mro.apps.views.common.layouts.CommonLayout;
 
@@ -38,9 +34,11 @@ public class UomsView extends VerticalLayout {
         this.grid = new GridCrud<>(Uom.class);
         List<Uom> list = service.findAll();
         this.grid.getGrid().setItems(list);
+        this.grid.getGrid().setColumns("code");
+        this.grid.getGrid().getColumnByKey("code").setHeader("Код");
 
         CrudFormFactory<Uom> factory = grid.getCrudFormFactory();
-        factory.setVisibleProperties( "code");
+        factory.setVisibleProperties("code");
         factory.setFieldCaptions("Код");
 
         grid.setAddOperation(service::save);

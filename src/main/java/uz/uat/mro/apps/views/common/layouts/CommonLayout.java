@@ -18,6 +18,8 @@ import uz.uat.mro.apps.views.common.views.CountriesView;
 import uz.uat.mro.apps.views.common.views.CurrenciesView;
 import uz.uat.mro.apps.views.common.views.FirmsView;
 import uz.uat.mro.apps.views.common.views.StationsView;
+import uz.uat.mro.apps.views.common.views.UomsView;
+import uz.uat.mro.apps.views.common.views.WorkDaysView;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -61,6 +63,8 @@ public class CommonLayout extends AppLayout {
         nav.addItem(new AppNavItem("Station", StationsView.class, VaadinIcon.OFFICE.create()));
         nav.addItem(new AppNavItem("Валюты", CurrenciesView.class, VaadinIcon.MONEY.create()));
         nav.addItem(new AppNavItem("Организации", FirmsView.class, VaadinIcon.OFFICE.create()));
+        nav.addItem(new AppNavItem("Ед. измерения", UomsView.class, VaadinIcon.RECORDS.create()));
+        nav.addItem(new AppNavItem("Расписание", WorkDaysView.class, VaadinIcon.RECORDS.create()));
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
 
         return nav;

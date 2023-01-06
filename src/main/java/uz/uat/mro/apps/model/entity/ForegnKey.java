@@ -3,8 +3,9 @@ package uz.uat.mro.apps.model.entity;
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
-import com.arangodb.springframework.annotation.Document;
-import com.arangodb.springframework.annotation.Ref;
+import com.arangodb.springframework.annotation.Edge;
+import com.arangodb.springframework.annotation.From;
+import com.arangodb.springframework.annotation.To;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,17 +16,22 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("departments")
-public class Department {
+@Edge("foreign")
+public class ForegnKey {
+
     @Id
     private String id;
     @ArangoId
     private String arangoId;
-    private String name;
-    private String code;
-    private String shortName;
-    @Ref
-    private Firm firm;
+    @From
+    private Sector sector;
+    @To
+    private Person person;
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
 
     @Override
     public int hashCode() {
@@ -33,13 +39,10 @@ public class Department {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((arangoId == null) ? 0 : arangoId.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((code == null) ? 0 : code.hashCode());
-        result = prime * result + ((shortName == null) ? 0 : shortName.hashCode());
-        result = prime * result + ((firm == null) ? 0 : firm.hashCode());
+        result = prime * result + ((sector == null) ? 0 : sector.hashCode());
+        result = prime * result + ((person == null) ? 0 : person.hashCode());
         return result;
     }
-
     /*
      * (non-Javadoc)
      * 
@@ -54,7 +57,7 @@ public class Department {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Department other = (Department) obj;
+        ForegnKey other = (ForegnKey) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -65,33 +68,28 @@ public class Department {
                 return false;
         } else if (!arangoId.equals(other.arangoId))
             return false;
-        if (name == null) {
-            if (other.name != null)
+        if (sector == null) {
+            if (other.sector != null)
                 return false;
-        } else if (!name.equals(other.name))
+        } else if (!sector.equals(other.sector))
             return false;
-        if (code == null) {
-            if (other.code != null)
+        if (person == null) {
+            if (other.person != null)
                 return false;
-        } else if (!code.equals(other.code))
-            return false;
-        if (shortName == null) {
-            if (other.shortName != null)
-                return false;
-        } else if (!shortName.equals(other.shortName))
-            return false;
-        if (firm == null) {
-            if (other.firm != null)
-                return false;
-        } else if (!firm.equals(other.firm))
+        } else if (!person.equals(other.person))
             return false;
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+
     @Override
     public String toString() {
-        return "Department [id=" + id + ", arangoId=" + arangoId + ", name=" + name + ", code=" + code + ", shortName="
-                + shortName + ", firm=" + firm + "]";
+        return "ForegnKey [id=" + id + ", arangoId=" + arangoId + ", sector=" + sector + ", person=" + person + "]";
     }
 
 }

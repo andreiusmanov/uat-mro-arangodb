@@ -14,9 +14,10 @@ import com.vaadin.flow.router.Route;
 import uz.uat.mro.apps.model.entity.Country;
 import uz.uat.mro.apps.model.entity.Firm;
 import uz.uat.mro.apps.model.service.FirmsService;
+import uz.uat.mro.apps.views.common.layouts.CommonLayout;
 
 @PageTitle(value = "Организация")
-@Route(value = "common/firms")
+@Route(value = "common/firms", layout = CommonLayout.class)
 public class FirmsView extends VerticalLayout {
     private FirmsService service;
     private GridCrud<Firm> grid;
@@ -31,6 +32,11 @@ public class FirmsView extends VerticalLayout {
         this.grid = new GridCrud<>(Firm.class);
         List<Firm> list = service.findFirms();
         this.grid.getGrid().setItems(list);
+this.grid.getGrid().setColumns( "code", "name", "shortName", "country.shortName");
+this.grid.getGrid().getColumnByKey("code").setHeader("Код");
+this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
+this.grid.getGrid().getColumnByKey("shortName").setHeader("Аббрев.");
+this.grid.getGrid().getColumnByKey("country.shortName").setHeader("Страна");
 
         CrudFormFactory<Firm> factory = grid.getCrudFormFactory();
         factory.setVisibleProperties("country", "code", "name", "shortName");

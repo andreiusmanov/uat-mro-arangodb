@@ -1,7 +1,5 @@
 package uz.uat.mro.apps.model.entity;
 
-import java.util.Collection;
-
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
@@ -29,7 +27,6 @@ public class Country {
     private String code3;
     private String numeric;
     private String name;
-    private Collection<Currency> currencies;
 
     @Override
     public int hashCode() {
@@ -42,15 +39,8 @@ public class Country {
         result = prime * result + ((code3 == null) ? 0 : code3.hashCode());
         result = prime * result + ((numeric == null) ? 0 : numeric.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((currencies == null) ? 0 : currencies.hashCode());
         return result;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
 
     @Override
     public boolean equals(Object obj) {
@@ -96,18 +86,13 @@ public class Country {
                 return false;
         } else if (!name.equals(other.name))
             return false;
-        if (currencies == null) {
-            if (other.currencies != null)
-                return false;
-        } else if (!currencies.equals(other.currencies))
-            return false;
         return true;
     }
 
     @Override
     public String toString() {
         return "Country [id=" + id + ", arangoId=" + arangoId + ", shortName=" + shortName + ", code2=" + code2
-                + ", code3=" + code3 + ", numeric=" + numeric + ", name=" + name + ", currency=" + currencies + "]";
+                + ", code3=" + code3 + ", numeric=" + numeric + ", name=" + name + "]";
     }
 
 }

@@ -29,13 +29,18 @@ public class StationsView extends VerticalLayout {
     public StationsView(StationService service) {
         this.service = service;
         grid();
-        add(new H3("Страны"), grid);
+        add(new H3("Stations"), grid);
     }
 
     private void grid() {
         this.grid = new GridCrud<>(Station.class);
         List<Station> list = service.findStations();
         this.grid.getGrid().setItems(list);
+
+        this.grid.getGrid().setColumns("code", "country.code3", "name");
+        this.grid.getGrid().getColumnByKey("code").setHeader("Код");
+        this.grid.getGrid().getColumnByKey("country.code3").setHeader("Страна");
+        this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
 
         CrudFormFactory<Station> factory = grid.getCrudFormFactory();
         factory.setVisibleProperties("country", "code", "name");
@@ -47,7 +52,6 @@ public class StationsView extends VerticalLayout {
             countries.setItemLabelGenerator(e -> e.getShortName());
             return countries;
         });
-
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);

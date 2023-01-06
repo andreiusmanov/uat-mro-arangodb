@@ -26,7 +26,13 @@ public class Currency {
     private String arangoId;
     private String code;
     private String numeric;
+    private String name;
     private Collection<Country> countries;
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
 
     @Override
     public int hashCode() {
@@ -36,9 +42,15 @@ public class Currency {
         result = prime * result + ((arangoId == null) ? 0 : arangoId.hashCode());
         result = prime * result + ((code == null) ? 0 : code.hashCode());
         result = prime * result + ((numeric == null) ? 0 : numeric.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((countries == null) ? 0 : countries.hashCode());
         return result;
     }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
 
     @Override
     public boolean equals(Object obj) {
@@ -69,6 +81,11 @@ public class Currency {
                 return false;
         } else if (!numeric.equals(other.numeric))
             return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
         if (countries == null) {
             if (other.countries != null)
                 return false;
@@ -85,8 +102,8 @@ public class Currency {
 
     @Override
     public String toString() {
-        return "Currency [id=" + id + ", arangoId=" + arangoId + ", code=" + code + ", numeric=" + numeric
-                + ", countries=" + countries + "]";
+        return "Currency [id=" + id + ", arangoId=" + arangoId + ", code=" + code + ", numeric=" + numeric + ", name="
+                + name + ", countries=" + countries + "]";
     }
 
 }

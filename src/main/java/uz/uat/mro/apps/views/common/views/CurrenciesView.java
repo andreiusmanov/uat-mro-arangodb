@@ -1,39 +1,61 @@
 package uz.uat.mro.apps.views.common.views;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import com.vaadin.flow.component.grid.Grid;
+import org.vaadin.crudui.crud.impl.GridCrud;
+import org.vaadin.crudui.form.CrudFormFactory;
+
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import uz.uat.mro.apps.model.entity.Country;
 import uz.uat.mro.apps.model.entity.Currency;
-import uz.uat.mro.apps.model.repository.CurrenciesRepository;
+import uz.uat.mro.apps.model.service.CurrencyService;
 import uz.uat.mro.apps.views.common.layouts.CommonLayout;
 
-@PageTitle(value = "Страны")
+@PageTitle(value = "Валюты")
 @Route(value = "common/currencies", layout = CommonLayout.class)
 public class CurrenciesView extends VerticalLayout {
 
-    private CurrenciesRepository currencyRepo;
-    private Grid<Currency> currenciesGrid;
+    private CurrencyService service;
+    private GridCrud<Currency> grid;
 
     /**
      * 
      */
-    public CurrenciesView(CurrenciesRepository countryRepo) {
-        this.currencyRepo = countryRepo;
-        countriesGrid();
-        add(new H3("Валюты"), currenciesGrid);
+    public CurrenciesView(CurrencyService service) {
+        this.service = service;
+        grid();
+        add(new H3("Валюты"), grid);
     }
 
-    private void countriesGrid() {
-        this.currenciesGrid = new Grid<>(Currency.class);
-        Iterable<Currency> iterable = currencyRepo.findAll();
-        List<Currency> list = StreamSupport.stream(iterable.spliterator(), true).collect(Collectors.toList());
-        this.currenciesGrid.setItems(list);
+    private void grid() {
+        this.grid = new GridCrud<>(Currency.class);
+        List<Currency> list = service.findAll();
+        this.grid.getGrid().setItems(list);
+        this.grid.getGrid().setColumns("code", "numeric", "name", "countries");
+        this.grid.getGrid().getColumnByKey("code").setHeader("Код");
+        this.grid.getGrid().getColumnByKey("numeric").setHeader("Цифр. код");
+        this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
+        this.grid.getGrid().getColumnByKey("countries").setHeader("Страны");
+
+        CrudFormFactory<Currency> factory = grid.getCrudFormFactory();
+        factory.setVisibleProperties("code", "numeric", "name", "countries");
+        factory.setFieldCaptions("Код", "Цифр. код", "Наименование", "Страна");
+
+        factory.setFieldProvider("countries", user -> {
+            ComboBox<Country> countries = new ComboBox<>();
+            countries.setItems(service.findCountries());
+            countries.setItemLabelGenerator(e -> e.getShortName());
+            return countries;
+        });
+
+        grid.setAddOperation(service::save);
+        grid.setUpdateOperation(service::save);
+        grid.setDeleteOperation(service::delete);
+        grid.setFindAllOperation(() -> service.findAll());
     }
 }
