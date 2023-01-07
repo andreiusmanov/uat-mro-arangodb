@@ -14,6 +14,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.common.views.DepartmentsView;
+import uz.uat.mro.apps.views.common.views.SectorsView;
 
 public class DepartmentLayout extends AppLayout {
 
@@ -36,7 +37,7 @@ public class DepartmentLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("Организации");
+        H1 appName = new H1("Отдел");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -50,7 +51,7 @@ public class DepartmentLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("Отделы", DepartmentsView.class,
+        nav.addItem(new AppNavItem("Участки/Бригады", SectorsView.class,
                 VaadinIcon.ASTERISK.create()));
         return nav;
     }

@@ -1,8 +1,12 @@
 package uz.uat.mro.apps.model.service;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+
+import com.arangodb.springframework.annotation.Query;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.entity.Department;
@@ -22,8 +26,15 @@ public class DepartmentService {
         repo.delete(entity);
     }
 
-    public List<Department> findByFirm(Firm firm) {
-        return repo.findByFirm(firm);
+    public List<Department> findByFirm(@Param("firm") String firm) {
+        return repo.findByFirmQuery(firm);
+    }
+
+    public List<Department> findAll() {
+        Iterable<Department> iterable = repo.findAll();
+        List<Department> list = StreamSupport.stream(iterable.spliterator(), false).toList();
+        System.out.println("размер списка " + list.size());
+        return list;
     }
 
 }

@@ -1,10 +1,13 @@
 package uz.uat.mro.apps.model.entity;
 
+import java.util.Collection;
+
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
+import com.arangodb.springframework.annotation.Relations;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +29,10 @@ public class Department {
     private String shortName;
     @Ref
     private Firm firm;
+    @Relations(edges = ForeignKey.class, lazy = false)
+    private Collection<Sector> sectors;
+
+
 
     @Override
     public int hashCode() {

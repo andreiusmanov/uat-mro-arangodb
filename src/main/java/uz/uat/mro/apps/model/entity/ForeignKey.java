@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Edge("foreign")
-public class ForegnKey {
+public class ForeignKey {
 
     @Id
     private String id;
@@ -57,7 +57,7 @@ public class ForegnKey {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ForegnKey other = (ForegnKey) obj;
+        ForeignKey other = (ForeignKey) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

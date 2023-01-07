@@ -1,19 +1,22 @@
 package uz.uat.mro.apps.views.common.views;
 
-import java.util.List;
-
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.CrudFormFactory;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.entity.Department;
 import uz.uat.mro.apps.model.entity.Firm;
 import uz.uat.mro.apps.model.service.DepartmentService;
+import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.common.layouts.FirmLayout;
 
 @PageTitle(value = "Отделы")
@@ -21,33 +24,65 @@ import uz.uat.mro.apps.views.common.layouts.FirmLayout;
 public class DepartmentsView extends VerticalLayout {
     private DepartmentService service;
     private Firm firm;
+    private Department department;
+
     private GridCrud<Department> grid;
+    private MenuBar menu;
+    private MenuItem sectors;
 
     public DepartmentsView(DepartmentService service) {
         this.service = service;
+        this.firm = (Firm) MyUtils.getAttribute("firm");
         grid();
-        add(new H3("Организации"), grid);
+        menu();
+        add(new H3("Отделы " + firm.getShortName()), menu, grid);
+    }
+
+    private void menu() {
+        this.menu = new MenuBar();
+        menu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
+
+        this.sectors = menu.addItem("Участки/Бригады");
+        sectors.addClickListener(e -> {
+            MyUtils.setAttribute("department", department);
+            UI.getCurrent().navigate("department/sectors");
+        });
+        sectors.setEnabled(false);
     }
 
     private void grid() {
         this.grid = new GridCrud<>(Department.class);
-        List<Department> list = service.findByFirm(firm);
-        this.grid.getGrid().setItems(list);
+        this.grid.getGrid().setColumns("name", "code", "shortName");
+        this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
+        this.grid.getGrid().getColumnByKey("code").setHeader("Код");
+        this.grid.getGrid().getColumnByKey("shortName").setHeader("Кратк. Наименование");
 
         CrudFormFactory<Department> factory = grid.getCrudFormFactory();
         factory.setVisibleProperties("firm", "code", "name", "shortName");
         factory.setFieldCaptions("Организация", "Код", "Наименование", "Аббревиатура");
-        factory.setDisabledProperties("firm");
         factory.setFieldProvider("firm", user -> {
-            TextField firmField = new TextField();
-            firmField.setValue(firm.getShortName());
-            return firmField;
+            ComboBox<Firm> cb = new ComboBox<>("Организация", firm);
+            cb.setItemLabelGenerator(e -> e.getShortName());
+            return cb;
         });
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findByFirm(firm));
+        grid.setFindAllOperation(() -> service.findByFirm(firm.getArangoId()));
+
+        grid.getCrudFormFactory().setNewInstanceSupplier(() -> {
+            Department dept = new Department();
+            dept.setFirm(firm);
+            return dept;
+        });
+
+        grid.getGrid().addSelectionListener(e -> {
+            this.department = e.getFirstSelectedItem().orElse(null);
+            boolean res = e.getFirstSelectedItem().isPresent();
+            sectors.setEnabled(res);
+        });
+
     }
 
 }
