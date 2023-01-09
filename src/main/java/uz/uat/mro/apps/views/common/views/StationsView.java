@@ -11,9 +11,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.entity.Country;
-import uz.uat.mro.apps.model.entity.Station;
-import uz.uat.mro.apps.model.service.StationService;
+import uz.uat.mro.apps.model.common.entity.Country;
+import uz.uat.mro.apps.model.common.entity.Station;
+import uz.uat.mro.apps.model.common.service.StationService;
 import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Stations")

@@ -13,9 +13,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.entity.Department;
-import uz.uat.mro.apps.model.entity.Firm;
-import uz.uat.mro.apps.model.service.DepartmentService;
+import uz.uat.mro.apps.model.common.entity.Department;
+import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.common.service.DepartmentService;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.common.layouts.FirmLayout;
 

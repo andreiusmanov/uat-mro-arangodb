@@ -9,13 +9,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.entity.Department;
-import uz.uat.mro.apps.model.entity.Sector;
-import uz.uat.mro.apps.model.service.SectorService;
+import uz.uat.mro.apps.model.common.entity.Department;
+import uz.uat.mro.apps.model.common.entity.Sector;
+import uz.uat.mro.apps.model.common.service.SectorService;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.common.layouts.DepartmentLayout;
 
-@PageTitle(value = "")
+@PageTitle(value = "Участки / Бригады")
 @Route(value = "department/sectors", layout = DepartmentLayout.class)
 public class SectorsView extends VerticalLayout {
 

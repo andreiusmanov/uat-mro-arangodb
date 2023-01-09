@@ -10,8 +10,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.entity.Uom;
-import uz.uat.mro.apps.model.service.UomService;
+import uz.uat.mro.apps.model.common.entity.Uom;
+import uz.uat.mro.apps.model.common.service.UomService;
 import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Ед. Измерения")
