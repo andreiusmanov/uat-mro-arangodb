@@ -50,7 +50,7 @@ public class AircraftsView extends VerticalLayout {
             airlines.setItemLabelGenerator(e -> e.getName());
             return airlines;
         });
-        factory.setFieldProvider("owners", user -> {
+        factory.setFieldProvider("owner", user -> {
             ComboBox<Firm> owners = new ComboBox<>();
             owners.setItems(service.findOwnerFirms());
             owners.setItemLabelGenerator(e -> e.getName());
@@ -60,6 +60,6 @@ public class AircraftsView extends VerticalLayout {
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findAll());
+        grid.setFindAllOperation(service::findAll);
     }
 }
