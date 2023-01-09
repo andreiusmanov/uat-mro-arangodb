@@ -13,11 +13,10 @@ import com.vaadin.flow.router.RouteAlias;
 
 import uz.uat.mro.apps.model.entity.Country;
 import uz.uat.mro.apps.model.service.CountryService;
-import uz.uat.mro.apps.views.common.layouts.CommonLayout;
+import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Страны")
-@Route(value = "common/countries", layout = CommonLayout.class)
-@RouteAlias(value = "", layout = CommonLayout.class)
+@Route(value = "common/countries", layout = AdminLayout.class)
 public class CountriesView extends VerticalLayout {
 
     private CountryService service;
@@ -28,11 +27,11 @@ public class CountriesView extends VerticalLayout {
      */
     public CountriesView(CountryService service) {
         this.service = service;
-        countriesGrid();
+        grid();
         add(new H3("Страны"), grid);
     }
 
-    private void countriesGrid() {
+    private void grid() {
         this.grid = new GridCrud<>(Country.class);
         List<Country> list = service.findAll();
         this.grid.getGrid().setItems(list);

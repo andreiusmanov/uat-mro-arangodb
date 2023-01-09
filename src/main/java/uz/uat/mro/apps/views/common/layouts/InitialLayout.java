@@ -14,21 +14,17 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.about.AboutView;
+import uz.uat.mro.apps.views.aircraft.view.MajorModelsView;
 import uz.uat.mro.apps.views.common.views.CountriesView;
-import uz.uat.mro.apps.views.common.views.CurrenciesView;
-import uz.uat.mro.apps.views.common.views.FirmsView;
-import uz.uat.mro.apps.views.common.views.StationsView;
-import uz.uat.mro.apps.views.common.views.UomsView;
-import uz.uat.mro.apps.views.common.views.WorkDaysView;
 
 /**
  * The main view is a top-level placeholder for other views.
  */
-public class CommonLayout extends AppLayout {
+public class InitialLayout extends AppLayout {
 
     private H2 viewTitle;
 
-    public CommonLayout() {
+    public InitialLayout() {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -59,13 +55,9 @@ public class CommonLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("Страны", CountriesView.class, VaadinIcon.GLOBE.create()));
-        nav.addItem(new AppNavItem("Station", StationsView.class, VaadinIcon.OFFICE.create()));
-        nav.addItem(new AppNavItem("Валюты", CurrenciesView.class, VaadinIcon.MONEY.create()));
-        nav.addItem(new AppNavItem("Организации", FirmsView.class, VaadinIcon.OFFICE.create()));
-        nav.addItem(new AppNavItem("Ед. измерения", UomsView.class, VaadinIcon.RECORDS.create()));
-        nav.addItem(new AppNavItem("Расписание", WorkDaysView.class, VaadinIcon.RECORDS.create()));
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Страны", CountriesView.class, VaadinIcon.GLOBE.create()));
+        nav.addItem(new AppNavItem("Модели ВС", MajorModelsView.class, VaadinIcon.AIRPLANE.create()));
 
         return nav;
     }

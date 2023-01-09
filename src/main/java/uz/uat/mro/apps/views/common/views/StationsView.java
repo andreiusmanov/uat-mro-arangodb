@@ -14,10 +14,10 @@ import com.vaadin.flow.router.Route;
 import uz.uat.mro.apps.model.entity.Country;
 import uz.uat.mro.apps.model.entity.Station;
 import uz.uat.mro.apps.model.service.StationService;
-import uz.uat.mro.apps.views.common.layouts.CommonLayout;
+import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Stations")
-@Route(value = "common/stations", layout = CommonLayout.class)
+@Route(value = "common/stations", layout = AdminLayout.class)
 public class StationsView extends VerticalLayout {
 
     private StationService service;

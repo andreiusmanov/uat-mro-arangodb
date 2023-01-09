@@ -19,10 +19,10 @@ import uz.uat.mro.apps.model.entity.Country;
 import uz.uat.mro.apps.model.entity.Firm;
 import uz.uat.mro.apps.model.service.FirmsService;
 import uz.uat.mro.apps.utils.MyUtils;
-import uz.uat.mro.apps.views.common.layouts.CommonLayout;
+import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Организация")
-@Route(value = "common/firms", layout = CommonLayout.class)
+@Route(value = "common/firms", layout = AdminLayout.class)
 public class FirmsView extends VerticalLayout {
     private FirmsService service;
     private GridCrud<Firm> grid;

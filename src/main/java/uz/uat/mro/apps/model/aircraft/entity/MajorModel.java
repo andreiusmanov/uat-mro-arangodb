@@ -6,12 +6,16 @@ import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.uat.mro.apps.model.entity.Firm;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Document("major_models")
 
@@ -25,10 +29,7 @@ public class MajorModel {
     private String description;
     @Ref
     private Firm producer;
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -41,10 +42,7 @@ public class MajorModel {
         result = prime * result + ((producer == null) ? 0 : producer.hashCode());
         return result;
     }
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -87,15 +85,10 @@ public class MajorModel {
         return true;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    
     @Override
     public String toString() {
         return "MajorModel [id=" + id + ", arangoId=" + arangoId + ", code=" + code + ", name=" + name
                 + ", description=" + description + ", producer=" + producer + "]";
     }
 
-    
 }

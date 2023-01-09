@@ -6,11 +6,15 @@ import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Document("aircraft_models")
 public class AircraftModel {
     @Id
@@ -22,11 +26,6 @@ public class AircraftModel {
     private String code;
     private String name;
     private String description;
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
 
     @Override
     public int hashCode() {
@@ -87,12 +86,6 @@ public class AircraftModel {
             return false;
         return true;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
 
     @Override
     public String toString() {

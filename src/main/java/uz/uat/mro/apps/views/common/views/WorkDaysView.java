@@ -12,10 +12,10 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.entity.WorkDay;
 import uz.uat.mro.apps.model.service.WorkDayService;
-import uz.uat.mro.apps.views.common.layouts.CommonLayout;
+import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Расписание")
-@Route(value = "common/workdays", layout = CommonLayout.class)
+@Route(value = "common/workdays", layout = AdminLayout.class)
 public class WorkDaysView extends VerticalLayout {
 
     private WorkDayService service;

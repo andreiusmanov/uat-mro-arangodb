@@ -14,10 +14,10 @@ import com.vaadin.flow.router.Route;
 import uz.uat.mro.apps.model.entity.Country;
 import uz.uat.mro.apps.model.entity.Currency;
 import uz.uat.mro.apps.model.service.CurrencyService;
-import uz.uat.mro.apps.views.common.layouts.CommonLayout;
+import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Валюты")
-@Route(value = "common/currencies", layout = CommonLayout.class)
+@Route(value = "common/currencies", layout = AdminLayout.class)
 public class CurrenciesView extends VerticalLayout {
 
     private CurrencyService service;

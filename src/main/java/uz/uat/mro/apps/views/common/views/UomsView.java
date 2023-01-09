@@ -12,10 +12,10 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.entity.Uom;
 import uz.uat.mro.apps.model.service.UomService;
-import uz.uat.mro.apps.views.common.layouts.CommonLayout;
+import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Ед. Измерения")
-@Route(value = "common/uoms", layout = CommonLayout.class)
+@Route(value = "common/uoms", layout = AdminLayout.class)
 public class UomsView extends VerticalLayout {
 
     private UomService service;

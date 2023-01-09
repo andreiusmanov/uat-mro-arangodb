@@ -1,6 +1,7 @@
 package uz.uat.mro.apps.model.aircraft.service;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,15 @@ public class MajorModelService {
     public void delete(MajorModel entity) {
         repo.delete(entity);
     }
+
+    public List<Firm> findProducers() {
+        return repo.findProducers();
+    }
+
+public List<MajorModel> findAll(){
+    Iterable<MajorModel> iterable = repo.findAll();
+    return StreamSupport.stream(iterable.spliterator(),false).toList();
+}
+
 
 }
