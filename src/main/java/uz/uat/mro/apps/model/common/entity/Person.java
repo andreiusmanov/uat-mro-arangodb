@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.entity;
+package uz.uat.mro.apps.model.common.entity;
 
 import java.time.LocalDate;
 import java.util.Collection;

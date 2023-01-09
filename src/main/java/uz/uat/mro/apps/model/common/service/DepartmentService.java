@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.service;
+package uz.uat.mro.apps.model.common.service;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -6,12 +6,9 @@ import java.util.stream.StreamSupport;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
-import com.arangodb.springframework.annotation.Query;
-
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.entity.Department;
-import uz.uat.mro.apps.model.entity.Firm;
-import uz.uat.mro.apps.model.repository.DepartmentsRepository;
+import uz.uat.mro.apps.model.common.entity.Department;
+import uz.uat.mro.apps.model.common.repository.DepartmentsRepository;
 
 @AllArgsConstructor
 @Service

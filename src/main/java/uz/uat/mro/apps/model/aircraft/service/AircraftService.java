@@ -10,8 +10,8 @@ import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.aircraft.entity.AircraftModel;
 import uz.uat.mro.apps.model.aircraft.repository.AircraftModelsRepository;
 import uz.uat.mro.apps.model.aircraft.repository.AircraftsRepository;
-import uz.uat.mro.apps.model.entity.Firm;
-import uz.uat.mro.apps.model.repository.FirmsRepository;
+import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.common.repository.FirmsRepository;
 
 @AllArgsConstructor
 @Service

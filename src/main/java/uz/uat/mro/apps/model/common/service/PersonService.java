@@ -1,12 +1,12 @@
-package uz.uat.mro.apps.model.service;
+package uz.uat.mro.apps.model.common.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.entity.Person;
-import uz.uat.mro.apps.model.repository.PersonsRepository;
+import uz.uat.mro.apps.model.common.entity.Person;
+import uz.uat.mro.apps.model.common.repository.PersonsRepository;
 
 @AllArgsConstructor
 @Service

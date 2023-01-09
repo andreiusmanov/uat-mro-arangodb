@@ -10,7 +10,7 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.aircraft.service.MajorModelService;
-import uz.uat.mro.apps.model.entity.Firm;
+import uz.uat.mro.apps.model.common.entity.Firm;
 import uz.uat.mro.apps.views.aircraft.layout.AircraftLayout;
 
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.aircraft.repository.MajorModelsRepository;
-import uz.uat.mro.apps.model.entity.Firm;
+import uz.uat.mro.apps.model.common.entity.Firm;
 
 @AllArgsConstructor
 @Service

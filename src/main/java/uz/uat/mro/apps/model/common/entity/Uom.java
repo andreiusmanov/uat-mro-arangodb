@@ -1,5 +1,4 @@
-package uz.uat.mro.apps.model.entity;
-
+package uz.uat.mro.apps.model.common.entity;
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;

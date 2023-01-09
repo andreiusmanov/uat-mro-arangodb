@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.uat.mro.apps.model.entity.Firm;
+import uz.uat.mro.apps.model.common.entity.Firm;
 
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.service;
+package uz.uat.mro.apps.model.common.service;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -6,10 +6,9 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.entity.Department;
-import uz.uat.mro.apps.model.entity.Person;
-import uz.uat.mro.apps.model.entity.Sector;
-import uz.uat.mro.apps.model.repository.SectorsRepository;
+import uz.uat.mro.apps.model.common.entity.Person;
+import uz.uat.mro.apps.model.common.entity.Sector;
+import uz.uat.mro.apps.model.common.repository.SectorsRepository;
 
 @AllArgsConstructor
 @Service
