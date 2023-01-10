@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.library.loayout;
+package uz.uat.mro.apps.views.library.layout;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -13,12 +13,13 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.library.view.ZonesView;
+import uz.uat.mro.apps.views.library.view.MpdEditionsView;
 
-public class MpdLayout extends AppLayout {
+public class LibraryLayout extends AppLayout {
+
     private H2 viewTitle;
 
-    public MpdLayout() {
+    public LibraryLayout() {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -35,7 +36,7 @@ public class MpdLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("MPD DATA");
+        H1 appName = new H1("UAT БИБЛИОТЕКА");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -49,7 +50,7 @@ public class MpdLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("Зоны ВС", ZonesView.class, VaadinIcon.BOOK.create()));
+        nav.addItem(new AppNavItem("MPD Издания", MpdEditionsView.class, VaadinIcon.BOOK.create()));
 
         return nav;
     }
