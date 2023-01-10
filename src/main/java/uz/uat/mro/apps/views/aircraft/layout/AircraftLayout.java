@@ -1,5 +1,4 @@
-package uz.uat.mro.apps.views;
-
+package uz.uat.mro.apps.views.aircraft.layout;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -7,21 +6,25 @@ import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.about.AboutView;
+import uz.uat.mro.apps.views.aircraft.view.AircraftModelsView;
+import uz.uat.mro.apps.views.aircraft.view.AircraftsView;
+import uz.uat.mro.apps.views.aircraft.view.MajorModelsView;
 
 /**
  * The main view is a top-level placeholder for other views.
  */
-public class MainLayout extends AppLayout {
+public class AircraftLayout extends AppLayout {
 
     private H2 viewTitle;
 
-    public MainLayout() {
+    public AircraftLayout() {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -38,7 +41,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("UAT MRO A");
+        H1 appName = new H1("UAT MRO");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -52,7 +55,9 @@ public class MainLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Основные Типы ВС", MajorModelsView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("Модели ВС", AircraftModelsView.class, VaadinIcon.AIRPLANE.create()));
+        nav.addItem(new AppNavItem("Воздушные Суда", AircraftsView.class, VaadinIcon.AIRPLANE.create()));
 
         return nav;
     }

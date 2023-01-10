@@ -81,10 +81,16 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
-            <artifactId>vaadin</artifactId>
+            <artifactId>vaadin-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>
@@ -97,7 +103,11 @@
             <artifactId>arangodb-spring-data</artifactId>
             <version>3.7.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>arangodb-spring-boot-starter</artifactId>
+            <version>2.6-0</version>
+        </dependency>
 
         <!--dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -147,6 +157,24 @@
             <version>5.1.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin.componentfactory</groupId>
+            <artifactId>enhanced-crud-flow</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.vaadin.crudui</groupId>
+            <artifactId>crudui</artifactId>
+            <version>6.2.0</version>
+         </dependency>
+
     </dependencies>
 
     <build>

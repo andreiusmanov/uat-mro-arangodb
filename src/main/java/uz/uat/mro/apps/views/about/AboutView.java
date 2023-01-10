@@ -6,10 +6,13 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import uz.uat.mro.apps.views.MainLayout;
+import com.vaadin.flow.router.RouteAlias;
+
+import uz.uat.mro.apps.views.common.layouts.InitialLayout;
 
 @PageTitle("About")
-@Route(value = "about", layout = MainLayout.class)
+@Route(value = "about", layout = InitialLayout.class)
+@RouteAlias(value = "", layout = InitialLayout.class)
 public class AboutView extends VerticalLayout {
 
     public AboutView() {

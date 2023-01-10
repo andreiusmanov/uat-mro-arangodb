@@ -1,5 +1,4 @@
-package uz.uat.mro.apps.views;
-
+package uz.uat.mro.apps.views.common.layouts;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -7,21 +6,21 @@ import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.about.AboutView;
+import uz.uat.mro.apps.views.common.views.DepartmentsView;
+import uz.uat.mro.apps.views.common.views.SectorsView;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
-public class MainLayout extends AppLayout {
+public class DepartmentLayout extends AppLayout {
 
     private H2 viewTitle;
 
-    public MainLayout() {
+    public DepartmentLayout() {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -38,7 +37,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("UAT MRO A");
+        H1 appName = new H1("Отдел");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -52,8 +51,8 @@ public class MainLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
-
+        nav.addItem(new AppNavItem("Участки/Бригады", SectorsView.class,
+                VaadinIcon.ASTERISK.create()));
         return nav;
     }
 
@@ -73,4 +72,5 @@ public class MainLayout extends AppLayout {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
+
 }
