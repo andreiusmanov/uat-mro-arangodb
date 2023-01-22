@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.aircraft.repository.MajorModelsRepository;
-import uz.uat.mro.apps.model.library.entity.MpdAccesses;
+import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdSubzone;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
 import uz.uat.mro.apps.model.library.repository.MpdAccessesRepository;
@@ -45,15 +45,15 @@ public class MpdZonesService {
         subzonesRepo.delete(entity);
     }
 
-    public MpdAccesses save(MpdAccesses entity) {
+    public MpdAccess save(MpdAccess entity) {
         return accessesRepo.save(entity);
     }
 
-    public void delete(MpdAccesses entity) {
+    public void delete(MpdAccess entity) {
         accessesRepo.delete(entity);
     }
 
-    public Boolean isSyntheticAccess(MpdAccesses entity) {
+    public Boolean isSyntheticAccess(MpdAccess entity) {
         return entity.getSynthetic();
     }
 

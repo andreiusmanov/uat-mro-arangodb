@@ -22,7 +22,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @Document("mpd_accesses")
-public class MpdAccesses {
+public class MpdAccess {
     @Id
     private String id;
     @ArangoId
