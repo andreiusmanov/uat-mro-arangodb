@@ -1,0 +1,16 @@
+Common classes
+
+1. Country
+a) Description : список стран, используемых в работе приложения
+b) Fields:
+    1. Id - название страны из 2-х знаков по ISO
+    2. code3 - назваие страны из 3-х знаков по ISO
+    3. numeric - номер страны по ISO
+    4. shortName - краткое наименование страны
+    5. name - полное наименование страны
+    
+с) Methods
+    1. create
+    2. update
+    3. delete
+    4. findById

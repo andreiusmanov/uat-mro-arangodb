@@ -4,10 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <!-- Project from https://start.vaadin.com/project/a013bef6-faa4-4321-8977-0a68e2cc14fd -->
     <groupId>uz.uat.mro.apps</groupId>
-    <artifactId>uatmroa</artifactId>
+    <artifactId>uatmro</artifactId>
     <name>uatmroa</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
 
     <properties>
         <java.version>17</java.version>

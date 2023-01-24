@@ -34,24 +34,22 @@ public class CurrenciesView extends VerticalLayout {
 
     private void grid() {
         this.grid = new GridCrud<>(Currency.class);
-        List<Currency> list = service.findAll();
-        this.grid.getGrid().setItems(list);
-        this.grid.getGrid().setColumns("code", "numeric", "name", "countries");
-        this.grid.getGrid().getColumnByKey("code").setHeader("Код");
+        this.grid.getGrid().setColumns("id", "numeric", "name", "countries");
+        this.grid.getGrid().getColumnByKey("id").setHeader("Код");
         this.grid.getGrid().getColumnByKey("numeric").setHeader("Цифр. код");
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
         this.grid.getGrid().getColumnByKey("countries").setHeader("Страны");
 
         CrudFormFactory<Currency> factory = grid.getCrudFormFactory();
-        factory.setVisibleProperties("code", "numeric", "name", "countries");
-        factory.setFieldCaptions("Код", "Цифр. код", "Наименование", "Страна");
+        factory.setVisibleProperties("id", "numeric", "name");
+        factory.setFieldCaptions("Код", "Цифр. код", "Наименование");
 
-        factory.setFieldProvider("countries", user -> {
-            ComboBox<Country> countries = new ComboBox<>();
-            countries.setItems(service.findCountries());
-            countries.setItemLabelGenerator(e -> e.getShortName());
-            return countries;
-        });
+        // factory.setFieldProvider("countries", user -> {
+        //     ComboBox<Country> countries = new ComboBox<>();
+        //     countries.setItems(service.findCountries());
+        //     countries.setItemLabelGenerator(e -> e.getShortName());
+        //     return countries;
+        // });
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
