@@ -14,6 +14,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.library.view.AccessesView;
+import uz.uat.mro.apps.views.library.view.MpdView;
 import uz.uat.mro.apps.views.library.view.SubzonesView;
 import uz.uat.mro.apps.views.library.view.ZonesView;
 
@@ -51,6 +52,7 @@ public class MpdLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
+        nav.addItem(new AppNavItem("MPD данные", MpdView.class, VaadinIcon.FILE.create()));
         nav.addItem(new AppNavItem("Зоны ВС", ZonesView.class, VaadinIcon.FILE.create()));
         nav.addItem(new AppNavItem("Субзоны ВС", SubzonesView.class, VaadinIcon.FILE.create()));
         nav.addItem(new AppNavItem("Доступы ВС", AccessesView.class, VaadinIcon.FILE.create()));

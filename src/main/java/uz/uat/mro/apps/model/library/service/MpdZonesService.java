@@ -26,7 +26,7 @@ public class MpdZonesService {
 
 
     public List<MpdZone> findZoneByModel(MajorModel entity) {
-        return repo.findByModel(entity.getArangoId());
+        return repo.findByModel(entity);
     }
     
     public MpdZone save(MpdZone entity) {

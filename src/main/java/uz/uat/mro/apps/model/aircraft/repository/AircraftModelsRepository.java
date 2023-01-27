@@ -11,4 +11,6 @@ public interface AircraftModelsRepository extends ArangoRepository<AircraftModel
 
     List<AircraftModel> findByMajorModel(MajorModel majorModel);
 
+    
+    
 }

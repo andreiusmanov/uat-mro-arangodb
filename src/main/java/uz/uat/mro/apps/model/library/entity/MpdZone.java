@@ -27,17 +27,15 @@ public class MpdZone {
     private String id;
     @ArangoId
     private String arangoId;
-
     private String code;
     private String name;
-    @Ref
+    @Ref(lazy = false)
     private MajorModel model;
-
-    /**
-     * @param model
-     */
+  
     public MpdZone(MajorModel model) {
         this.model = model;
     }
+
+
 
 }

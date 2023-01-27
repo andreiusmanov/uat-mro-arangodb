@@ -37,8 +37,8 @@ public class MpdEditionsView extends VerticalLayout {
         this.details.setEnabled(false);
         this.details.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
         details.addClickListener(e -> {
-            MyUtils.setAttribute("mpd_edition", edition);
-            UI.getCurrent().navigate("mpd-edition/edition");
+            MyUtils.setAttribute("mpd-edition", edition);
+            UI.getCurrent().navigate("mpd/edition");
         });
     }
 

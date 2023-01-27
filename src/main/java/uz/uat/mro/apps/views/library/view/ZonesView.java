@@ -4,16 +4,17 @@ import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.CrudFormFactory;
 
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.contextmenu.MenuItem;
-import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
+import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
 import uz.uat.mro.apps.model.library.service.MpdZonesService;
+import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
 
 @PageTitle(value = "Зоны ВС")
@@ -21,42 +22,54 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 public class ZonesView extends VerticalLayout {
     private MpdZonesService service;
     private GridCrud<MpdZone> grid;
-    private ComboBox<MajorModel> models;
+    // private ComboBox<MajorModel> models;
+    private MpdEdition edition;
     private MajorModel model;
     private MenuBar menu;
 
-
     public ZonesView(MpdZonesService service) {
+        this.edition = (MpdEdition) MyUtils.getAttribute("mpd-edition");
+        this.model = edition.getModel();
         this.service = service;
-        models();
+        // models();
         grid();
+        menu();
+        add(menu, grid);
     }
 
-    private void models() {
-        this.models = new ComboBox<>("Модель ВС");
-        models.setItems(service.models());
-        models.setItemLabelGenerator(MajorModel::getName);
-        models.addValueChangeListener(e -> {
-            this.model = e.getValue();
-            GridListDataView<MpdZone> provider = grid.getGrid().getListDataView();
-            provider.addFilter(arg0 -> arg0.getModel().equals(e.getValue()));
+    private void menu() {
+        this.menu = new MenuBar();
+        this.menu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
+        menu.addItem("Импорт данных из MPD", e -> {
 
         });
     }
 
+    // private void models() {
+    // this.models = new ComboBox<>("Модель ВС");
+    // models.setItems(service.models());
+    // models.setItemLabelGenerator(MajorModel::getName);
+    // models.addValueChangeListener(e -> {
+    // this.model = e.getValue();
+    // GridListDataView<MpdZone> provider = grid.getGrid().getListDataView();
+    // provider.addFilter(arg0 -> arg0.getModel().equals(e.getValue()));
+
+    // });
+    // }
+
     private void grid() {
         this.grid = new GridCrud<>(MpdZone.class);
-        this.grid.getGrid().setColumns("code", "name");
+        this.grid.getGrid().setColumns("code", "name", "model.name");
         this.grid.getGrid().getColumnByKey("code").setHeader("Код");
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
-        this.grid.getGrid().getColumnByKey("model").setHeader("Модель ВС");
+        this.grid.getGrid().getColumnByKey("model.name").setHeader("Модель ВС");
 
-        grid.getCrudLayout().addFilterComponent(models);
+        // grid.getCrudLayout().addFilterComponent(models);
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findZoneByModel(models.getValue()));
+        grid.setFindAllOperation(() -> service.findZoneByModel(model));
 
         grid.getCrudFormFactory().setNewInstanceSupplier(() -> {
             MpdZone zone = new MpdZone(model);
