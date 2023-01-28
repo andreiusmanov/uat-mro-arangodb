@@ -23,12 +23,10 @@ public class MpdZonesService {
     private MpdAccessesRepository accessesRepo;
     private MajorModelsRepository modelsRepo;
 
-
-
     public List<MpdZone> findZoneByModel(MajorModel entity) {
         return repo.findByModel(entity);
     }
-    
+
     public MpdZone save(MpdZone entity) {
         return repo.save(entity);
     }
@@ -45,6 +43,10 @@ public class MpdZonesService {
         subzonesRepo.delete(entity);
     }
 
+    public List<MpdSubzone> findAllSubzones() {
+        return StreamSupport.stream(subzonesRepo.findAll().spliterator(), false).toList();
+    }
+
     public MpdAccess save(MpdAccess entity) {
         return accessesRepo.save(entity);
     }
@@ -57,7 +59,20 @@ public class MpdZonesService {
         return entity.getSynthetic();
     }
 
-public List<MajorModel> models(){
-    return StreamSupport.stream(modelsRepo.findAll().spliterator(), false).toList();
-}    
+    public List<MpdAccess> findAccessByZone(MpdZone zone) {
+        return accessesRepo.FindByZone(zone);
+    }
+    public List<MpdAccess> findAccessBySubzone(MpdSubzone subzone) {
+        return accessesRepo.FindBySubzone(subzone);
+    }
+    
+    public List<MpdAccess> findAllAccessByModel(MajorModel model) {
+        return accessesRepo.FindByModel(model);
+    }
+
+
+
+    public List<MajorModel> models() {
+        return StreamSupport.stream(modelsRepo.findAll().spliterator(), false).toList();
+    }
 }

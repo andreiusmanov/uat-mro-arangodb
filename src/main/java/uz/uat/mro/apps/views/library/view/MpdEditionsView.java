@@ -14,6 +14,7 @@ import com.vaadin.flow.router.Route;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.service.MpdEditionService;
+import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.LibraryLayout;
 
@@ -37,8 +38,8 @@ public class MpdEditionsView extends VerticalLayout {
         this.details.setEnabled(false);
         this.details.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
         details.addClickListener(e -> {
-            MyUtils.setAttribute("mpd-edition", edition);
-            UI.getCurrent().navigate("mpd/edition");
+            MyUtils.setAttribute(Keys.MPD_EDITION, edition);
+            UI.getCurrent().navigate(MpdView.class);
         });
     }
 

@@ -35,7 +35,4 @@ public class MpdZone {
     public MpdZone(MajorModel model) {
         this.model = model;
     }
-
-
-
 }

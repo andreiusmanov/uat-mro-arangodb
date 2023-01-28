@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 
 @Getter
 @Setter
@@ -27,8 +28,12 @@ public class MpdAccess {
     private String id;
     @ArangoId
     private String arangoId;
-    @Ref
+    @Ref(lazy = false)
+    private MpdZone zone;
+    @Ref(lazy = false)
     private MpdSubzone subzone;
+    @Ref(lazy = false)
+    private MajorModel model;
     private String number;
     private BigDecimal open;
     private BigDecimal close;

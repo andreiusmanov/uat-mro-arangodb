@@ -14,6 +14,7 @@ import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
 import uz.uat.mro.apps.model.library.service.MpdZonesService;
+import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
 
@@ -22,16 +23,14 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 public class ZonesView extends VerticalLayout {
     private MpdZonesService service;
     private GridCrud<MpdZone> grid;
-    // private ComboBox<MajorModel> models;
     private MpdEdition edition;
     private MajorModel model;
     private MenuBar menu;
 
     public ZonesView(MpdZonesService service) {
-        this.edition = (MpdEdition) MyUtils.getAttribute("mpd-edition");
+        this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         this.model = edition.getModel();
         this.service = service;
-        // models();
         grid();
         menu();
         add(menu, grid);
@@ -45,26 +44,12 @@ public class ZonesView extends VerticalLayout {
         });
     }
 
-    // private void models() {
-    // this.models = new ComboBox<>("Модель ВС");
-    // models.setItems(service.models());
-    // models.setItemLabelGenerator(MajorModel::getName);
-    // models.addValueChangeListener(e -> {
-    // this.model = e.getValue();
-    // GridListDataView<MpdZone> provider = grid.getGrid().getListDataView();
-    // provider.addFilter(arg0 -> arg0.getModel().equals(e.getValue()));
-
-    // });
-    // }
-
     private void grid() {
         this.grid = new GridCrud<>(MpdZone.class);
         this.grid.getGrid().setColumns("code", "name", "model.name");
         this.grid.getGrid().getColumnByKey("code").setHeader("Код");
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
         this.grid.getGrid().getColumnByKey("model.name").setHeader("Модель ВС");
-
-        // grid.getCrudLayout().addFilterComponent(models);
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
