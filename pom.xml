@@ -12,7 +12,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <vaadin.version>23.3.1</vaadin.version>
+        <vaadin.version>23.3.5</vaadin.version>
         <!-- this parameter is needed as spring-boot bom overwrites it -->
         <selenium.version>4.5.3</selenium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -175,7 +175,11 @@
             <artifactId>crudui</artifactId>
             <version>6.2.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.vaadin.addons.infraleap</groupId>
+            <artifactId>filetree</artifactId>
+            <version>1.0.3</version>
+        </dependency>
         <!--dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itext7-core</artifactId>

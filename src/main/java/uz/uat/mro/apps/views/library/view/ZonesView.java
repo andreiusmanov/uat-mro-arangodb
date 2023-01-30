@@ -28,9 +28,10 @@ public class ZonesView extends VerticalLayout {
     private MenuBar menu;
 
     public ZonesView(MpdZonesService service) {
+        this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         this.model = edition.getModel();
-        this.service = service;
+     
         grid();
         menu();
         add(menu, grid);
@@ -54,7 +55,7 @@ public class ZonesView extends VerticalLayout {
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findZoneByModel(model));
+        grid.setFindAllOperation(() -> service.findZoneByModel(model.getArangoId()));
 
         grid.getCrudFormFactory().setNewInstanceSupplier(() -> {
             MpdZone zone = new MpdZone(model);
@@ -69,5 +70,7 @@ public class ZonesView extends VerticalLayout {
             c.setItemLabelGenerator(e -> e.getName());
             return c;
         });
+
+
     }
 }

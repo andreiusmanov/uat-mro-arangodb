@@ -23,7 +23,7 @@ public class MpdZonesService {
     private MpdAccessesRepository accessesRepo;
     private MajorModelsRepository modelsRepo;
 
-    public List<MpdZone> findZoneByModel(MajorModel entity) {
+    public List<MpdZone> findZoneByModel(String entity) {
         return repo.findByModel(entity);
     }
 

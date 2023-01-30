@@ -45,13 +45,13 @@ public class SubzonesView extends VerticalLayout {
     private void menu() {
         this.menu = new MenuBar();
         this.menu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
-        List<MpdZone> zones = service.findZoneByModel(model);
+        List<MpdZone> zones = service.findZoneByModel(model.getArangoId());
 
         MenuItem allZones = menu.addItem("Все Зоны");
         allZones.addClickListener(e -> listDataView.removeFilters());
 
         for (MpdZone mpdZone : zones) {
-            menu.addItem(mpdZone.getCode() + " (" + mpdZone.getName(), e -> {
+            menu.addItem(mpdZone.getCode(), e -> {
                 listDataView.setFilter(subzone -> subzone.getZone().equals(mpdZone));
             });
         }
@@ -90,7 +90,7 @@ public class SubzonesView extends VerticalLayout {
         });
 
         factory.setFieldProvider("zone", element -> {
-            ComboBox<MajorModel> c = new ComboBox<>("Код зоны", e -> service.findZoneByModel(model));
+            ComboBox<MajorModel> c = new ComboBox<>("Код зоны", e -> service.findZoneByModel(model.getArangoId()));
             c.setItemLabelGenerator(e -> e.getCode());
             return c;
         });

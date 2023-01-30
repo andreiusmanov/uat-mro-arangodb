@@ -29,7 +29,7 @@ public class MpdZone {
     private String arangoId;
     private String code;
     private String name;
-    @Ref(lazy = false)
+    @Ref
     private MajorModel model;
   
     public MpdZone(MajorModel model) {
