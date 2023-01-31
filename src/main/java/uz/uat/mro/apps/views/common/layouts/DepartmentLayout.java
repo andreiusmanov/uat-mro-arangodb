@@ -13,7 +13,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.common.views.DepartmentsView;
 import uz.uat.mro.apps.views.common.views.SectorsView;
 
 public class DepartmentLayout extends AppLayout {
