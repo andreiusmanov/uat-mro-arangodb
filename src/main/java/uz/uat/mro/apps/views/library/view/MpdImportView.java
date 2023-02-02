@@ -2,6 +2,7 @@ package uz.uat.mro.apps.views.library.view;
 
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -21,10 +22,12 @@ public class MpdImportView extends VerticalLayout {
     private AccordionPanel mhsPanel;
     private AccordionPanel itemsPanel;
     private AccordionPanel taskcardsPanel;
+    private Button importButton;
 
     public MpdImportView(MpdImportService service) {
         this.service = service;
         accordion();
+        button();
         add(accordion);
     }
 
@@ -39,12 +42,21 @@ public class MpdImportView extends VerticalLayout {
         this.mhsPanel = new AccordionPanel("Импорт данных Man Hours");
         this.mhsPanel.addContent(new FileSelector());
         this.itemsPanel = new AccordionPanel("Импорт MPD Item");
+        itemsPanel.addContent(new ExcelFileSelector());
         this.taskcardsPanel = new AccordionPanel("Импорт MPD Taskcards");
+        taskcardsPanel.addContent(new ExcelFileSelector());
         accordion.add(zonesPanel);
         accordion.add(subzonesPanel);
         accordion.add(accessesPanel);
         accordion.add(mhsPanel);
         accordion.add(itemsPanel);
         accordion.add(taskcardsPanel);
+    }
+
+    private void button(){
+        this.importButton = new Button();
+        importButton.addClickListener(clickEvent ->{
+
+        });
     }
 }

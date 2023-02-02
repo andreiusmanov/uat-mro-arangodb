@@ -31,12 +31,13 @@ public class AccessesView extends VerticalLayout {
         this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         this.model = edition.getModel();
+        grid();
     }
 
     private void grid() {
         this.grid = new GridCrud<>(MpdAccess.class);
         this.listDataView = grid.getGrid().getListDataView();
-        this.grid.getGrid().setColumns("zone.code", "subzone.code", "number", "open", "close", "aplEngine", "name",
+        this.grid.getGrid().setColumns("zone.code", "zoneNumber", "number", "open", "close", "aplEngine", "name",
                 "synthetic", "mmReeference");
 
         grid.setAddOperation(service::save);

@@ -30,10 +30,11 @@ public class MpdAccess {
     private String arangoId;
     @Ref(lazy = false)
     private MpdZone zone;
-    @Ref(lazy = false)
-    private MpdSubzone subzone;
+    //@Ref(lazy = false)
+    //private MpdSubzone subzone;
     @Ref(lazy = false)
     private MajorModel model;
+    private String zoneNumber;
     private String number;
     private BigDecimal open;
     private BigDecimal close;
