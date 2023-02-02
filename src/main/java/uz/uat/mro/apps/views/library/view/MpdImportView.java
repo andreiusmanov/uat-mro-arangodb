@@ -34,13 +34,13 @@ public class MpdImportView extends VerticalLayout {
     private void accordion() {
         this.accordion = new Accordion();
         this.zonesPanel = new AccordionPanel("Импорт зон ВС");
-        zonesPanel.addContent(new H3("Заполните таблицу зон ВС на странице 'Зоны ВС'"));
+        zonesPanel.addContent(new CsvFileSelector());
         this.subzonesPanel = new AccordionPanel("Импорт субзон ВС");
         this.subzonesPanel.addContent(new FileSelector());
         this.accessesPanel = new AccordionPanel("Импорт доступов ВС");
-        this.accessesPanel.addContent(new FileSelector());
+        this.accessesPanel.addContent(new CsvFileSelector());
         this.mhsPanel = new AccordionPanel("Импорт данных Man Hours");
-        this.mhsPanel.addContent(new FileSelector());
+        this.mhsPanel.addContent(new CsvFileSelector());
         this.itemsPanel = new AccordionPanel("Импорт MPD Item");
         itemsPanel.addContent(new ExcelFileSelector());
         this.taskcardsPanel = new AccordionPanel("Импорт MPD Taskcards");

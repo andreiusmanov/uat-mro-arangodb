@@ -38,7 +38,7 @@ public class AccessesView extends VerticalLayout {
         this.grid = new GridCrud<>(MpdAccess.class);
         this.listDataView = grid.getGrid().getListDataView();
         this.grid.getGrid().setColumns("zone.code", "zoneNumber", "number", "open", "close", "aplEngine", "name",
-                "synthetic", "mmReeference");
+                "synthetic", "mmReference");
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
