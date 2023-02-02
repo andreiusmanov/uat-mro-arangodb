@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.common.layouts;
+package uz.uat.mro.apps.views.library.layout;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -13,13 +13,16 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.common.views.SectorsView;
+import uz.uat.mro.apps.views.library.view.AccessesView;
+import uz.uat.mro.apps.views.library.view.MpdImportView;
+import uz.uat.mro.apps.views.library.view.MpdView;
+import uz.uat.mro.apps.views.library.view.SubzonesView;
+import uz.uat.mro.apps.views.library.view.ZonesView;
 
-public class DepartmentLayout extends AppLayout {
-
+public class MpdLayout extends AppLayout {
     private H2 viewTitle;
 
-    public DepartmentLayout() {
+    public MpdLayout() {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -36,7 +39,7 @@ public class DepartmentLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("Отдел");
+        H1 appName = new H1("MPD DATA");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -50,8 +53,12 @@ public class DepartmentLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("Участки/Бригады", SectorsView.class,
-                VaadinIcon.ASTERISK.create()));
+        nav.addItem(new AppNavItem("MPD данные", MpdView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("Импорт данных", MpdImportView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("Зоны ВС", ZonesView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("Субзоны ВС", SubzonesView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("Доступы ВС", AccessesView.class, VaadinIcon.FILE.create()));
+
         return nav;
     }
 

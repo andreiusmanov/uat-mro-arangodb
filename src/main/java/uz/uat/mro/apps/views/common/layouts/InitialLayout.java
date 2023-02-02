@@ -16,6 +16,8 @@ import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.about.AboutView;
 import uz.uat.mro.apps.views.aircraft.view.MajorModelsView;
 import uz.uat.mro.apps.views.common.views.CountriesView;
+import uz.uat.mro.apps.views.library.view.MpdDataView;
+import uz.uat.mro.apps.views.library.view.MpdEditionsView;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -56,8 +58,9 @@ public class InitialLayout extends AppLayout {
         AppNav nav = new AppNav();
 
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Страны", CountriesView.class, VaadinIcon.GLOBE.create()));
+        nav.addItem(new AppNavItem("Общие данные", CountriesView.class, VaadinIcon.GLOBE.create()));
         nav.addItem(new AppNavItem("Модели ВС", MajorModelsView.class, VaadinIcon.AIRPLANE.create()));
+        nav.addItem(new AppNavItem("MPD Данные", MpdEditionsView.class, VaadinIcon.FILE.create()));
 
         return nav;
     }

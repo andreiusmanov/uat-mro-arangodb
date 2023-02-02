@@ -31,15 +31,13 @@ public class UomsView extends VerticalLayout {
     }
 
     private void grid() {
-        this.grid = new GridCrud<>(Uom.class);
-        List<Uom> list = service.findAll();
-        this.grid.getGrid().setItems(list);
-        this.grid.getGrid().setColumns("code");
-        this.grid.getGrid().getColumnByKey("code").setHeader("Код");
+        this.grid.getGrid().setColumns("id", "description");
+        this.grid.getGrid().getColumnByKey("id").setHeader("Код");
+        this.grid.getGrid().getColumnByKey("description").setHeader("Описанние");
 
         CrudFormFactory<Uom> factory = grid.getCrudFormFactory();
-        factory.setVisibleProperties("code");
-        factory.setFieldCaptions("Код");
+        factory.setVisibleProperties("id", "description");
+        factory.setFieldCaptions("Код", "Описание");
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);

@@ -1,12 +1,12 @@
-package uz.uat.mro.apps.model.common.entity;
+package uz.uat.mro.apps.model.library.entity;
 
-import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
-import com.arangodb.springframework.annotation.Relations;
+import com.arangodb.springframework.annotation.Ref;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 
 @Getter
 @Setter
@@ -21,14 +22,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Document("currencies")
-public class Currency {
+@Document("mpd_editions")
+public class MpdEdition {
     @Id
     private String id;
     @ArangoId
     private String arangoId;
-    private String numeric;
-    private String name;
-    @Relations(edges = ForeignKey.class, lazy = false)
-    private List<Country> countries;
+    private String number;
+    private String message;
+    private LocalDate date;
+    @Ref
+    private MajorModel model;
+
 }

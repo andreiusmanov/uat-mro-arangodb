@@ -20,9 +20,7 @@ public class CountriesView extends VerticalLayout {
     private CountryService service;
     private GridCrud<Country> grid;
 
-    /**
-     * 
-     */
+    
     public CountriesView(CountryService service) {
         this.service = service;
         grid();

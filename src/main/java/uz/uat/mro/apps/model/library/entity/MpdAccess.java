@@ -1,4 +1,6 @@
-package uz.uat.mro.apps.model.aircraft.entity;
+package uz.uat.mro.apps.model.library.entity;
+
+import java.math.BigDecimal;
 
 import org.springframework.data.annotation.Id;
 
@@ -12,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 
 @Getter
 @Setter
@@ -19,16 +22,25 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-
-@Document("aircraft_models")
-public class AircraftModel {
+@Document("mpd_accesses")
+public class MpdAccess {
     @Id
     private String id;
     @ArangoId
     private String arangoId;
-    @Ref
-    private MajorModel majorModel;
-    private String code;
+    @Ref(lazy = false)
+    private MpdZone zone;
+    //@Ref(lazy = false)
+    //private MpdSubzone subzone;
+    @Ref(lazy = false)
+    private MajorModel model;
+    private String zoneNumber;
+    private String number;
+    private BigDecimal open;
+    private BigDecimal close;
+    private String aplEngine;
     private String name;
-    private String description;
+    private Boolean synthetic;
+    private String mmReference;
+
 }
