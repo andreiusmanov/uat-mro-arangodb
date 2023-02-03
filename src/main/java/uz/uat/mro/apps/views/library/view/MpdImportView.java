@@ -19,6 +19,7 @@ public class MpdImportView extends VerticalLayout {
     private AccordionPanel zonesPanel;
     private AccordionPanel subzonesPanel;
     private AccordionPanel accessesPanel;
+    private AccordionPanel accessesSynthPanel;
     private AccordionPanel mhsPanel;
     private AccordionPanel itemsPanel;
     private AccordionPanel taskcardsPanel;
@@ -28,7 +29,7 @@ public class MpdImportView extends VerticalLayout {
         this.service = service;
         accordion();
         button();
-        add(accordion);
+        add(accordion, importButton);
     }
 
     private void accordion() {
@@ -36,9 +37,11 @@ public class MpdImportView extends VerticalLayout {
         this.zonesPanel = new AccordionPanel("Импорт зон ВС");
         zonesPanel.addContent(new CsvFileSelector());
         this.subzonesPanel = new AccordionPanel("Импорт субзон ВС");
-        this.subzonesPanel.addContent(new FileSelector());
+        this.subzonesPanel.addContent(new CsvFileSelector());
         this.accessesPanel = new AccordionPanel("Импорт доступов ВС");
         this.accessesPanel.addContent(new CsvFileSelector());
+        this.accessesSynthPanel = new AccordionPanel("Импорт синтетических доступов ВС");
+        this.accessesSynthPanel.addContent(new CsvFileSelector());
         this.mhsPanel = new AccordionPanel("Импорт данных Man Hours");
         this.mhsPanel.addContent(new CsvFileSelector());
         this.itemsPanel = new AccordionPanel("Импорт MPD Item");
@@ -48,14 +51,16 @@ public class MpdImportView extends VerticalLayout {
         accordion.add(zonesPanel);
         accordion.add(subzonesPanel);
         accordion.add(accessesPanel);
+        accordion.add(accessesSynthPanel);
         accordion.add(mhsPanel);
         accordion.add(itemsPanel);
         accordion.add(taskcardsPanel);
+        accordion.setSizeFull();
     }
 
-    private void button(){
+    private void button() {
         this.importButton = new Button();
-        importButton.addClickListener(clickEvent ->{
+        importButton.addClickListener(clickEvent -> {
 
         });
     }

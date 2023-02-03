@@ -1,6 +1,8 @@
 package uz.uat.mro.apps.model.library.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
@@ -23,12 +25,25 @@ public class MpdZonesService {
     private MpdAccessesRepository accessesRepo;
     private MajorModelsRepository modelsRepo;
 
-    public List<MpdZone> findZoneByModel(String entity) {
-        return repo.findByModel(entity);
+    public List<MpdZone> findZoneByModel(String model) {
+        return repo.findByModel(model);
+    }
+
+    public Map<String, MpdZone> getAllZones(String model) {
+        Map<String, MpdZone> map = new HashMap<>();
+        List<MpdZone> findByModel = repo.findByModel(model);
+        for (MpdZone mpdZone : findByModel) {
+            map.put(mpdZone.getCode(), mpdZone);
+        }
+        return map;
     }
 
     public MpdZone save(MpdZone entity) {
         return repo.save(entity);
+    }
+
+    public List<MpdZone> saveAllZones(List<MpdZone> entities) {
+        return StreamSupport.stream(repo.saveAll(entities).spliterator(), false).toList();
     }
 
     public void delete(MpdZone entity) {
@@ -62,15 +77,14 @@ public class MpdZonesService {
     public List<MpdAccess> findAccessByZone(MpdZone zone) {
         return accessesRepo.FindByZone(zone);
     }
+
     public List<MpdAccess> findAccessBySubzone(MpdSubzone subzone) {
         return accessesRepo.FindBySubzone(subzone);
     }
-    
+
     public List<MpdAccess> findAllAccessByModel(MajorModel model) {
         return accessesRepo.FindByModel(model);
     }
-
-
 
     public List<MajorModel> models() {
         return StreamSupport.stream(modelsRepo.findAll().spliterator(), false).toList();
