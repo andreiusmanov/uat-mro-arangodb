@@ -26,6 +26,7 @@ public class Ata100Chapter {
     private String id;
     @ArangoId
     private String arangoId;
+    private String general;
     private String number;
     private String name;
 

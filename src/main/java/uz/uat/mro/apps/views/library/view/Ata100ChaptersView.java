@@ -25,15 +25,15 @@ public class Ata100ChaptersView extends VerticalLayout {
 
     private void grid() {
         this.grid = new GridCrud<>(Ata100Chapter.class);
-        this.grid.getGrid().setColumns("number", "name");
+        this.grid.getGrid().setColumns("general", "number", "name");
+        this.grid.getGrid().getColumnByKey("general").setHeader("Общее назначение");
         this.grid.getGrid().getColumnByKey("number").setHeader("Номер главы");
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование главы");
 
-this.grid.setAddOperation(service::save);
-this.grid.setUpdateOperation(service::save);
-this.grid.setDeleteOperation(service::delete);
-this.grid.setFindAllOperation(service::findAll);;
-
+        this.grid.setAddOperation(service::save);
+        this.grid.setUpdateOperation(service::save);
+        this.grid.setDeleteOperation(service::delete);
+        this.grid.setFindAllOperation(service::findAll);
 
     }
 
