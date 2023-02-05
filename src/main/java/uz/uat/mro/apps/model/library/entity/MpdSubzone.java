@@ -28,7 +28,6 @@ public class MpdSubzone {
     private String arangoId;
     private String code;
     private String name;
-    private String description;
     @Ref(lazy = false)
     private MpdZone zone;
     @Ref(lazy = false)

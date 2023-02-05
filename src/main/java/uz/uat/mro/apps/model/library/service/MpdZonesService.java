@@ -38,12 +38,29 @@ public class MpdZonesService {
         return map;
     }
 
+    public Map<String, MpdSubzone> getAllSubzones(String model) {
+        Map<String, MpdSubzone> map = new HashMap<>();
+        List<MpdSubzone> findByModel = subzonesRepo.findByModel(model);
+        for (MpdSubzone mpdZone : findByModel) {
+            map.put(mpdZone.getCode(), mpdZone);
+        }
+        return map;
+    }
+
     public MpdZone save(MpdZone entity) {
         return repo.save(entity);
     }
 
     public List<MpdZone> saveAllZones(List<MpdZone> entities) {
         return StreamSupport.stream(repo.saveAll(entities).spliterator(), false).toList();
+    }
+
+    public List<MpdSubzone> saveAllSubzones(List<MpdSubzone> entities) {
+        return StreamSupport.stream(subzonesRepo.saveAll(entities).spliterator(), false).toList();
+    }
+
+    public List<MpdAccess> saveAllAccesses(List<MpdAccess> entities) {
+        return StreamSupport.stream(accessesRepo.saveAll(entities).spliterator(), false).toList();
     }
 
     public void delete(MpdZone entity) {
