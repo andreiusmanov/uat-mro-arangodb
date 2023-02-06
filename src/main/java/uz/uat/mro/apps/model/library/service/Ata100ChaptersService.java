@@ -22,6 +22,10 @@ public class Ata100ChaptersService {
         repo.delete(entity);
     }
 
+    public List<Ata100Chapter> saveAll(List<Ata100Chapter> list) {
+        return StreamSupport.stream(repo.saveAll(list).spliterator(), false).toList();
+    }
+
     public List<Ata100Chapter> findAll() {
         return StreamSupport.stream(repo.findAll().spliterator(), false).toList();
     }

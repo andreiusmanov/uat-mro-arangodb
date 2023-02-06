@@ -13,6 +13,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
+import uz.uat.mro.apps.views.library.view.Ata100ChaptersView;
 import uz.uat.mro.apps.views.library.view.MpdEditionsView;
 
 public class LibraryLayout extends AppLayout {
@@ -50,6 +51,7 @@ public class LibraryLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
+        nav.addItem(new AppNavItem("ATA 100 CHAPTERS", Ata100ChaptersView.class, VaadinIcon.BOOK.create()));
         nav.addItem(new AppNavItem("MPD Издания", MpdEditionsView.class, VaadinIcon.BOOK.create()));
 
         return nav;

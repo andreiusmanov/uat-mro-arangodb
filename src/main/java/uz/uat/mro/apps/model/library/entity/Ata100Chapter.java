@@ -19,7 +19,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 
-@Document("ata100_chapers")
+@Document("ata100_chapters")
 
 public class Ata100Chapter {
     @Id
