@@ -29,6 +29,7 @@ public class MpdEditionsView extends VerticalLayout {
 
     public MpdEditionsView(MpdEditionService service) {
         this.service = service;
+        details();
         grid();
         add(grid);
     }
@@ -50,8 +51,6 @@ public class MpdEditionsView extends VerticalLayout {
         grid.getGrid().getColumnByKey("number").setHeader("Номер");
         grid.getGrid().getColumnByKey("message").setHeader("Версия");
         grid.getGrid().getColumnByKey("model.name").setHeader("Модель ВС");
-
-        details();
 
         grid.getCrudLayout().addToolbarComponent(details);
         grid.getGrid().getSelectionModel().addSelectionListener(e -> {

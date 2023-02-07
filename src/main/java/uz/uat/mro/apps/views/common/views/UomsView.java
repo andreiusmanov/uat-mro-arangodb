@@ -1,11 +1,8 @@
 package uz.uat.mro.apps.views.common.views;
 
-import java.util.List;
-
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.CrudFormFactory;
 
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -27,10 +24,11 @@ public class UomsView extends VerticalLayout {
     public UomsView(UomService service) {
         this.service = service;
         grid();
-        add(new H3("Ед. Измерения"), grid);
+        add(grid);
     }
 
     private void grid() {
+        this.grid = new GridCrud<>(Uom.class);
         this.grid.getGrid().setColumns("id", "description");
         this.grid.getGrid().getColumnByKey("id").setHeader("Код");
         this.grid.getGrid().getColumnByKey("description").setHeader("Описанние");

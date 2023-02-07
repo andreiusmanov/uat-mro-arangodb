@@ -1,31 +1,38 @@
 package uz.uat.mro.apps.views.library.view;
 
+import java.io.IOException;
+
+import com.opencsv.exceptions.CsvValidationException;
 import com.vaadin.flow.component.accordion.Accordion;
-import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.library.service.MpdImportService;
+import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.model.library.service.MpdZonesService;
+import uz.uat.mro.apps.utils.ImportMpd;
+import uz.uat.mro.apps.utils.Keys;
+import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
 
 @PageTitle("Импорт данных MPD")
 @Route(value = "mpd/import", layout = MpdLayout.class)
 public class MpdImportView extends VerticalLayout {
-    private MpdImportService service;
+    private MpdZonesService service;
+    private MpdEdition edition;
     private Accordion accordion;
-    private AccordionPanel zonesPanel;
-    private AccordionPanel subzonesPanel;
-    private AccordionPanel accessesPanel;
-    private AccordionPanel accessesSynthPanel;
-    private AccordionPanel mhsPanel;
-    private AccordionPanel itemsPanel;
-    private AccordionPanel taskcardsPanel;
+    private CsvFilePanel zonesPanel;
+    private CsvFilePanel subzonesPanel;
+    private CsvFilePanel accessesPanel;
+    private CsvFilePanel accessesSynthPanel;
+    private CsvFilePanel mhsPanel;
+    private XlsFilePanel itemsPanel;
+    private XlsFilePanel taskcardsPanel;
     private Button importButton;
 
-    public MpdImportView(MpdImportService service) {
+    public MpdImportView(MpdZonesService service) {
+        this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         this.service = service;
         accordion();
         button();
@@ -34,20 +41,13 @@ public class MpdImportView extends VerticalLayout {
 
     private void accordion() {
         this.accordion = new Accordion();
-        this.zonesPanel = new AccordionPanel("Импорт зон ВС");
-        zonesPanel.addContent(new CsvFileSelector());
-        this.subzonesPanel = new AccordionPanel("Импорт субзон ВС");
-        this.subzonesPanel.addContent(new CsvFileSelector());
-        this.accessesPanel = new AccordionPanel("Импорт доступов ВС");
-        this.accessesPanel.addContent(new CsvFileSelector());
-        this.accessesSynthPanel = new AccordionPanel("Импорт синтетических доступов ВС");
-        this.accessesSynthPanel.addContent(new CsvFileSelector());
-        this.mhsPanel = new AccordionPanel("Импорт данных Man Hours");
-        this.mhsPanel.addContent(new CsvFileSelector());
-        this.itemsPanel = new AccordionPanel("Импорт MPD Item");
-        itemsPanel.addContent(new ExcelFileSelector());
-        this.taskcardsPanel = new AccordionPanel("Импорт MPD Taskcards");
-        taskcardsPanel.addContent(new ExcelFileSelector());
+        this.zonesPanel = new CsvFilePanel("Импорт зон ВС");
+        this.subzonesPanel = new CsvFilePanel("Импорт субзон ВС");
+        this.accessesPanel = new CsvFilePanel("Импорт доступов ВС");
+        this.accessesSynthPanel = new CsvFilePanel("Импорт синтетических доступов ВС");
+        this.mhsPanel = new CsvFilePanel("Импорт данных Man Hours");
+        this.itemsPanel = new XlsFilePanel("Импорт MPD Item");
+        this.taskcardsPanel = new XlsFilePanel("Импорт MPD Taskcards");
         accordion.add(zonesPanel);
         accordion.add(subzonesPanel);
         accordion.add(accessesPanel);
@@ -61,7 +61,13 @@ public class MpdImportView extends VerticalLayout {
     private void button() {
         this.importButton = new Button();
         importButton.addClickListener(clickEvent -> {
-
+            try {
+                ImportMpd.importBoeingZones(service, zonesPanel.getFileName(), edition);
+                ImportMpd.importBoeingSubzones(service, subzonesPanel.getFileName(), edition);
+                ImportMpd.importBoeingAccesses(service, accessesPanel.getFileName(), accessesSynthPanel.getFileName(), edition);
+            } catch (CsvValidationException | IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 }

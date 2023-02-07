@@ -1,17 +1,9 @@
 package uz.uat.mro.apps.views.library.view;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.vaadin.crudui.crud.impl.GridCrud;
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
-import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -25,23 +17,30 @@ import uz.uat.mro.apps.views.library.layout.LibraryLayout;
 public class Ata100ChaptersView extends VerticalLayout {
     private Ata100ChaptersService service;
     private GridCrud<Ata100Chapter> grid;
-    private Button b = new Button("import");
+    private ComboBox<String> groups;
+    private GridListDataView<Ata100Chapter> listDataView;
 
     public Ata100ChaptersView(Ata100ChaptersService service) {
         super();
         this.service = service;
         grid();
-        button();
-        add(b, grid);
+        groups();
+        add(grid);
 
     }
 
-    private void button() {
-        b.addClickListener(click -> {
-            try {
-                loadAndSaveChapters();
-            } catch (CsvValidationException | IOException e) {
-                e.printStackTrace();
+    private void groups() {
+        this.groups = new ComboBox<>();
+        groups.setItems("ВСЕ ГРУППЫ", "AIRCRAFT GENERAL", "AIRFRAME SYSTEMS", "STRUCTURE", "PROPELLER/ROTOR",
+                "POWER PLANT",
+                "MISCELLANOUS");
+        groups.setValue("ВСЕ ГРУППЫ");
+        this.grid.getCrudLayout().addFilterComponent(groups);
+        groups.addValueChangeListener(change -> {
+            if (change.getValue().equals("ВСЕ ГРУППЫ")) {
+                listDataView.removeFilters();
+            } else {
+                listDataView.setFilter(chapter -> chapter.getGeneral().equals(groups.getValue()));
             }
         });
     }
@@ -49,9 +48,10 @@ public class Ata100ChaptersView extends VerticalLayout {
     private void grid() {
         this.grid = new GridCrud<>(Ata100Chapter.class);
         this.grid.getGrid().setColumns("general", "id", "name");
-        this.grid.getGrid().getColumnByKey("general").setHeader("Общее назначение");
+        this.grid.getGrid().getColumnByKey("general").setHeader("Группа");
         this.grid.getGrid().getColumnByKey("id").setHeader("Номер главы");
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование главы");
+        this.listDataView = grid.getGrid().getListDataView();
 
         this.grid.setAddOperation(service::save);
         this.grid.setUpdateOperation(service::save);
@@ -60,27 +60,29 @@ public class Ata100ChaptersView extends VerticalLayout {
 
     }
 
-    private void loadAndSaveChapters() throws IOException, CsvValidationException {
-        String filePath = "/home/andreyu/Downloads/ata-100-chapters.csv";
-        List<String[]> list = new ArrayList<>();
-        List<Ata100Chapter> chapters = new ArrayList<>();
-        try (Reader reader = Files.newBufferedReader(Path.of(filePath))) {
-            try (CSVReader csvReader = new CSVReader(reader)) {
-                String[] line;
-                while ((line = csvReader.readNext()) != null) {
-                    list.add(line);
-                }
-            }
-            for (String[] strings : list) {
-                Ata100Chapter chapter = new Ata100Chapter();
-                chapter.setGeneral(strings[0].trim());
-                chapter.setId(strings[1].replace("ATA", "").trim());
-                chapter.setName(strings[2].trim());
-                chapters.add(chapter);
-            }
-            service.saveAll(chapters);
-        }
-
-    }
-
+    /*
+     * private void loadAndSaveChapters() throws IOException, CsvValidationException
+     * {
+     * String filePath = "/home/andreyu/Downloads/ata-100-chapters.csv";
+     * List<String[]> list = new ArrayList<>();
+     * List<Ata100Chapter> chapters = new ArrayList<>();
+     * try (Reader reader = Files.newBufferedReader(Path.of(filePath))) {
+     * try (CSVReader csvReader = new CSVReader(reader)) {
+     * String[] line;
+     * while ((line = csvReader.readNext()) != null) {
+     * list.add(line);
+     * }
+     * }
+     * for (String[] strings : list) {
+     * Ata100Chapter chapter = new Ata100Chapter();
+     * chapter.setGeneral(strings[0].trim());
+     * chapter.setId(strings[1].replace("ATA", "").trim());
+     * chapter.setName(strings[2].trim());
+     * chapters.add(chapter);
+     * }
+     * service.saveAll(chapters);
+     * }
+     * 
+     * }
+     */
 }
