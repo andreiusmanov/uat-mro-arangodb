@@ -61,7 +61,7 @@ public class Ata100ChaptersView extends VerticalLayout {
     }
 
     private void loadAndSaveChapters() throws IOException, CsvValidationException {
-        String filePath = "C:/Users/Max/Downloads/ata-100-chapters.csv";
+        String filePath = "/home/andreyu/Downloads/ata-100-chapters.csv";
         List<String[]> list = new ArrayList<>();
         List<Ata100Chapter> chapters = new ArrayList<>();
         try (Reader reader = Files.newBufferedReader(Path.of(filePath))) {
