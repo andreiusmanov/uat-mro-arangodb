@@ -13,6 +13,7 @@ public class CsvFilePanel extends AccordionPanel {
         this.fileLocation = new TextArea("Расположение файла");
         fileLocation.setSizeFull();
         layout.setColspan(fileLocation, 3);
+        layout.add(fileLocation);
         setSummaryText(summary);
         setContent(layout);
     }
