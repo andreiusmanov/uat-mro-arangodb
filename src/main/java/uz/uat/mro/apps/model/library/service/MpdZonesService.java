@@ -1,5 +1,6 @@
 package uz.uat.mro.apps.model.library.service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,15 +52,15 @@ public class MpdZonesService {
         return repo.save(entity);
     }
 
-    public List<MpdZone> saveAllZones(List<MpdZone> entities) {
+    public List<MpdZone> saveAllZones(Collection<MpdZone> entities) {
         return StreamSupport.stream(repo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<MpdSubzone> saveAllSubzones(List<MpdSubzone> entities) {
+    public List<MpdSubzone> saveAllSubzones(Collection<MpdSubzone> entities) {
         return StreamSupport.stream(subzonesRepo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<MpdAccess> saveAllAccesses(List<MpdAccess> entities) {
+    public List<MpdAccess> saveAllAccesses(Collection<MpdAccess> entities) {
         return StreamSupport.stream(accessesRepo.saveAll(entities).spliterator(), false).toList();
     }
 

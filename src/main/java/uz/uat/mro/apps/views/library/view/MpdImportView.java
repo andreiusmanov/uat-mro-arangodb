@@ -59,12 +59,13 @@ public class MpdImportView extends VerticalLayout {
     }
 
     private void button() {
-        this.importButton = new Button();
+        this.importButton = new Button("Загрузить");
         importButton.addClickListener(clickEvent -> {
             try {
                 ImportMpd.importBoeingZones(service, zonesPanel.getFileName(), edition);
                 ImportMpd.importBoeingSubzones(service, subzonesPanel.getFileName(), edition);
-                ImportMpd.importBoeingAccesses(service, accessesPanel.getFileName(), accessesSynthPanel.getFileName(), edition);
+                ImportMpd.importBoeingAccesses(service, accessesPanel.getFileName(), edition);
+                ImportMpd.importBoeingAccessesSynth(service, accessesSynthPanel.getFileName(), edition);
             } catch (CsvValidationException | IOException e) {
                 e.printStackTrace();
             }
