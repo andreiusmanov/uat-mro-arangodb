@@ -1,5 +1,7 @@
 package uz.uat.mro.apps.utils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -11,19 +13,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.model.library.entity.MpdItem;
 import uz.uat.mro.apps.model.library.entity.MpdSubzone;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
-import uz.uat.mro.apps.model.library.service.MpdZonesService;
+import uz.uat.mro.apps.model.library.service.DataImportService;
 
+@AllArgsConstructor
 public class ImportMpd {
+    private static DataImportService service;
 
-    public static void importBoeingZones(MpdZonesService service, String filePath, MpdEdition edition)
+    public static void importBoeingZones(String filePath, MpdEdition edition)
             throws IOException, CsvValidationException {
         Set<String[]> set = new HashSet<>();
         List<MpdZone> zones = new ArrayList<>(0);
@@ -45,7 +56,7 @@ public class ImportMpd {
         }
     }
 
-    public static void importBoeingSubzones(MpdZonesService service, String filePath, MpdEdition edition)
+    public static void importBoeingSubzones(String filePath, MpdEdition edition)
             throws IOException, CsvValidationException {
 
         Set<String[]> list = new HashSet<>();
@@ -73,7 +84,7 @@ public class ImportMpd {
         }
     }
 
-    public static void importBoeingAccesses(MpdZonesService service, String accessesFile, MpdEdition edition)
+    public static void importBoeingAccesses(String accessesFile, MpdEdition edition)
             throws IOException, CsvValidationException {
         Set<MpdAccess> accesses = new HashSet<>(0);
         MajorModel model = edition.getModel();
@@ -92,7 +103,7 @@ public class ImportMpd {
         service.saveAllAccesses(accesses);
     }
 
-    public static void importBoeingAccessesSynth(MpdZonesService service, String syntheticAccessesFile,
+    public static void importBoeingAccessesSynth(String syntheticAccessesFile,
             MpdEdition edition) throws IOException, CsvValidationException {
         Set<MpdAccess> accesses = new HashSet<>(0);
 
@@ -138,12 +149,176 @@ public class ImportMpd {
         }
     }
 
-    private static void importMpdItems() {
+    private static void importMpdItems(String fileName, String[] sheetNames, MpdEdition edition)
+            throws FileNotFoundException, IOException {
+        // Load the XLS file
+        FileInputStream fis = new FileInputStream(fileName);
+        List<MpdItem> items = new ArrayList<>();
+        HSSFWorkbook workbook = new HSSFWorkbook(fis);
 
+        HSSFSheet systemSheet = workbook.getSheet(sheetNames[0]);
+        HSSFSheet structuralSheet = workbook.getSheet(sheetNames[1]);
+        HSSFSheet zonalSheet = workbook.getSheet(sheetNames[2]);
+
+        //system sheet load
+        for (int i = 0; i < systemSheet.getLastRowNum(); i++) {
+            HSSFRow row = systemSheet.getRow(i);
+            for (int j = 0; j < row.getLastCellNum(); j++) {
+                HSSFCell uCell = row.getCell(0);
+                HSSFCell countCell = row.getCell(1);
+                if (uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
+                    MpdItem item = processSystemSheet(row);
+                    item.setEdition(edition);
+                    item.setType("system");
+                    items.add(item);
+                }
+            }
+        }
+
+        // structuralSheet load
+        for (int i = 0; i < structuralSheet.getLastRowNum(); i++) {
+            HSSFRow row = structuralSheet.getRow(i);
+            for (int j = 0; j < row.getLastCellNum(); j++) {
+                HSSFCell uCell = row.getCell(0);
+                HSSFCell countCell = row.getCell(1);
+                if (uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
+                    MpdItem item = processStructuralSheet(row);
+                    item.setEdition(edition);
+                    item.setType("structural");
+                    items.add(item);
+                }
+            }
+        }
+        
+        // zonalSheet load
+        for (int i = 0; i < zonalSheet.getLastRowNum(); i++) {
+            HSSFRow row = systemSheet.getRow(i);
+            for (int j = 0; j < row.getLastCellNum(); j++) {
+                HSSFCell uCell = row.getCell(0);
+                HSSFCell countCell = row.getCell(1);
+                if (uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
+                    MpdItem item = processSystemSheet(row);
+                    item.setEdition(edition);
+                    item.setType("zonal");
+                    items.add(item);
+                }
+            }
+        }
+        workbook.close();
     }
 
-    private static void importMpdTaskcards() {
+    private static void importMpdTaskcards(String fileName, String sheetName, MpdEdition edition)
+    throws FileNotFoundException, IOException {
+  // Load the XLS file
+  FileInputStream fis = new FileInputStream(fileName);
+  List<MpdItem> items = new ArrayList<>();
+  HSSFWorkbook workbook = new HSSFWorkbook(fis);
 
+  HSSFSheet taskcardsSheet = workbook.getSheet(sheetName);
+
+  // taskcards load
+  for (int i = 0; i < taskcardsSheet.getLastRowNum(); i++) {
+      HSSFRow row = taskcardsSheet.getRow(i);
+      for (int j = 0; j < row.getLastCellNum(); j++) {
+          HSSFCell uCell = row.getCell(0);
+          HSSFCell countCell = row.getCell(1);
+          if (uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
+              MpdItem item = processSystemSheet(row);
+              item.setEdition(edition);
+              items.add(item);
+          }
+      }
+  }
+  workbook.close();
+    }
+
+    private static MpdItem processSystemSheet(HSSFRow row) {
+        MpdItem item = new MpdItem();
+        HSSFCell numberCell = row.getCell(2);
+        HSSFCell ammCell = row.getCell(3);
+        HSSFCell catCell = row.getCell(4);
+        HSSFCell taskCell = row.getCell(5);
+        HSSFCell threshCell = row.getCell(6);
+        HSSFCell repeatCell = row.getCell(7);
+        HSSFCell zoneCell = row.getCell(8);
+        HSSFCell accessCell = row.getCell(9);
+        HSSFCell aplCell = row.getCell(10);
+        HSSFCell engCell = row.getCell(11);
+        HSSFCell mhCell = row.getCell(12);
+        HSSFCell descriptionCell = row.getCell(13);
+
+        item.setNumber(numberCell.getStringCellValue());
+        item.setAmmReference(ammCell.getStringCellValue());
+        item.setCat(catCell.getStringCellValue());
+        item.setTask(taskCell.getStringCellValue());
+        item.setThreshold(threshCell.getStringCellValue());
+        item.setRepeat(repeatCell.getStringCellValue());
+        item.setZone(zoneCell.getStringCellValue());
+        item.setAccess(accessCell.getStringCellValue());
+        item.setApl(aplCell.getStringCellValue());
+        item.setEngine(engCell.getStringCellValue());
+        item.setMh(mhCell.getStringCellValue());
+        item.setDescription(descriptionCell.getStringCellValue());
+        return item;
+    }
+    
+    private static MpdItem processStructuralSheet(HSSFRow row) {
+        MpdItem item = new MpdItem();
+        HSSFCell numberCell = row.getCell(2);
+        HSSFCell ammCell = row.getCell(3);
+        HSSFCell catCell = row.getCell(4);
+        HSSFCell taskCell = row.getCell(5);
+        HSSFCell threshCell = row.getCell(6);
+        HSSFCell repeatCell = row.getCell(7);
+        HSSFCell zoneCell = row.getCell(8);
+        HSSFCell accessCell = row.getCell(9);
+        HSSFCell aplCell = row.getCell(10);
+        HSSFCell engCell = row.getCell(11);
+        HSSFCell mhCell = row.getCell(12);
+        HSSFCell descriptionCell = row.getCell(13);
+
+        item.setNumber(numberCell.getStringCellValue());
+        item.setAmmReference(ammCell.getStringCellValue());
+        item.setCat(catCell.getStringCellValue());
+        item.setTask(taskCell.getStringCellValue());
+        item.setThreshold(threshCell.getStringCellValue());
+        item.setRepeat(repeatCell.getStringCellValue());
+        item.setZone(zoneCell.getStringCellValue());
+        item.setAccess(accessCell.getStringCellValue());
+        item.setApl(aplCell.getStringCellValue());
+        item.setEngine(engCell.getStringCellValue());
+        item.setMh(mhCell.getStringCellValue());
+        item.setDescription(descriptionCell.getStringCellValue());
+        return item;
+    }
+    private static MpdItem processZonalSheet(HSSFRow row) {
+        MpdItem item = new MpdItem();
+        HSSFCell numberCell = row.getCell(2);
+        HSSFCell ammCell = row.getCell(3);
+        HSSFCell catCell = row.getCell(4);
+        HSSFCell taskCell = row.getCell(5);
+        HSSFCell threshCell = row.getCell(6);
+        HSSFCell repeatCell = row.getCell(7);
+        HSSFCell zoneCell = row.getCell(8);
+        HSSFCell accessCell = row.getCell(9);
+        HSSFCell aplCell = row.getCell(10);
+        HSSFCell engCell = row.getCell(11);
+        HSSFCell mhCell = row.getCell(12);
+        HSSFCell descriptionCell = row.getCell(13);
+
+        item.setNumber(numberCell.getStringCellValue());
+        item.setAmmReference(ammCell.getStringCellValue());
+        item.setCat(catCell.getStringCellValue());
+        item.setTask(taskCell.getStringCellValue());
+        item.setThreshold(threshCell.getStringCellValue());
+        item.setRepeat(repeatCell.getStringCellValue());
+        item.setZone(zoneCell.getStringCellValue());
+        item.setAccess(accessCell.getStringCellValue());
+        item.setApl(aplCell.getStringCellValue());
+        item.setEngine(engCell.getStringCellValue());
+        item.setMh(mhCell.getStringCellValue());
+        item.setDescription(descriptionCell.getStringCellValue());
+        return item;
     }
 
 }

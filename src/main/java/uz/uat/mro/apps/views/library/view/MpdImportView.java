@@ -19,7 +19,6 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 @PageTitle("Импорт данных MPD")
 @Route(value = "mpd/import", layout = MpdLayout.class)
 public class MpdImportView extends VerticalLayout {
-    private MpdZonesService service;
     private MpdEdition edition;
     private Accordion accordion;
     private CsvFilePanel zonesPanel;
@@ -33,7 +32,6 @@ public class MpdImportView extends VerticalLayout {
 
     public MpdImportView(MpdZonesService service) {
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
-        this.service = service;
         accordion();
         button();
         add(accordion, importButton);
@@ -62,10 +60,10 @@ public class MpdImportView extends VerticalLayout {
         this.importButton = new Button("Загрузить");
         importButton.addClickListener(clickEvent -> {
             try {
-                ImportMpd.importBoeingZones(service, zonesPanel.getFileName(), edition);
-                ImportMpd.importBoeingSubzones(service, subzonesPanel.getFileName(), edition);
-                ImportMpd.importBoeingAccesses(service, accessesPanel.getFileName(), edition);
-                ImportMpd.importBoeingAccessesSynth(service, accessesSynthPanel.getFileName(), edition);
+                ImportMpd.importBoeingZones(zonesPanel.getFileName(), edition);
+                ImportMpd.importBoeingSubzones(subzonesPanel.getFileName(), edition);
+                ImportMpd.importBoeingAccesses(accessesPanel.getFileName(), edition);
+                ImportMpd.importBoeingAccessesSynth(accessesSynthPanel.getFileName(), edition);
             } catch (CsvValidationException | IOException e) {
                 e.printStackTrace();
             }
