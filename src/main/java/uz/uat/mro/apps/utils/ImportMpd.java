@@ -39,7 +39,7 @@ public class ImportMpd {
             return;
         }
         Set<String[]> set = new HashSet<>();
-        List<MpdZone> zones = new ArrayList<>(0);
+        Set<MpdZone> zones = new HashSet<>(0);
         MajorModel model = edition.getModel();
         try (Reader reader = Files.newBufferedReader(Path.of(fileName))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
@@ -66,7 +66,7 @@ public class ImportMpd {
             return;
         }
         Set<String[]> list = new HashSet<>();
-        List<MpdSubzone> subzones = new ArrayList<>(0);
+        Set<MpdSubzone> subzones = new HashSet<>(0);
 
         MajorModel model = edition.getModel();
         Map<String, MpdZone> zonesMap = service.getAllZones(model.getArangoId());
@@ -80,11 +80,15 @@ public class ImportMpd {
             }
 
             list.stream().forEach(strings -> {
-                MpdSubzone zone = new MpdSubzone(model);
-                zone.setCode(strings[0]);
-                zone.setName(strings[1]);
-                zonesMap.getOrDefault(Integer.valueOf((zone.getCode().charAt(0)) * 100), null);
-                subzones.add(zone);
+                MpdSubzone subzone = new MpdSubzone(model);
+                subzone.setCode(strings[0]);
+                subzone.setName(strings[1]);
+                char s = subzone.getCode().charAt(0);
+                String res = s + "00";
+                subzone.setZone(zonesMap.getOrDefault(res, null));
+                System.out.println(subzone.getCode() + ", " + subzone.getName() + ", "
+                        + subzone.getZone().getArangoId() + ", " + subzone.getModel().getArangoId());
+                subzones.add(subzone);
             });
             service.saveAllSubzones(subzones);
         }

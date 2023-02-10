@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdItem;
@@ -22,6 +23,7 @@ import uz.uat.mro.apps.model.library.repository.MpdSubzonesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdZonesRepository;
 
+@AllArgsConstructor
 @Service
 public class DataImportService {
     private MpdZonesRepository zonesRepo;

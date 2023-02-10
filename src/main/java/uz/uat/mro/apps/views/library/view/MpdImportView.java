@@ -11,7 +11,6 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.service.DataImportService;
-import uz.uat.mro.apps.model.library.service.MpdZonesService;
 import uz.uat.mro.apps.utils.ImportMpd;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
@@ -32,7 +31,8 @@ public class MpdImportView extends VerticalLayout {
     private XlsMpdTaskcardsFilePanel taskcardsPanel;
     private Button importButton;
 
-    public MpdImportView(MpdZonesService service) {
+    public MpdImportView(DataImportService service) {
+        this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         accordion();
         button();
@@ -66,7 +66,7 @@ public class MpdImportView extends VerticalLayout {
                 ImportMpd.importBoeingSubzones(service, subzonesPanel.getFileName(), edition);
                 ImportMpd.importBoeingAccesses(service, accessesPanel.getFileName(), edition);
                 ImportMpd.importBoeingAccessesSynth(service, accessesSynthPanel.getFileName(), edition);
-                                ImportMpd.importMpdItems(service, itemsPanel.getFileName(), itemsPanel.getSheets(), edition);
+                ImportMpd.importMpdItems(service, itemsPanel.getFileName(), itemsPanel.getSheets(), edition);
                 ImportMpd.importMpdTaskcards(service, taskcardsPanel.getFileName(), taskcardsPanel.getSheet(), edition);
                 ImportMpd.importBoeingMhs(service, mhsPanel.getFileName(), edition);
             } catch (CsvValidationException | IOException e) {
