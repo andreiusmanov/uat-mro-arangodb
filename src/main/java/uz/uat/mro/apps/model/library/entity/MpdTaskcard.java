@@ -1,5 +1,7 @@
 package uz.uat.mro.apps.model.library.entity;
 
+import java.util.Collection;
+
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
@@ -18,13 +20,16 @@ public class MpdTaskcard {
     private String id;
     @ArangoId
     private String arangoId;
+    @Ref
+    private MpdEdition edition;
     private String number;
     @Ref
-    private MpdItem mpdItems;
+    private MpdItem mpdItem;
     private String mrbItem;
     private String task;
     private String title;
+    private String relatedTasksString;
     @Relations(edges = RelatedTasks.class)
-    private MpdTaskcard relatedTasks;
+    private Collection<MpdTaskcard> relatedTasks;
 
 }

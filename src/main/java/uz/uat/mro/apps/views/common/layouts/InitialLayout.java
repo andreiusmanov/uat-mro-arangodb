@@ -16,7 +16,6 @@ import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.about.AboutView;
 import uz.uat.mro.apps.views.aircraft.view.MajorModelsView;
 import uz.uat.mro.apps.views.common.views.CountriesView;
-import uz.uat.mro.apps.views.library.view.MpdDataView;
 import uz.uat.mro.apps.views.library.view.MpdEditionsView;
 
 /**

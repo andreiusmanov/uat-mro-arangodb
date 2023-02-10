@@ -7,23 +7,21 @@ import com.vaadin.flow.component.textfield.TextField;
 
 import uz.uat.mro.apps.utils.MpdKeys;
 
-public class XlsFilePanel extends AccordionPanel {
+public class XlsMpdItemsFilePanel extends AccordionPanel {
     private FormLayout layout;
     private TextArea fileLocation;
     private TextField systemSheet;
     private TextField structuralSheet;
     private TextField zonalSheet;
-    private TextField taskcardsSheet;
 
-    public XlsFilePanel(String summary) {
+    public XlsMpdItemsFilePanel(String summary) {
         this.layout = new FormLayout();
         this.fileLocation = new TextArea("Расположение файла");
         this.systemSheet = new TextField("Системное обслуживание");
         this.structuralSheet = new TextField("Структурное обслуживание");
         this.zonalSheet = new TextField("Зональное обслуживание");
-        this.taskcardsSheet = new TextField("Таск карты");
         fileLocation.setSizeFull();
-        layout.add(fileLocation, systemSheet, structuralSheet, zonalSheet, taskcardsSheet);
+        layout.add(fileLocation, systemSheet, structuralSheet, zonalSheet);
         layout.setColspan(fileLocation, 2);
         setSummaryText(summary);
         setContent(layout);
@@ -44,12 +42,13 @@ public class XlsFilePanel extends AccordionPanel {
             case MpdKeys.ZONAL_ITEMS: {
                 return zonalSheet.getValue();
             }
-            case MpdKeys.TASKCARDS: {
-                return taskcardsSheet.getValue();
-            }
             default:
                 return null;
         }
-
     }
+
+    public String[] getSheets() {
+        return new String[] { systemSheet.getValue(), structuralSheet.getValue(), zonalSheet.getValue() };
+    }
+
 }

@@ -10,6 +10,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.model.library.service.DataImportService;
 import uz.uat.mro.apps.model.library.service.MpdZonesService;
 import uz.uat.mro.apps.utils.ImportMpd;
 import uz.uat.mro.apps.utils.Keys;
@@ -19,6 +20,7 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 @PageTitle("Импорт данных MPD")
 @Route(value = "mpd/import", layout = MpdLayout.class)
 public class MpdImportView extends VerticalLayout {
+    private DataImportService service;
     private MpdEdition edition;
     private Accordion accordion;
     private CsvFilePanel zonesPanel;
@@ -26,8 +28,8 @@ public class MpdImportView extends VerticalLayout {
     private CsvFilePanel accessesPanel;
     private CsvFilePanel accessesSynthPanel;
     private CsvFilePanel mhsPanel;
-    private XlsFilePanel itemsPanel;
-    private XlsFilePanel taskcardsPanel;
+    private XlsMpdItemsFilePanel itemsPanel;
+    private XlsMpdTaskcardsFilePanel taskcardsPanel;
     private Button importButton;
 
     public MpdImportView(MpdZonesService service) {
@@ -44,8 +46,8 @@ public class MpdImportView extends VerticalLayout {
         this.accessesPanel = new CsvFilePanel("Импорт доступов ВС");
         this.accessesSynthPanel = new CsvFilePanel("Импорт синтетических доступов ВС");
         this.mhsPanel = new CsvFilePanel("Импорт данных Man Hours");
-        this.itemsPanel = new XlsFilePanel("Импорт MPD Item");
-        this.taskcardsPanel = new XlsFilePanel("Импорт MPD Taskcards");
+        this.itemsPanel = new XlsMpdItemsFilePanel("Импорт MPD Item");
+        this.taskcardsPanel = new XlsMpdTaskcardsFilePanel("Импорт MPD Taskcards");
         accordion.add(zonesPanel);
         accordion.add(subzonesPanel);
         accordion.add(accessesPanel);
@@ -60,10 +62,13 @@ public class MpdImportView extends VerticalLayout {
         this.importButton = new Button("Загрузить");
         importButton.addClickListener(clickEvent -> {
             try {
-                ImportMpd.importBoeingZones(zonesPanel.getFileName(), edition);
-                ImportMpd.importBoeingSubzones(subzonesPanel.getFileName(), edition);
-                ImportMpd.importBoeingAccesses(accessesPanel.getFileName(), edition);
-                ImportMpd.importBoeingAccessesSynth(accessesSynthPanel.getFileName(), edition);
+                ImportMpd.importBoeingZones(service, zonesPanel.getFileName(), edition);
+                ImportMpd.importBoeingSubzones(service, subzonesPanel.getFileName(), edition);
+                ImportMpd.importBoeingAccesses(service, accessesPanel.getFileName(), edition);
+                ImportMpd.importBoeingAccessesSynth(service, accessesSynthPanel.getFileName(), edition);
+                                ImportMpd.importMpdItems(service, itemsPanel.getFileName(), itemsPanel.getSheets(), edition);
+                ImportMpd.importMpdTaskcards(service, taskcardsPanel.getFileName(), taskcardsPanel.getSheet(), edition);
+                ImportMpd.importBoeingMhs(service, mhsPanel.getFileName(), edition);
             } catch (CsvValidationException | IOException e) {
                 e.printStackTrace();
             }
