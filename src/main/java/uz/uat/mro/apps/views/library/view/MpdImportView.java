@@ -52,9 +52,9 @@ public class MpdImportView extends VerticalLayout {
         accordion.add(subzonesPanel);
         accordion.add(accessesPanel);
         accordion.add(accessesSynthPanel);
-        accordion.add(mhsPanel);
         accordion.add(itemsPanel);
         accordion.add(taskcardsPanel);
+        accordion.add(mhsPanel);
         accordion.setSizeFull();
     }
 

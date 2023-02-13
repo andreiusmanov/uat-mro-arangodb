@@ -17,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -187,7 +188,8 @@ public class ImportMpd {
             for (int j = 0; j < row.getLastCellNum(); j++) {
                 HSSFCell uCell = row.getCell(0);
                 HSSFCell countCell = row.getCell(1);
-                if (uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
+                if (uCell != null && countCell != null && uCell.getStringCellValue().equals("u")
+                        && countCell.getNumericCellValue() > 0.0) {
                     MpdItem item = processSystemSheet(row);
                     item.setEdition(edition);
                     item.setType("system");
@@ -202,7 +204,8 @@ public class ImportMpd {
             for (int j = 0; j < row.getLastCellNum(); j++) {
                 HSSFCell uCell = row.getCell(0);
                 HSSFCell countCell = row.getCell(1);
-                if (uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
+                if (uCell != null && countCell != null
+                        && uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
                     MpdItem item = processStructuralSheet(row);
                     item.setEdition(edition);
                     item.setType("structural");
@@ -217,7 +220,8 @@ public class ImportMpd {
             for (int j = 0; j < row.getLastCellNum(); j++) {
                 HSSFCell uCell = row.getCell(0);
                 HSSFCell countCell = row.getCell(1);
-                if (uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
+                if (uCell != null && countCell != null && uCell.getStringCellValue().equals("u")
+                        && countCell.getNumericCellValue() > 0.0) {
                     MpdItem item = processZonalSheet(row);
                     item.setEdition(edition);
                     item.setType("zonal");
@@ -248,7 +252,8 @@ public class ImportMpd {
             for (int j = 0; j < row.getLastCellNum(); j++) {
                 HSSFCell uCell = row.getCell(0);
                 HSSFCell countCell = row.getCell(1);
-                if (uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
+                if (uCell != null && countCell != null && uCell.getStringCellValue().equals("u")
+                        && countCell.getNumericCellValue() > 0.0) {
                     MpdTaskcard item = processTaskcardsSheet(row, edition, service);
                     items.add(item);
                 }

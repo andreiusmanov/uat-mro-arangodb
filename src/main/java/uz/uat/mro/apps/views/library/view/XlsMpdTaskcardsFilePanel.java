@@ -15,7 +15,9 @@ public class XlsMpdTaskcardsFilePanel extends AccordionPanel {
     public XlsMpdTaskcardsFilePanel(String summary) {
         this.layout = new FormLayout();
         this.fileLocation = new TextArea("Расположение файла");
+        this.fileLocation.setValue("/home/andreyu/Documents/B-757/data/mpdsup.xls");
         this.taskcardsSheet = new TextField("MPD Рабочие карты");
+        this.taskcardsSheet.setValue("TASKS SORTED BY TASK CARD NUMBE");
         fileLocation.setSizeFull();
         layout.add(fileLocation, taskcardsSheet);
         layout.setColspan(fileLocation, 2);
