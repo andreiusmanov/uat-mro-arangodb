@@ -185,50 +185,44 @@ public class ImportMpd {
         // system sheet load
         for (int i = 0; i < systemSheet.getLastRowNum(); i++) {
             HSSFRow row = systemSheet.getRow(i);
-            for (int j = 0; j < row.getLastCellNum(); j++) {
-                HSSFCell uCell = row.getCell(0);
-                HSSFCell countCell = row.getCell(1);
-                if (uCell != null && countCell != null && uCell.getStringCellValue().equals("u")
-                        && countCell.getNumericCellValue() > 0.0) {
-                    MpdItem item = processSystemSheet(row);
-                    item.setEdition(edition);
-                    item.setType("system");
-                    items.add(item);
-                }
+            HSSFCell uCell = row.getCell(0);
+            if (uCell != null) {
+                MpdItem item = processSystemSheet(row);
+                item.setEdition(edition);
+                item.setType("system");
+                items.add(item);
             }
         }
+        service.saveAllMpdItems(items);
+        items.clear();
 
         // structuralSheet load
         for (int i = 0; i < structuralSheet.getLastRowNum(); i++) {
             HSSFRow row = structuralSheet.getRow(i);
-            for (int j = 0; j < row.getLastCellNum(); j++) {
-                HSSFCell uCell = row.getCell(0);
-                HSSFCell countCell = row.getCell(1);
-                if (uCell != null && countCell != null
-                        && uCell.getStringCellValue().equals("u") && countCell.getNumericCellValue() > 0.0) {
-                    MpdItem item = processStructuralSheet(row);
-                    item.setEdition(edition);
-                    item.setType("structural");
-                    items.add(item);
-                }
+            HSSFCell uCell = row.getCell(0);
+            if (uCell != null) {
+                MpdItem item = processStructuralSheet(row);
+                item.setEdition(edition);
+                item.setType("structural");
+                items.add(item);
             }
         }
+        service.saveAllMpdItems(items);
+        items.clear();
 
         // zonalSheet load
         for (int i = 0; i < zonalSheet.getLastRowNum(); i++) {
-            HSSFRow row = systemSheet.getRow(i);
-            for (int j = 0; j < row.getLastCellNum(); j++) {
-                HSSFCell uCell = row.getCell(0);
-                HSSFCell countCell = row.getCell(1);
-                if (uCell != null && countCell != null && uCell.getStringCellValue().equals("u")
-                        && countCell.getNumericCellValue() > 0.0) {
-                    MpdItem item = processZonalSheet(row);
-                    item.setEdition(edition);
-                    item.setType("zonal");
-                    items.add(item);
-                }
+            HSSFRow row = zonalSheet.getRow(i);
+            HSSFCell uCell = row.getCell(0);
+            if (uCell != null) {
+                MpdItem item = processZonalSheet(row);
+                item.setEdition(edition);
+                item.setType("zonal");
+                items.add(item);
             }
         }
+        service.saveAllMpdItems(items);
+        items.clear();
         workbook.close();
     }
 
@@ -241,7 +235,7 @@ public class ImportMpd {
 
         // Load the XLS file
         FileInputStream fis = new FileInputStream(fileName);
-        List<MpdTaskcard> items = new ArrayList<>();
+        List<MpdTaskcard> cards = new ArrayList<>();
         HSSFWorkbook workbook = new HSSFWorkbook(fis);
 
         HSSFSheet taskcardsSheet = workbook.getSheet(sheetName);
@@ -249,120 +243,112 @@ public class ImportMpd {
         // taskcards load
         for (int i = 0; i < taskcardsSheet.getLastRowNum(); i++) {
             HSSFRow row = taskcardsSheet.getRow(i);
-            for (int j = 0; j < row.getLastCellNum(); j++) {
-                HSSFCell uCell = row.getCell(0);
-                HSSFCell countCell = row.getCell(1);
-                if (uCell != null && countCell != null && uCell.getStringCellValue().equals("u")
-                        && countCell.getNumericCellValue() > 0.0) {
-                    MpdTaskcard item = processTaskcardsSheet(row, edition, service);
-                    items.add(item);
-                }
+            HSSFCell uCell = row.getCell(0);
+            if (uCell != null) {
+                MpdTaskcard card = processTaskcardsSheet(row, edition, service);
+                cards.add(card);
             }
         }
+        service.saveAllTaskcards(cards);
         workbook.close();
     }
 
     private static MpdItem processSystemSheet(HSSFRow row) {
         MpdItem item = new MpdItem();
-        HSSFCell numberCell = row.getCell(2);
-        HSSFCell ammCell = row.getCell(3);
-        HSSFCell catCell = row.getCell(4);
-        HSSFCell taskCell = row.getCell(5);
-        HSSFCell threshCell = row.getCell(6);
-        HSSFCell repeatCell = row.getCell(7);
-        HSSFCell zoneCell = row.getCell(8);
-        HSSFCell accessCell = row.getCell(9);
-        HSSFCell aplCell = row.getCell(10);
-        HSSFCell engCell = row.getCell(11);
-        HSSFCell mhCell = row.getCell(12);
-        HSSFCell descriptionCell = row.getCell(13);
+        String[] array = new String[12];
+        for (int i = 2; i < row.getLastCellNum(); i++) {
+            int arrayIndex = i - 2;
+            HSSFCell cell = row.getCell(i);
+            CellType cellType = cell.getCellType();
 
-        item.setNumber(numberCell.getStringCellValue());
-        item.setAmmReference(ammCell.getStringCellValue());
-        item.setCat(catCell.getStringCellValue());
-        item.setTask(taskCell.getStringCellValue());
-        item.setThreshold(threshCell.getStringCellValue());
-        item.setRepeat(repeatCell.getStringCellValue());
-        item.setZone(zoneCell.getStringCellValue());
-        item.setAccess(accessCell.getStringCellValue());
-        item.setApl(aplCell.getStringCellValue());
-        item.setEngine(engCell.getStringCellValue());
-        item.setMh(mhCell.getStringCellValue());
-        item.setDescription(descriptionCell.getStringCellValue());
+            switch (cellType) {
+                case BLANK, STRING: {
+                    array[arrayIndex] = cell.getStringCellValue();
+                    break;
+                }
+                case NUMERIC: {
+                    array[arrayIndex] = String.valueOf(cell.getNumericCellValue());
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+        item.setNumber(array[0]);
+        item.setAmmReference(array[1]);
+        item.setCat(array[2]);
+        item.setTask(array[3]);
+        item.setThreshold(array[4]);
+        item.setRepeat(array[5]);
+        item.setZone(array[6]);
+        item.setAccess(array[7]);
+        item.setApl(array[8]);
+        item.setEngine(array[9]);
+        item.setMh(array[10]);
+        item.setDescription(array[11]);
         return item;
     }
 
     private static MpdItem processStructuralSheet(HSSFRow row) {
         MpdItem item = new MpdItem();
-        HSSFCell numberCell = row.getCell(2);
-        HSSFCell ammCell = row.getCell(3);
-        HSSFCell pgmCell = row.getCell(4);
-        HSSFCell zoneCell = row.getCell(5);
-        HSSFCell accessCell = row.getCell(6);
-        HSSFCell threshCell = row.getCell(7);
-        HSSFCell repeatCell = row.getCell(8);
-        HSSFCell aplCell = row.getCell(9);
-        HSSFCell engCell = row.getCell(10);
-        HSSFCell mhCell = row.getCell(11);
-        HSSFCell descriptionCell = row.getCell(12);
-
-        item.setNumber(numberCell.getStringCellValue());
-        item.setAmmReference(ammCell.getStringCellValue());
-        item.setPgm(pgmCell.getStringCellValue());
-        item.setZone(zoneCell.getStringCellValue());
-        item.setAccess(accessCell.getStringCellValue());
-        item.setThreshold(threshCell.getStringCellValue());
-        item.setRepeat(repeatCell.getStringCellValue());
-        item.setApl(aplCell.getStringCellValue());
-        item.setEngine(engCell.getStringCellValue());
-        item.setMh(mhCell.getStringCellValue());
-        item.setDescription(descriptionCell.getStringCellValue());
+        String[] array = new String[11];
+        for (int i = 2; i < row.getLastCellNum(); i++) {
+            int arrayIndex = i - 2;
+            HSSFCell cell = row.getCell(i);
+            array[arrayIndex] = parseCell(cell);
+        }
+        item.setNumber(array[0]);
+        item.setAmmReference(array[1]);
+        item.setPgm(array[2]);
+        item.setZone(array[3]);
+        item.setAccess(array[4]);
+        item.setThreshold(array[5]);
+        item.setRepeat(array[6]);
+        item.setApl(array[7]);
+        item.setEngine(array[8]);
+        item.setMh(array[9]);
+        item.setDescription(array[10]);
         return item;
     }
 
     private static MpdItem processZonalSheet(HSSFRow row) {
-        MpdItem item = new MpdItem();
-        HSSFCell numberCell = row.getCell(2);
-        HSSFCell ammCell = row.getCell(3);
-        HSSFCell zoneCell = row.getCell(4);
-        HSSFCell accessCell = row.getCell(5);
-        HSSFCell threshCell = row.getCell(6);
-        HSSFCell repeatCell = row.getCell(7);
-        HSSFCell aplCell = row.getCell(8);
-        HSSFCell engCell = row.getCell(9);
-        HSSFCell mhCell = row.getCell(10);
-        HSSFCell descriptionCell = row.getCell(11);
 
-        item.setNumber(numberCell.getStringCellValue());
-        item.setAmmReference(ammCell.getStringCellValue());
-        item.setZone(zoneCell.getStringCellValue());
-        item.setAccess(accessCell.getStringCellValue());
-        item.setThreshold(threshCell.getStringCellValue());
-        item.setRepeat(repeatCell.getStringCellValue());
-        item.setApl(aplCell.getStringCellValue());
-        item.setEngine(engCell.getStringCellValue());
-        item.setMh(mhCell.getStringCellValue());
-        item.setDescription(descriptionCell.getStringCellValue());
+        MpdItem item = new MpdItem();
+        String[] array = new String[10];
+
+        for (int i = 2; i < row.getLastCellNum(); i++) {
+            int arrayIndex = i - 2;
+            HSSFCell cell = row.getCell(i);
+            array[arrayIndex] = parseCell(cell);
+        }
+        item.setNumber(array[0]);
+        item.setAmmReference(array[1]);
+        item.setZone(array[2]);
+        item.setAccess(array[3]);
+        item.setThreshold(array[4]);
+        item.setRepeat(array[5]);
+        item.setApl(array[6]);
+        item.setEngine(array[7]);
+        item.setMh(array[8]);
+        item.setDescription(array[9]);
         return item;
     }
 
     private static MpdTaskcard processTaskcardsSheet(HSSFRow row, MpdEdition edition, DataImportService service) {
-        Map<String, MpdItem> map = service.getAllMpdItems(edition);
-
         MpdTaskcard card = new MpdTaskcard();
-        HSSFCell numberCell = row.getCell(2);
-        HSSFCell mpdCell = row.getCell(3);
-        HSSFCell mrbCell = row.getCell(4);
-        HSSFCell relatedCell = row.getCell(5);
-        HSSFCell taskCell = row.getCell(6);
-        HSSFCell titleCell = row.getCell(7);
+        String[] array = new String[7];
 
-        card.setNumber(numberCell.getStringCellValue());
-        card.setMpdItem(map.get(mpdCell.getStringCellValue()));
-        card.setMrbItem(mrbCell.getStringCellValue());
-        card.setRelatedTasksString(relatedCell.getStringCellValue());
-        card.setTask(taskCell.getStringCellValue());
-        card.setTitle(titleCell.getStringCellValue());
+        for (int i = 2; i < row.getLastCellNum(); i++) {
+            int arrayIndex = i - 2;
+            HSSFCell cell = row.getCell(i);
+            array[arrayIndex] = parseCell(cell);
+        }
+        card.setNumber(array[0]);
+        card.setMpdItem(service.findByNumberAndEdition(array[1], edition));
+        card.setMrbItem(array[2]);
+        card.setRelatedTasksString(array[3]);
+        card.setTask(array[4]);
+        card.setTitle(array[5]);
         card.setEdition(edition);
         return card;
     }
@@ -393,4 +379,19 @@ public class ImportMpd {
             service.saveAllMhs(mhs);
         }
     }
+
+    private static String parseCell(HSSFCell cell) {
+        CellType cellType = cell.getCellType();
+        switch (cellType) {
+            case BLANK, STRING: {
+                return cell.getStringCellValue().replaceAll("\n", " ");
+            }
+            case NUMERIC: {
+                return String.valueOf(cell.getNumericCellValue());
+            }
+            default:
+                return null;
+        }
+    }
+
 }

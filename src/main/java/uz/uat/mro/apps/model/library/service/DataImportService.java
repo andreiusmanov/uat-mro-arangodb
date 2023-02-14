@@ -50,7 +50,7 @@ public class DataImportService {
         }
         return map;
     }
-    
+
     public Map<String, MpdItem> getAllMpdItems(MpdEdition edition) {
         Map<String, MpdItem> map = new HashMap<>();
         List<MpdItem> itemsList = itemsRepo.findByEdition(edition);
@@ -83,4 +83,9 @@ public class DataImportService {
     public List<MpdMh> saveAllMhs(Collection<MpdMh> entities) {
         return StreamSupport.stream(mhsRepo.saveAll(entities).spliterator(), false).toList();
     }
+
+    public MpdItem findByNumberAndEdition(String number, MpdEdition edition) {
+        return itemsRepo.findByNumberAndEdition(number, edition).get(0);
+    }
+
 }
