@@ -25,6 +25,7 @@ public class MpdTaskcard {
     private String number;
     @Ref
     private MpdItem mpdItem;
+    private String mpdItemString;
     private String mrbItem;
     private String task;
     private String title;

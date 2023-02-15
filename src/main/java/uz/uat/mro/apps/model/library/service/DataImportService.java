@@ -53,7 +53,7 @@ public class DataImportService {
 
     public Map<String, MpdItem> getAllMpdItems(MpdEdition edition) {
         Map<String, MpdItem> map = new HashMap<>();
-        List<MpdItem> itemsList = itemsRepo.findByEdition(edition);
+        List<MpdItem> itemsList = StreamSupport.stream(itemsRepo.getMpdItems(edition.getArangoId()).spliterator(),false).toList();
         for (MpdItem item : itemsList) {
             map.put(item.getNumber(), item);
         }
@@ -85,7 +85,7 @@ public class DataImportService {
     }
 
     public MpdItem findByNumberAndEdition(String number, MpdEdition edition) {
-        return itemsRepo.findByNumberAndEdition(number, edition).get(0);
+        return itemsRepo.findByEdition(edition.getArangoId()).stream().filter(e -> e.getNumber().equals(number)).findFirst().get();
     }
 
 }

@@ -183,7 +183,7 @@ public class ImportMpd {
         HSSFSheet zonalSheet = workbook.getSheet(sheetNames[2]);
 
         // system sheet load
-        for (int i = 0; i < systemSheet.getLastRowNum(); i++) {
+        for (int i = 0; i < systemSheet.getLastRowNum() + 1; i++) {
             HSSFRow row = systemSheet.getRow(i);
             HSSFCell uCell = row.getCell(0);
             if (uCell != null) {
@@ -197,7 +197,7 @@ public class ImportMpd {
         items.clear();
 
         // structuralSheet load
-        for (int i = 0; i < structuralSheet.getLastRowNum(); i++) {
+        for (int i = 0; i < structuralSheet.getLastRowNum() + 1; i++) {
             HSSFRow row = structuralSheet.getRow(i);
             HSSFCell uCell = row.getCell(0);
             if (uCell != null) {
@@ -211,7 +211,7 @@ public class ImportMpd {
         items.clear();
 
         // zonalSheet load
-        for (int i = 0; i < zonalSheet.getLastRowNum(); i++) {
+        for (int i = 0; i < zonalSheet.getLastRowNum() + 1; i++) {
             HSSFRow row = zonalSheet.getRow(i);
             HSSFCell uCell = row.getCell(0);
             if (uCell != null) {
@@ -239,13 +239,15 @@ public class ImportMpd {
         HSSFWorkbook workbook = new HSSFWorkbook(fis);
 
         HSSFSheet taskcardsSheet = workbook.getSheet(sheetName);
+        // create map of String,MpdItem for the edition
+        Map<String, MpdItem> items = service.getAllMpdItems(edition);
 
         // taskcards load
-        for (int i = 0; i < taskcardsSheet.getLastRowNum(); i++) {
+        for (int i = 0; i < taskcardsSheet.getLastRowNum() + 1; i++) {
             HSSFRow row = taskcardsSheet.getRow(i);
             HSSFCell uCell = row.getCell(0);
             if (uCell != null) {
-                MpdTaskcard card = processTaskcardsSheet(row, edition, service);
+                MpdTaskcard card = processTaskcardsSheet(row, edition, service, items);
                 cards.add(card);
             }
         }
@@ -275,15 +277,15 @@ public class ImportMpd {
             }
         }
         item.setNumber(array[0]);
-        item.setAmmReference(array[1]);
+        item.setAmmReference(array[1].replace("\n", ",").trim());
         item.setCat(array[2]);
         item.setTask(array[3]);
-        item.setThreshold(array[4]);
-        item.setRepeat(array[5]);
-        item.setZone(array[6]);
-        item.setAccess(array[7]);
-        item.setApl(array[8]);
-        item.setEngine(array[9]);
+        item.setThreshold(array[4].replace("\n", ",").trim());
+        item.setRepeat(array[5].replace("\n", ",").trim());
+        item.setZone(array[6].replace("\n", ",").trim());
+        item.setAccess(array[7].replace("\n", ",").trim());
+        item.setApl(array[8].replace("\n", ",").trim());
+        item.setEngine(array[9].replace("\n", ",").trim());
         item.setMh(array[10]);
         item.setDescription(array[11]);
         return item;
@@ -298,14 +300,14 @@ public class ImportMpd {
             array[arrayIndex] = parseCell(cell);
         }
         item.setNumber(array[0]);
-        item.setAmmReference(array[1]);
+        item.setAmmReference(array[1].replace("\n", ",").trim());
         item.setPgm(array[2]);
-        item.setZone(array[3]);
-        item.setAccess(array[4]);
-        item.setThreshold(array[5]);
-        item.setRepeat(array[6]);
-        item.setApl(array[7]);
-        item.setEngine(array[8]);
+        item.setZone(array[3].replace("\n", ",").trim());
+        item.setAccess(array[4].replace("\n", ",").trim());
+        item.setThreshold(array[5].replace("\n", ",").trim());
+        item.setRepeat(array[6].replace("\n", ",").trim());
+        item.setApl(array[7].replace("\n", ",").trim());
+        item.setEngine(array[8].replace("\n", ",").trim());
         item.setMh(array[9]);
         item.setDescription(array[10]);
         return item;
@@ -322,19 +324,20 @@ public class ImportMpd {
             array[arrayIndex] = parseCell(cell);
         }
         item.setNumber(array[0]);
-        item.setAmmReference(array[1]);
-        item.setZone(array[2]);
-        item.setAccess(array[3]);
-        item.setThreshold(array[4]);
-        item.setRepeat(array[5]);
-        item.setApl(array[6]);
-        item.setEngine(array[7]);
+        item.setAmmReference(array[1].replace("\n", ",").trim());
+        item.setZone(array[2].replace("\n", ",").trim());
+        item.setAccess(array[3].replace("\n", ",").trim());
+        item.setThreshold(array[4].replace("\n", ",").trim());
+        item.setRepeat(array[5].replace("\n", ",").trim());
+        item.setApl(array[6].replace("\n", ",").trim());
+        item.setEngine(array[7].replace("\n", ",").trim());
         item.setMh(array[8]);
         item.setDescription(array[9]);
         return item;
     }
 
-    private static MpdTaskcard processTaskcardsSheet(HSSFRow row, MpdEdition edition, DataImportService service) {
+    private static MpdTaskcard processTaskcardsSheet(HSSFRow row, MpdEdition edition, DataImportService service,
+            Map<String, MpdItem> items) {
         MpdTaskcard card = new MpdTaskcard();
         String[] array = new String[7];
 
@@ -344,9 +347,10 @@ public class ImportMpd {
             array[arrayIndex] = parseCell(cell);
         }
         card.setNumber(array[0]);
-        card.setMpdItem(service.findByNumberAndEdition(array[1], edition));
-        card.setMrbItem(array[2]);
-        card.setRelatedTasksString(array[3]);
+        card.setMpdItem(items.get(array[1]));
+        card.setMpdItemString(array[1]);
+        card.setMrbItem(array[2].replace("\n", ",").trim());
+        card.setRelatedTasksString(array[3].replace("\n", ",").trim());
         card.setTask(array[4]);
         card.setTitle(array[5]);
         card.setEdition(edition);
