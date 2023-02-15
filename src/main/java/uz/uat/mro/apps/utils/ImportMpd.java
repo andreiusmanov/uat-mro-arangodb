@@ -160,10 +160,15 @@ public class ImportMpd {
                             }
                         }
                     }
+
                 }
+                reader.close();
+                csvReader.close();
                 return l;
             }
+
         }
+
     }
 
     public static void importMpdItems(DataImportService service, String fileName, String[] sheetNames,
@@ -362,26 +367,23 @@ public class ImportMpd {
         if (fileName.isBlank()) {
             return;
         }
-        Set<String[]> set = new HashSet<>();
+
+        Map<String, MpdItem> items = service.getAllMpdItems(edition);
+        List<String[]> set = normalizeAccesses(fileName);
         List<MpdMh> mhs = new ArrayList<>(0);
-        try (Reader reader = Files.newBufferedReader(Path.of(fileName))) {
-            try (CSVReader csvReader = new CSVReader(reader)) {
-                String[] line;
-                while ((line = csvReader.readNext()) != null) {
-                    set.add(line);
-                }
-            }
-            set.stream().forEach(strings -> {
-                MpdMh mh = new MpdMh();
-                mh.setMpdItemString(strings[0]);
-                mh.setOpenMh(strings[1]);
-                mh.setCloseMh(strings[2]);
-                mh.setTotalMh(strings[3]);
-                mh.setAccessString(strings[4]);
-                mhs.add(mh);
-            });
-            service.saveAllMhs(mhs);
-        }
+
+        set.stream().forEach(strings -> {
+            System.out.println(strings[0]);
+            MpdMh mh = new MpdMh();
+            mh.setMpdItem(items.get(strings[0]));
+            mh.setMpdItemString(strings[0]);
+            mh.setOpenMh(strings[1]);
+            mh.setCloseMh(strings[2]);
+            mh.setTotalMh(strings[3]);
+            mh.setAccessString(strings[4]);
+            mhs.add(mh);
+        });
+        service.saveAllMhs(mhs);
     }
 
     private static String parseCell(HSSFCell cell) {

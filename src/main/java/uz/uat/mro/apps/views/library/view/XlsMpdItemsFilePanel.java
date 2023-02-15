@@ -17,7 +17,7 @@ public class XlsMpdItemsFilePanel extends AccordionPanel {
     public XlsMpdItemsFilePanel(String summary) {
         this.layout = new FormLayout();
         this.fileLocation = new TextArea("Расположение файла");
-        this.fileLocation.setValue("/home/andreyu/Documents/B-757/data/mpdsup.xls");
+       // this.fileLocation.setValue("/home/andreyu/Documents/B-757/data/mpdsup.xls");
         this.systemSheet = new TextField("Системное обслуживание");
         this.systemSheet.setValue("SYSTEMS AND POWERPLANT MAINTENA");
         this.structuralSheet = new TextField("Структурное обслуживание");

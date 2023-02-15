@@ -17,8 +17,9 @@ public class MpdMh {
     private String id;
     @ArangoId
     private String arangoId;
+    @Ref(lazy = false)
     private MpdEdition edition;
-    @Ref
+    @Ref(lazy = false)
     private MpdItem mpdItem;
     private String mpdItemString;
     private String openMh;
