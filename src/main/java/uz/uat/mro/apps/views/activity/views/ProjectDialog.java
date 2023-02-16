@@ -29,27 +29,39 @@ public class ProjectDialog extends Dialog {
     public ProjectDialog(ProjectService service) {
         super();
         this.service = service;
+        settings();
         form();
+        add(form);
+    }
+
+    private void settings() {
+        this.setCloseOnEsc(true);
     }
 
     private void form() {
         this.form = new FormLayout();
-        this.number = new TextField("getAriaLabelString()");
-        this.date = new DatePicker(LocalDate.now());
-        this.customer = new ComboBox<>("getAriaLabelString()");
+        this.number = new TextField("Номер контракта");
+        this.date = new DatePicker("Дата", LocalDate.now());
+        this.customer = new ComboBox<>("Заказчик");
         customer.setItems(service.findAllCustomers());
         customer.setItemLabelGenerator(firm -> firm.getShortName());
-        this.supplier = new ComboBox<>("getAriaLabelString()");
+        this.supplier = new ComboBox<>("Исполнитель");
         supplier.setItems(service.findAllSuppliers());
         supplier.setItemLabelGenerator(firm -> firm.getShortName());
-        this.startDate = new DatePicker(LocalDate.now());
-        this.endDate = new DatePicker(LocalDate.now());
-        this.aircraft = new ComboBox<>("getAriaLabelString()");
+        this.startDate = new DatePicker("Дана начала", LocalDate.now());
+        this.endDate = new DatePicker("Дата окончания", LocalDate.now());
+        this.aircraft = new ComboBox<>("ВС номер");
         aircraft.setItems(service.findAllAircrafts());
         aircraft.setItemLabelGenerator(ac -> ac.getRegNumber());
 
         this.binder = new Binder<>(Project.class);
-        binder.forField("number").bind(e -> e.getNumber(), (num, e) -> e.setNumber(num));
+        binder.forField(number).bind(e -> e.getNumber(), (e, num) -> e.setNumber(num));
+        binder.forField(date).bind(e -> e.getDate(), (e, num) -> e.setDate(num));
+        binder.forField(customer).bind(e -> e.getCustomer(), (e, num) -> e.setCustomer(num));
+        binder.forField(supplier).bind(e -> e.getSupplier(), (e, num) -> e.setSupplier(num));
+        binder.forField(startDate).bind(e -> e.getStartDate(), (e, num) -> e.setStartDate(num));
+        binder.forField(endDate).bind(e -> e.getEndDate(), (e, num) -> e.setEndDate(num));
+        binder.forField(aircraft).bind(e -> e.getAircraft(), (e, num) -> e.setAircraft(num));
     }
 
 }

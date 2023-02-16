@@ -12,9 +12,9 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.about.AboutView;
+import uz.uat.mro.apps.views.activity.views.ProjectView;
 
-public class ProjectLayout extends AppLayout{
+public class ProjectLayout extends AppLayout {
     private H2 viewTitle;
 
     public ProjectLayout() {
@@ -48,7 +48,10 @@ public class ProjectLayout extends AppLayout{
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("Контракт", AboutView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Контракт", ProjectView.class, "la la-file"));
+        nav.addItem(new AppNavItem("LOV Рабочие карты", ProjectView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Materials List", ProjectView.class, "la la-file"));
+        nav.addItem(new AppNavItem("План работ", ProjectView.class, "la la-file"));
 
         return nav;
     }
