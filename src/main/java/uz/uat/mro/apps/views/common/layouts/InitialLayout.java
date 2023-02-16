@@ -14,6 +14,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.about.AboutView;
+import uz.uat.mro.apps.views.activity.views.ProjectsView;
 import uz.uat.mro.apps.views.aircraft.view.MajorModelsView;
 import uz.uat.mro.apps.views.common.views.CountriesView;
 import uz.uat.mro.apps.views.library.view.MpdEditionsView;
@@ -60,6 +61,7 @@ public class InitialLayout extends AppLayout {
         nav.addItem(new AppNavItem("Общие данные", CountriesView.class, VaadinIcon.GLOBE.create()));
         nav.addItem(new AppNavItem("Модели ВС", MajorModelsView.class, VaadinIcon.AIRPLANE.create()));
         nav.addItem(new AppNavItem("MPD Данные", MpdEditionsView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("Контракты", ProjectsView.class, VaadinIcon.FILE.create()));
 
         return nav;
     }

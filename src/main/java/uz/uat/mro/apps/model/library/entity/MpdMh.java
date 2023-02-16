@@ -1,7 +1,5 @@
 package uz.uat.mro.apps.model.library.entity;
 
-import java.math.BigDecimal;
-
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
