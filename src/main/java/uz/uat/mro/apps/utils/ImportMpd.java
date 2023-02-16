@@ -1,13 +1,23 @@
 package uz.uat.mro.apps.utils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -15,39 +25,49 @@ import com.opencsv.exceptions.CsvValidationException;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.model.library.entity.MpdItem;
+import uz.uat.mro.apps.model.library.entity.MpdMh;
 import uz.uat.mro.apps.model.library.entity.MpdSubzone;
+import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
-import uz.uat.mro.apps.model.library.service.MpdZonesService;
+import uz.uat.mro.apps.model.library.service.DataImportService;
 
 public class ImportMpd {
 
-    public static void importBoeingZones(MpdZonesService service, String filePath, MpdEdition edition)
+    public static void importBoeingZones(DataImportService service, String fileName, MpdEdition edition)
             throws IOException, CsvValidationException {
-        List<String[]> list = new ArrayList<>();
-        List<MpdZone> zones = new ArrayList<>(0);
+        if (fileName.isBlank()) {
+            return;
+        }
+        Set<String[]> set = new HashSet<>();
+        Set<MpdZone> zones = new HashSet<>(0);
         MajorModel model = edition.getModel();
-        try (Reader reader = Files.newBufferedReader(Path.of(filePath))) {
+        try (Reader reader = Files.newBufferedReader(Path.of(fileName))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
                 String[] line;
                 while ((line = csvReader.readNext()) != null) {
-                    list.add(line);
+                    set.add(line);
                 }
             }
-            for (String[] strings : list) {
+            set.stream().forEach(strings -> {
                 MpdZone zone = new MpdZone(model);
                 zone.setCode(strings[0]);
                 zone.setName(strings[1]);
+                zone.setModel(model);
                 zones.add(zone);
-            }
+            });
             service.saveAllZones(zones);
         }
     }
 
-    public static void importBoeingSubzones(MpdZonesService service, String filePath, MpdEdition edition)
+    public static void importBoeingSubzones(DataImportService service, String filePath, MpdEdition edition)
             throws IOException, CsvValidationException {
 
-        List<String[]> list = new ArrayList<>();
-        List<MpdSubzone> subzones = new ArrayList<>(0);
+        if (filePath.isBlank()) {
+            return;
+        }
+        Set<String[]> list = new HashSet<>();
+        Set<MpdSubzone> subzones = new HashSet<>(0);
 
         MajorModel model = edition.getModel();
         Map<String, MpdZone> zonesMap = service.getAllZones(model.getArangoId());
@@ -59,48 +79,66 @@ public class ImportMpd {
                     list.add(line);
                 }
             }
-            for (String[] strings : list) {
-                MpdSubzone zone = new MpdSubzone(model);
-                zone.setCode(strings[0]);
-                zone.setName(strings[1]);
-                zonesMap.getOrDefault(Integer.valueOf((zone.getCode().charAt(0)) * 100), null);
-                subzones.add(zone);
-            }
+
+            list.stream().forEach(strings -> {
+                MpdSubzone subzone = new MpdSubzone(model);
+                subzone.setCode(strings[0]);
+                subzone.setName(strings[1]);
+                char s = subzone.getCode().charAt(0);
+                String res = s + "00";
+                subzone.setZone(zonesMap.getOrDefault(res, null));
+                System.out.println(subzone.getCode() + ", " + subzone.getName() + ", "
+                        + subzone.getZone().getArangoId() + ", " + subzone.getModel().getArangoId());
+                subzones.add(subzone);
+            });
             service.saveAllSubzones(subzones);
         }
     }
 
-    public static void importBoeingAccesses(MpdZonesService service, String accessesFile, String syntheticAccessesFile,
-            MpdEdition edition) throws IOException, CsvValidationException {
-        List<MpdAccess> accesses = new ArrayList<>(0);
-
+    public static void importBoeingAccesses(DataImportService service, String accessesFile, MpdEdition edition)
+            throws IOException, CsvValidationException {
+        if (accessesFile.isBlank()) {
+            return;
+        }
+        Set<MpdAccess> accesses = new HashSet<>(0);
         MajorModel model = edition.getModel();
         Map<String, MpdSubzone> subzonesMap = service.getAllSubzones(model.getArangoId());
-
         List<String[]> accessesArray = normalizeAccesses(accessesFile);
-
-        for (String[] strings : accessesArray) {
+        accessesArray.stream().forEach(strings -> {
             MpdAccess access = new MpdAccess(model);
             access.setNumber(strings[0]);
-            access.setOpen(new BigDecimal(strings[1]));
-            access.setClose(new BigDecimal(strings[2]));
+            access.setOpen(new BigDecimal(strings[1].isBlank() ? "0.0" : strings[1]));
+            access.setClose(new BigDecimal(strings[2].isBlank() ? "0.0" : strings[2]));
             access.setAplEngine(strings[3]);
             access.setName(strings[4]);
             subzonesMap.get(strings[5]);
             accesses.add(access);
+        });
+        service.saveAllAccesses(accesses);
+    }
+
+    public static void importBoeingAccessesSynth(DataImportService service, String syntheticAccessesFile,
+            MpdEdition edition) throws IOException, CsvValidationException {
+        if (syntheticAccessesFile.isBlank()) {
+            return;
         }
+        Set<MpdAccess> accesses = new HashSet<>(0);
+
+        MajorModel model = edition.getModel();
+        Map<String, MpdSubzone> subzonesMap = service.getAllSubzones(model.getArangoId());
 
         List<String[]> synthAccessesArray = normalizeAccesses(syntheticAccessesFile);
-        for (String[] strings : synthAccessesArray) {
+        synthAccessesArray.stream().forEach(array -> {
             MpdAccess access2 = new MpdAccess(model);
-            access2.setNumber(strings[0]);
-            access2.setOpen(new BigDecimal(strings[1]));
-            access2.setClose(new BigDecimal(strings[2]));
-            access2.setName(strings[3]);
-            access2.setMmReference(strings[4]);
-            subzonesMap.get(strings[0].substring(0, 3));
+            access2.setSynthetic(true);
+            access2.setNumber(array[0]);
+            access2.setOpen(new BigDecimal(array[1].isBlank() ? "0.0" : array[1]));
+            access2.setClose(new BigDecimal(array[2].isBlank() ? "0.0" : array[2]));
+            access2.setName(array[3]);
+            access2.setMmReference(array[4]);
+            subzonesMap.get(array[0].substring(0, 3));
             accesses.add(access2);
-        }
+        });
         service.saveAllAccesses(accesses);
     }
 
@@ -122,18 +160,244 @@ public class ImportMpd {
                             }
                         }
                     }
+
                 }
+                reader.close();
+                csvReader.close();
                 return l;
             }
+
         }
-    }
-
-    private static void importMpdItems() {
 
     }
 
-    private static void importMpdTaskcards() {
+    public static void importMpdItems(DataImportService service, String fileName, String[] sheetNames,
+            MpdEdition edition)
+            throws FileNotFoundException, IOException {
+        if (fileName.isBlank()) {
+            return;
+        }
 
+        // Load the XLS file
+        FileInputStream fis = new FileInputStream(fileName);
+        List<MpdItem> items = new ArrayList<>();
+        HSSFWorkbook workbook = new HSSFWorkbook(fis);
+
+        HSSFSheet systemSheet = workbook.getSheet(sheetNames[0]);
+        HSSFSheet structuralSheet = workbook.getSheet(sheetNames[1]);
+        HSSFSheet zonalSheet = workbook.getSheet(sheetNames[2]);
+
+        // system sheet load
+        for (int i = 0; i < systemSheet.getLastRowNum() + 1; i++) {
+            HSSFRow row = systemSheet.getRow(i);
+            HSSFCell uCell = row.getCell(0);
+            if (uCell != null) {
+                MpdItem item = processSystemSheet(row);
+                item.setEdition(edition);
+                item.setType("system");
+                items.add(item);
+            }
+        }
+        service.saveAllMpdItems(items);
+        items.clear();
+
+        // structuralSheet load
+        for (int i = 0; i < structuralSheet.getLastRowNum() + 1; i++) {
+            HSSFRow row = structuralSheet.getRow(i);
+            HSSFCell uCell = row.getCell(0);
+            if (uCell != null) {
+                MpdItem item = processStructuralSheet(row);
+                item.setEdition(edition);
+                item.setType("structural");
+                items.add(item);
+            }
+        }
+        service.saveAllMpdItems(items);
+        items.clear();
+
+        // zonalSheet load
+        for (int i = 0; i < zonalSheet.getLastRowNum() + 1; i++) {
+            HSSFRow row = zonalSheet.getRow(i);
+            HSSFCell uCell = row.getCell(0);
+            if (uCell != null) {
+                MpdItem item = processZonalSheet(row);
+                item.setEdition(edition);
+                item.setType("zonal");
+                items.add(item);
+            }
+        }
+        service.saveAllMpdItems(items);
+        items.clear();
+        workbook.close();
+    }
+
+    public static void importMpdTaskcards(DataImportService service, String fileName, String sheetName,
+            MpdEdition edition)
+            throws FileNotFoundException, IOException {
+        if (fileName.isBlank()) {
+            return;
+        }
+
+        // Load the XLS file
+        FileInputStream fis = new FileInputStream(fileName);
+        List<MpdTaskcard> cards = new ArrayList<>();
+        HSSFWorkbook workbook = new HSSFWorkbook(fis);
+
+        HSSFSheet taskcardsSheet = workbook.getSheet(sheetName);
+        // create map of String,MpdItem for the edition
+        Map<String, MpdItem> items = service.getAllMpdItems(edition);
+
+        // taskcards load
+        for (int i = 0; i < taskcardsSheet.getLastRowNum() + 1; i++) {
+            HSSFRow row = taskcardsSheet.getRow(i);
+            HSSFCell uCell = row.getCell(0);
+            if (uCell != null) {
+                MpdTaskcard card = processTaskcardsSheet(row, edition, service, items);
+                cards.add(card);
+            }
+        }
+        service.saveAllTaskcards(cards);
+        workbook.close();
+    }
+
+    private static MpdItem processSystemSheet(HSSFRow row) {
+        MpdItem item = new MpdItem();
+        String[] array = new String[12];
+        for (int i = 2; i < row.getLastCellNum(); i++) {
+            int arrayIndex = i - 2;
+            HSSFCell cell = row.getCell(i);
+            CellType cellType = cell.getCellType();
+
+            switch (cellType) {
+                case BLANK, STRING: {
+                    array[arrayIndex] = cell.getStringCellValue();
+                    break;
+                }
+                case NUMERIC: {
+                    array[arrayIndex] = String.valueOf(cell.getNumericCellValue());
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+        item.setNumber(array[0]);
+        item.setAmmReference(array[1].replace("\n", ",").trim());
+        item.setCat(array[2]);
+        item.setTask(array[3]);
+        item.setThreshold(array[4].replace("\n", ",").trim());
+        item.setRepeat(array[5].replace("\n", ",").trim());
+        item.setZone(array[6].replace("\n", ",").trim());
+        item.setAccess(array[7].replace("\n", ",").trim());
+        item.setApl(array[8].replace("\n", ",").trim());
+        item.setEngine(array[9].replace("\n", ",").trim());
+        item.setMh(array[10]);
+        item.setDescription(array[11]);
+        return item;
+    }
+
+    private static MpdItem processStructuralSheet(HSSFRow row) {
+        MpdItem item = new MpdItem();
+        String[] array = new String[11];
+        for (int i = 2; i < row.getLastCellNum(); i++) {
+            int arrayIndex = i - 2;
+            HSSFCell cell = row.getCell(i);
+            array[arrayIndex] = parseCell(cell);
+        }
+        item.setNumber(array[0]);
+        item.setAmmReference(array[1].replace("\n", ",").trim());
+        item.setPgm(array[2]);
+        item.setZone(array[3].replace("\n", ",").trim());
+        item.setAccess(array[4].replace("\n", ",").trim());
+        item.setThreshold(array[5].replace("\n", ",").trim());
+        item.setRepeat(array[6].replace("\n", ",").trim());
+        item.setApl(array[7].replace("\n", ",").trim());
+        item.setEngine(array[8].replace("\n", ",").trim());
+        item.setMh(array[9]);
+        item.setDescription(array[10]);
+        return item;
+    }
+
+    private static MpdItem processZonalSheet(HSSFRow row) {
+
+        MpdItem item = new MpdItem();
+        String[] array = new String[10];
+
+        for (int i = 2; i < row.getLastCellNum(); i++) {
+            int arrayIndex = i - 2;
+            HSSFCell cell = row.getCell(i);
+            array[arrayIndex] = parseCell(cell);
+        }
+        item.setNumber(array[0]);
+        item.setAmmReference(array[1].replace("\n", ",").trim());
+        item.setZone(array[2].replace("\n", ",").trim());
+        item.setAccess(array[3].replace("\n", ",").trim());
+        item.setThreshold(array[4].replace("\n", ",").trim());
+        item.setRepeat(array[5].replace("\n", ",").trim());
+        item.setApl(array[6].replace("\n", ",").trim());
+        item.setEngine(array[7].replace("\n", ",").trim());
+        item.setMh(array[8]);
+        item.setDescription(array[9]);
+        return item;
+    }
+
+    private static MpdTaskcard processTaskcardsSheet(HSSFRow row, MpdEdition edition, DataImportService service,
+            Map<String, MpdItem> items) {
+        MpdTaskcard card = new MpdTaskcard();
+        String[] array = new String[7];
+
+        for (int i = 2; i < row.getLastCellNum(); i++) {
+            int arrayIndex = i - 2;
+            HSSFCell cell = row.getCell(i);
+            array[arrayIndex] = parseCell(cell);
+        }
+        card.setNumber(array[0]);
+        card.setMpdItem(items.get(array[1]));
+        card.setMpdItemString(array[1]);
+        card.setMrbItem(array[2].replace("\n", ",").trim());
+        card.setRelatedTasksString(array[3].replace("\n", ",").trim());
+        card.setTask(array[4]);
+        card.setTitle(array[5]);
+        card.setEdition(edition);
+        return card;
+    }
+
+    public static void importBoeingMhs(DataImportService service, String fileName, MpdEdition edition)
+            throws IOException, FileNotFoundException, CsvValidationException {
+        if (fileName.isBlank()) {
+            return;
+        }
+
+        Map<String, MpdItem> items = service.getAllMpdItems(edition);
+        List<String[]> set = normalizeAccesses(fileName);
+        List<MpdMh> mhs = new ArrayList<>(0);
+
+        set.stream().forEach(strings -> {
+            System.out.println(strings[0]);
+            MpdMh mh = new MpdMh();
+            mh.setMpdItem(items.get(strings[0]));
+            mh.setMpdItemString(strings[0]);
+            mh.setOpenMh(strings[1]);
+            mh.setCloseMh(strings[2]);
+            mh.setTotalMh(strings[3]);
+            mh.setAccessString(strings[4]);
+            mhs.add(mh);
+        });
+        service.saveAllMhs(mhs);
+    }
+
+    private static String parseCell(HSSFCell cell) {
+        CellType cellType = cell.getCellType();
+        switch (cellType) {
+            case BLANK, STRING: {
+                return cell.getStringCellValue().replaceAll("\n", " ");
+            }
+            case NUMERIC: {
+                return String.valueOf(cell.getNumericCellValue());
+            }
+            default:
+                return null;
+        }
     }
 
 }

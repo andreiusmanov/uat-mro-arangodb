@@ -5,19 +5,22 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 
-public class XlsFilePanel extends AccordionPanel {
+import uz.uat.mro.apps.utils.MpdKeys;
+
+public class XlsMpdTaskcardsFilePanel extends AccordionPanel {
     private FormLayout layout;
     private TextArea fileLocation;
-    private TextField sheetName;
+    private TextField taskcardsSheet;
 
-    public XlsFilePanel(String summary) {
+    public XlsMpdTaskcardsFilePanel(String summary) {
         this.layout = new FormLayout();
         this.fileLocation = new TextArea("Расположение файла");
-        this.sheetName = new TextField("Наименование страницы");
+     //   this.fileLocation.setValue("/home/andreyu/Documents/B-757/data/mpdsup.xls");
+        this.taskcardsSheet = new TextField("MPD Рабочие карты");
+        this.taskcardsSheet.setValue("TASKS SORTED BY TASK CARD NUMBE");
         fileLocation.setSizeFull();
-        layout.add(fileLocation, sheetName);
+        layout.add(fileLocation, taskcardsSheet);
         layout.setColspan(fileLocation, 2);
-        layout.setColspan(sheetName, 2);
         setSummaryText(summary);
         setContent(layout);
     }
@@ -26,7 +29,11 @@ public class XlsFilePanel extends AccordionPanel {
         return fileLocation.getValue();
     }
 
-    public String getSheetName() {
-        return sheetName.getValue();
+    public String getSheet(String name) {
+        return MpdKeys.TASKCARDS;
+    }
+
+    public String getSheet() {
+        return taskcardsSheet.getValue();
     }
 }
