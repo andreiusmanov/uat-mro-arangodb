@@ -21,7 +21,7 @@
     "@vaadin/combo-box": "23.3.4",
     "@vaadin/common-frontend": "0.0.17",
     "@vaadin/component-base": "23.3.5",
-    "@vaadin/confirm-dialog": "23.3.4",
+    "@vaadin/confirm-dialog": "23.3.5",
     "@vaadin/context-menu": "23.3.4",
     "@vaadin/custom-field": "23.3.4",
     "@vaadin/date-picker": "23.3.4",
