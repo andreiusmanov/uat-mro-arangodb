@@ -1,6 +1,7 @@
 package uz.uat.mro.apps.model.library.service;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,8 +77,8 @@ public class MpdZonesService {
         subzonesRepo.delete(entity);
     }
 
-    public List<MpdSubzone> findAllSubzones() {
-        return StreamSupport.stream(subzonesRepo.findAll().spliterator(), false).toList();
+    public List<MpdSubzone> findAllSubzones(String model) {
+        return subzonesRepo.findSubzonesByModel(model);
     }
 
     public MpdAccess save(MpdAccess entity) {
@@ -92,16 +93,17 @@ public class MpdZonesService {
         return entity.getSynthetic();
     }
 
-    public List<MpdAccess> findAccessByZone(MpdZone zone) {
+    public List<MpdAccess> findAccessByZone(String zone) {
         return accessesRepo.FindByZone(zone);
     }
 
-    public List<MpdAccess> findAccessBySubzone(MpdSubzone subzone) {
+    public List<MpdAccess> findAccessBySubzone(String subzone) {
         return accessesRepo.FindBySubzone(subzone);
     }
 
-    public List<MpdAccess> findAllAccessByModel(MajorModel model) {
-        return accessesRepo.FindByModel(model);
+    public List<MpdAccess> findAllAccessByModel(String model) {
+        List<MpdAccess> findByModel = accessesRepo.FindByModel(model);
+        return findByModel;
     }
 
     public List<MajorModel> models() {

@@ -20,6 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
@@ -61,12 +62,12 @@ public class ImportMpd {
     }
 
     public static void importBoeingSubzones(DataImportService service, String filePath, MpdEdition edition)
-            throws IOException, CsvValidationException {
+            throws IOException, CsvException {
 
         if (filePath.isBlank()) {
             return;
         }
-        Set<String[]> list = new HashSet<>();
+        List<String[]> list = new ArrayList<>();
         Set<MpdSubzone> subzones = new HashSet<>(0);
 
         MajorModel model = edition.getModel();
@@ -74,22 +75,21 @@ public class ImportMpd {
 
         try (Reader reader = Files.newBufferedReader(Path.of(filePath))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
-                String[] line;
-                while ((line = csvReader.readNext()) != null) {
-                    list.add(line);
-                }
+                list = csvReader.readAll();
             }
 
-            list.stream().forEach(strings -> {
+            List<String> codes = new ArrayList<>(0);
+            list.stream().forEach(array -> {
                 MpdSubzone subzone = new MpdSubzone(model);
-                subzone.setCode(strings[0]);
-                subzone.setName(strings[1]);
-                char s = subzone.getCode().charAt(0);
-                String res = s + "00";
-                subzone.setZone(zonesMap.getOrDefault(res, null));
-                System.out.println(subzone.getCode() + ", " + subzone.getName() + ", "
-                        + subzone.getZone().getArangoId() + ", " + subzone.getModel().getArangoId());
-                subzones.add(subzone);
+                if (!codes.contains(array[0])) {
+                    codes.add(array[0]);
+                    subzone.setCode(array[0]);
+                    subzone.setName(array[1]);
+                    char s = subzone.getCode().charAt(0);
+                    String res = s + "00";
+                    subzone.setZone(zonesMap.getOrDefault(res, null));
+                    subzones.add(subzone);
+                }
             });
             service.saveAllSubzones(subzones);
         }
@@ -104,15 +104,21 @@ public class ImportMpd {
         MajorModel model = edition.getModel();
         Map<String, MpdSubzone> subzonesMap = service.getAllSubzones(model.getArangoId());
         List<String[]> accessesArray = normalizeAccesses(accessesFile);
-        accessesArray.stream().forEach(strings -> {
-            MpdAccess access = new MpdAccess(model);
-            access.setNumber(strings[0]);
-            access.setOpen(new BigDecimal(strings[1].isBlank() ? "0.0" : strings[1]));
-            access.setClose(new BigDecimal(strings[2].isBlank() ? "0.0" : strings[2]));
-            access.setAplEngine(strings[3]);
-            access.setName(strings[4]);
-            subzonesMap.get(strings[5]);
-            accesses.add(access);
+
+        List<String> d = new ArrayList<>();
+
+        accessesArray.stream().forEach(array -> {
+            if (!d.contains(array[0])) {
+                d.add(array[0]);
+                MpdAccess access = new MpdAccess(model);
+                access.setNumber(array[0]);
+                access.setOpen(new BigDecimal(array[1].isBlank() ? "0.0" : array[1]));
+                access.setClose(new BigDecimal(array[2].isBlank() ? "0.0" : array[2]));
+                access.setAplEngine(array[3]);
+                access.setName(array[4]);
+                subzonesMap.get(array[5]);
+                accesses.add(access);
+            }
         });
         service.saveAllAccesses(accesses);
     }
@@ -128,16 +134,20 @@ public class ImportMpd {
         Map<String, MpdSubzone> subzonesMap = service.getAllSubzones(model.getArangoId());
 
         List<String[]> synthAccessesArray = normalizeAccesses(syntheticAccessesFile);
+        List<String> d = new ArrayList<>();
         synthAccessesArray.stream().forEach(array -> {
-            MpdAccess access2 = new MpdAccess(model);
-            access2.setSynthetic(true);
-            access2.setNumber(array[0]);
-            access2.setOpen(new BigDecimal(array[1].isBlank() ? "0.0" : array[1]));
-            access2.setClose(new BigDecimal(array[2].isBlank() ? "0.0" : array[2]));
-            access2.setName(array[3]);
-            access2.setMmReference(array[4]);
-            subzonesMap.get(array[0].substring(0, 3));
-            accesses.add(access2);
+            if (!d.contains(array[0])) {
+                d.add(array[0]);
+                MpdAccess access2 = new MpdAccess(model);
+                access2.setSynthetic(true);
+                access2.setNumber(array[0]);
+                access2.setOpen(new BigDecimal(array[1].isBlank() ? "0.0" : array[1]));
+                access2.setClose(new BigDecimal(array[2].isBlank() ? "0.0" : array[2]));
+                access2.setName(array[3]);
+                access2.setMmReference(array[4]);
+                subzonesMap.get(array[0].substring(0, 3));
+                accesses.add(access2);
+            }
         });
         service.saveAllAccesses(accesses);
     }
