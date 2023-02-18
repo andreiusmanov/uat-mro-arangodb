@@ -111,12 +111,14 @@ public class ImportMpd {
             if (!d.contains(array[0])) {
                 d.add(array[0]);
                 MpdAccess access = new MpdAccess(model);
+                access.setSynthetic(false);
+                access.setSubzone(subzonesMap.get(array[5]));
                 access.setNumber(array[0]);
                 access.setOpen(new BigDecimal(array[1].isBlank() ? "0.0" : array[1]));
                 access.setClose(new BigDecimal(array[2].isBlank() ? "0.0" : array[2]));
                 access.setAplEngine(array[3]);
                 access.setName(array[4]);
-                subzonesMap.get(array[5]);
+                access.setSubzoneString(array[5]);
                 accesses.add(access);
             }
         });
@@ -140,12 +142,13 @@ public class ImportMpd {
                 d.add(array[0]);
                 MpdAccess access2 = new MpdAccess(model);
                 access2.setSynthetic(true);
+                access2.setSubzone(subzonesMap.get(array[0].substring(0, 3)));
                 access2.setNumber(array[0]);
                 access2.setOpen(new BigDecimal(array[1].isBlank() ? "0.0" : array[1]));
                 access2.setClose(new BigDecimal(array[2].isBlank() ? "0.0" : array[2]));
                 access2.setName(array[3]);
                 access2.setMmReference(array[4]);
-                subzonesMap.get(array[0].substring(0, 3));
+                access2.setSubzoneString(array[0].substring(0, 3));
                 accesses.add(access2);
             }
         });
@@ -385,6 +388,7 @@ public class ImportMpd {
         set.stream().forEach(strings -> {
             System.out.println(strings[0]);
             MpdMh mh = new MpdMh();
+            mh.setEdition(edition);
             mh.setMpdItem(items.get(strings[0]));
             mh.setMpdItemString(strings[0]);
             mh.setOpenMh(strings[1]);

@@ -1,7 +1,6 @@
 package uz.uat.mro.apps.model.library.service;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +12,11 @@ import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.aircraft.repository.MajorModelsRepository;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
+import uz.uat.mro.apps.model.library.entity.MpdMh;
 import uz.uat.mro.apps.model.library.entity.MpdSubzone;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
 import uz.uat.mro.apps.model.library.repository.MpdAccessesRepository;
+import uz.uat.mro.apps.model.library.repository.MpdMhsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdSubzonesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdZonesRepository;
 
@@ -26,6 +27,7 @@ public class MpdZonesService {
     private MpdSubzonesRepository subzonesRepo;
     private MpdAccessesRepository accessesRepo;
     private MajorModelsRepository modelsRepo;
+    private MpdMhsRepository mhsRepo;
 
     public List<MpdZone> findZoneByModel(String model) {
         return repo.findByModel(model);
@@ -109,4 +111,9 @@ public class MpdZonesService {
     public List<MajorModel> models() {
         return StreamSupport.stream(modelsRepo.findAll().spliterator(), false).toList();
     }
+
+    public List<MpdMh> findMhByEdition(String edition) {
+        return StreamSupport.stream(mhsRepo.findMhByEdition(edition).spliterator(), false).toList();
+    }
+
 }

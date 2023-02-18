@@ -23,8 +23,6 @@ public class AccessesView extends VerticalLayout {
     private MpdEdition edition;
     private MajorModel model;
     private GridCrud<MpdAccess> grid;
-    // private MenuBar menu;
-    // private ListDataView listDataView;
 
     public AccessesView(MpdZonesService service) {
         this.service = service;
@@ -36,11 +34,10 @@ public class AccessesView extends VerticalLayout {
 
     private void grid() {
         this.grid = new GridCrud<>(MpdAccess.class);
-        // this.listDataView = grid.getGrid().getListDataView();
-        this.grid.getGrid().setColumns("subzone.code", "model.code", "number", "name", "open", "close", "aplEngine",
+        this.grid.getGrid().setColumns("subzoneString", "model.code", "number", "name", "open", "close", "aplEngine",
                 "synthetic", "mmReference");
 
-        this.grid.getGrid().getColumnByKey("subzone.code").setHeader("Код Зоны");
+        this.grid.getGrid().getColumnByKey("subzoneString").setHeader("Код Зоны");
         this.grid.getGrid().getColumnByKey("model.code").setHeader("Модель ВС");
         this.grid.getGrid().getColumnByKey("number").setHeader("Номер");
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");

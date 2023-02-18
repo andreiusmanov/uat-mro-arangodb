@@ -15,6 +15,7 @@ import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.library.view.AccessesView;
 import uz.uat.mro.apps.views.library.view.MpdImportView;
+import uz.uat.mro.apps.views.library.view.MpdMhsView;
 import uz.uat.mro.apps.views.library.view.MpdView;
 import uz.uat.mro.apps.views.library.view.SubzonesView;
 import uz.uat.mro.apps.views.library.view.ZonesView;
@@ -58,6 +59,7 @@ public class MpdLayout extends AppLayout {
         nav.addItem(new AppNavItem("Зоны ВС", ZonesView.class, VaadinIcon.FILE.create()));
         nav.addItem(new AppNavItem("Субзоны ВС", SubzonesView.class, VaadinIcon.FILE.create()));
         nav.addItem(new AppNavItem("Доступы ВС", AccessesView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("Man-Hours", MpdMhsView.class, VaadinIcon.FILE.create()));
 
         return nav;
     }
