@@ -10,8 +10,8 @@ import lombok.Data;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 
 @Data
-@Document("workcards")
-public class Workcard {
+@Document("maintenance_cards")
+public class MaintenanceCard {
     @Id
     private String id;
     @ArangoId
@@ -20,7 +20,7 @@ public class Workcard {
     @Ref
     private TaskGroup taskGroup;
     @Ref
-    private SectionCode sectionCode;
+    private MaintenanceArea maintenanceArea;
     @Ref
     private Project project;
     @Ref

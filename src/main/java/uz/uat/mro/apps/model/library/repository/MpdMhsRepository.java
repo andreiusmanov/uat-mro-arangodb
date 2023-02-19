@@ -7,6 +7,6 @@ import uz.uat.mro.apps.model.library.entity.MpdMh;
 
 public interface MpdMhsRepository extends ArangoRepository<MpdMh, String> {
 
-    @Query(value = "for i in mps_mhs filter edition == @edition sort i.mpdItemString asc return i")
+    @Query(value = "for i in mpd_mhs filter i.edition == @edition sort i.mpdItemString asc return i")
     public Iterable<MpdMh> findMhByEdition(String edition);
 }

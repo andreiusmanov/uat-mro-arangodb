@@ -8,10 +8,12 @@ import com.arangodb.springframework.annotation.Document;
 import lombok.Data;
 
 @Data
-@Document("section_codes")
-public class SectionCode {
+@Document("maintenance_areas")
+public class MaintenanceArea {
     @Id
     private String id;
     @ArangoId
     private String arangoId;
+    private String code;
+    private String name;
 }

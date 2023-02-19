@@ -28,11 +28,11 @@ public class Project {
     private LocalDate date;
     private LocalDate startDate;
     private LocalDate endDate;
-    @Ref
+    @Ref(lazy = false)
     private Firm customer;
-    @Ref
+    @Ref(lazy = false)
     private Firm supplier;
-    @Ref
+    @Ref(lazy = false)
     private Aircraft aircraft;
     private String maintenanceString;
     @Relations(edges = {MaintenanceType.class}, lazy = false, direction = Direction.OUTBOUND)
