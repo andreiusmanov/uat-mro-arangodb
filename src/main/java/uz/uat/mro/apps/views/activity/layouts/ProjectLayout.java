@@ -5,6 +5,7 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
@@ -12,13 +13,19 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
+import uz.uat.mro.apps.model.activity.entity.Project;
+import uz.uat.mro.apps.utils.Keys;
+import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.activity.views.MaintenancecardsView;
+import uz.uat.mro.apps.views.activity.views.MaterialListView;
 import uz.uat.mro.apps.views.activity.views.ProjectView;
 
 public class ProjectLayout extends AppLayout {
     private H2 viewTitle;
+    private Project project;
 
     public ProjectLayout() {
+        this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -45,15 +52,11 @@ public class ProjectLayout extends AppLayout {
     }
 
     private AppNav createNavigation() {
-        // AppNav is not yet an official component.
-        // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
-
         nav.addItem(new AppNavItem("Контракт", ProjectView.class, "la la-file"));
         nav.addItem(new AppNavItem("LOV Рабочие карты", MaintenancecardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Materials List", ProjectView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Materials List", MaterialListView.class, "la la-file"));
         nav.addItem(new AppNavItem("План работ", ProjectView.class, "la la-file"));
-
         return nav;
     }
 
@@ -71,7 +74,7 @@ public class ProjectLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value();
+        return title == null ? "" : title.value() + " " + project.getAircraft().getRegNumber();
     }
 
 }

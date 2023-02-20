@@ -3,7 +3,10 @@ package uz.uat.mro.apps.model.activity.service;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+
+import com.arangodb.springframework.annotation.Query;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
@@ -58,6 +61,19 @@ public class ProjectService {
     }
 
     public List<MaintenanceCard> findAllCards(String project) {
+        return StreamSupport.stream(cardRepo.findCardsByProject(project).spliterator(), false).toList();
+    }
+
+    // @Query(value = "for i in maintenance_cards filter i.project == @project ")
+    public List<MaintenanceCard> findRoutineCards(String project) {
+        return StreamSupport.stream(cardRepo.findCardsByProject(project).spliterator(), false).toList();
+    }
+
+    public List<MaintenanceCard> findHtCards(String project) {
+        return StreamSupport.stream(cardRepo.findCardsByProject(project).spliterator(), false).toList();
+    }
+
+    public List<MaintenanceCard> findEoCards(String project) {
         return StreamSupport.stream(cardRepo.findCardsByProject(project).spliterator(), false).toList();
     }
 
