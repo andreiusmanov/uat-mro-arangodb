@@ -9,7 +9,7 @@ import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
 
 public interface MaintenanceCardsRepository extends ArangoRepository<MaintenanceCard, String> {
 
-    @Query(value = "for i in maintenance_cards filter i.project ==@project")
+    @Query(value = "for i in maintenance_cards filter i.project == @project return i")
     public Iterable<MaintenanceCard> findCardsByProject(@Param("project") String project);
 
 }

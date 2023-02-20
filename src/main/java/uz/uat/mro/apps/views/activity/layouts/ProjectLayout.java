@@ -12,6 +12,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
+import uz.uat.mro.apps.views.activity.views.MaintenancecardsView;
 import uz.uat.mro.apps.views.activity.views.ProjectView;
 
 public class ProjectLayout extends AppLayout {
@@ -49,7 +50,7 @@ public class ProjectLayout extends AppLayout {
         AppNav nav = new AppNav();
 
         nav.addItem(new AppNavItem("Контракт", ProjectView.class, "la la-file"));
-        nav.addItem(new AppNavItem("LOV Рабочие карты", ProjectView.class, "la la-file"));
+        nav.addItem(new AppNavItem("LOV Рабочие карты", MaintenancecardsView.class, "la la-file"));
         nav.addItem(new AppNavItem("Materials List", ProjectView.class, "la la-file"));
         nav.addItem(new AppNavItem("План работ", ProjectView.class, "la la-file"));
 

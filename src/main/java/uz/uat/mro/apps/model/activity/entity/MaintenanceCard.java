@@ -18,13 +18,12 @@ public class MaintenanceCard {
     private String arangoId;
     private String number;
     @Ref
-    private TaskGroup taskGroup;
-    @Ref
     private MaintenanceArea maintenanceArea;
     @Ref
     private Project project;
     @Ref
     private MpdTaskcard taskcard;
+    private String taskcardString;
     private String mpReference;
     private String description;
     private String remarks;
