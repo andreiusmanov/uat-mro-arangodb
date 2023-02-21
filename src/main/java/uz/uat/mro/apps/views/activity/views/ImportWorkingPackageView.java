@@ -7,7 +7,7 @@ import com.vaadin.flow.router.Route;
 import uz.uat.mro.apps.views.activity.layouts.ProjectLayout;
 
 @PageTitle(value = "Import Working Package")
-@Route(value = "project/working-pckage", layout = ProjectLayout.class)
+@Route(value = "project/working-package", layout = ProjectLayout.class)
 public class ImportWorkingPackageView extends VerticalLayout {
 
 }
