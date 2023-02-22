@@ -11,5 +11,8 @@ public interface MaintenanceCardsRepository extends ArangoRepository<Maintenance
 
     @Query(value = "for i in maintenance_cards filter i.project == @project return i")
     public Iterable<MaintenanceCard> findCardsByProject(@Param("project") String project);
+    
+    @Query(value = "for i in maintenance_cards filter i.project == @project && i. return i")
+    public Iterable<MaintenanceCard> findCardsByType(@Param("project") String project, @Param("type") String type);
 
 }

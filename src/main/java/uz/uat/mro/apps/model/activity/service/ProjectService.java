@@ -64,7 +64,6 @@ public class ProjectService {
         return StreamSupport.stream(cardRepo.findCardsByProject(project).spliterator(), false).toList();
     }
 
-    // @Query(value = "for i in maintenance_cards filter i.project == @project ")
     public List<MaintenanceCard> findRoutineCards(String project) {
         return StreamSupport.stream(cardRepo.findCardsByProject(project).spliterator(), false).toList();
     }
