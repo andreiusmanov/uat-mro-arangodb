@@ -13,9 +13,14 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
+import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.utils.Keys;
+import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.view.AccessesView;
 import uz.uat.mro.apps.views.library.view.MpdImportView;
+import uz.uat.mro.apps.views.library.view.MpdItemsView;
 import uz.uat.mro.apps.views.library.view.MpdMhsView;
+import uz.uat.mro.apps.views.library.view.MpdTaskcardsView;
 import uz.uat.mro.apps.views.library.view.MpdView;
 import uz.uat.mro.apps.views.library.view.SubzonesView;
 import uz.uat.mro.apps.views.library.view.ZonesView;
@@ -60,6 +65,8 @@ public class MpdLayout extends AppLayout {
         nav.addItem(new AppNavItem("Субзоны ВС", SubzonesView.class, VaadinIcon.FILE.create()));
         nav.addItem(new AppNavItem("Доступы ВС", AccessesView.class, VaadinIcon.FILE.create()));
         nav.addItem(new AppNavItem("Man-Hours", MpdMhsView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("MPD Items", MpdItemsView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("MPD Taskcards", MpdTaskcardsView.class, VaadinIcon.FILE.create()));
 
         return nav;
     }
@@ -78,7 +85,8 @@ public class MpdLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value();
+        MpdEdition edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
+        return title == null ? "" : title.value() + " " + edition.getNumber() + " dd. " + edition.getDate();
     }
 
 }

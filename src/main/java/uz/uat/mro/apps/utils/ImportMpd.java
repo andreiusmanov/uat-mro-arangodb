@@ -143,7 +143,7 @@ public class ImportMpd {
                 MpdAccess access2 = new MpdAccess(model);
                 access2.setSynthetic(true);
                 access2.setSubzone(subzonesMap.get(array[0].substring(0, 3)));
-                access2.setNumber(array[0]);
+                access2.setNumber(String.valueOf(array[0]));
                 access2.setOpen(new BigDecimal(array[1].isBlank() ? "0.0" : array[1]));
                 access2.setClose(new BigDecimal(array[2].isBlank() ? "0.0" : array[2]));
                 access2.setName(array[3]);
@@ -295,15 +295,15 @@ public class ImportMpd {
             }
         }
         item.setNumber(array[0]);
-        item.setAmmReference(array[1].replace("\n", ",").trim());
+        item.setAmmReference(array[1].replace("\n", ", ").trim());
         item.setCat(array[2]);
         item.setTask(array[3]);
-        item.setThreshold(array[4].replace("\n", ",").trim());
-        item.setRepeat(array[5].replace("\n", ",").trim());
-        item.setZone(array[6].replace("\n", ",").trim());
-        item.setAccess(array[7].replace("\n", ",").trim());
-        item.setApl(array[8].replace("\n", ",").trim());
-        item.setEngine(array[9].replace("\n", ",").trim());
+        item.setThreshold(array[4].replace("\n", ", ").trim());
+        item.setRepeat(array[5].replace("\n", ", ").trim());
+        item.setZone(array[6].replace("\n", ", ").trim());
+        item.setAccess(array[7].replace("\n", ", ").trim());
+        item.setApl(array[8].replace("\n", ", ").trim());
+        item.setEngine(array[9].replace("\n", ", ").trim());
         item.setMh(array[10]);
         item.setDescription(array[11]);
         return item;
@@ -318,14 +318,14 @@ public class ImportMpd {
             array[arrayIndex] = parseCell(cell);
         }
         item.setNumber(array[0]);
-        item.setAmmReference(array[1].replace("\n", ",").trim());
+        item.setAmmReference(array[1].replace("\n", ", ").trim());
         item.setPgm(array[2]);
-        item.setZone(array[3].replace("\n", ",").trim());
-        item.setAccess(array[4].replace("\n", ",").trim());
-        item.setThreshold(array[5].replace("\n", ",").trim());
-        item.setRepeat(array[6].replace("\n", ",").trim());
-        item.setApl(array[7].replace("\n", ",").trim());
-        item.setEngine(array[8].replace("\n", ",").trim());
+        item.setZone(array[3].replace("\n", ", ").trim());
+        item.setAccess(array[4].replace("\n", ", ").trim());
+        item.setThreshold(array[5].replace("\n", ", ").trim());
+        item.setRepeat(array[6].replace("\n", ", ").trim());
+        item.setApl(array[7].replace("\n", ", ").trim());
+        item.setEngine(array[8].replace("\n", ", ").trim());
         item.setMh(array[9]);
         item.setDescription(array[10]);
         return item;
@@ -342,13 +342,13 @@ public class ImportMpd {
             array[arrayIndex] = parseCell(cell);
         }
         item.setNumber(array[0]);
-        item.setAmmReference(array[1].replace("\n", ",").trim());
-        item.setZone(array[2].replace("\n", ",").trim());
-        item.setAccess(array[3].replace("\n", ",").trim());
-        item.setThreshold(array[4].replace("\n", ",").trim());
-        item.setRepeat(array[5].replace("\n", ",").trim());
-        item.setApl(array[6].replace("\n", ",").trim());
-        item.setEngine(array[7].replace("\n", ",").trim());
+        item.setAmmReference(array[1].replace("\n", ", ").trim());
+        item.setZone(array[2].replace("\n", ", ").trim());
+        item.setAccess(array[3].replace("\n", ", ").trim());
+        item.setThreshold(array[4].replace("\n", ", ").trim());
+        item.setRepeat(array[5].replace("\n", ", ").trim());
+        item.setApl(array[6].replace("\n", ", ").trim());
+        item.setEngine(array[7].replace("\n", ", ").trim());
         item.setMh(array[8]);
         item.setDescription(array[9]);
         return item;
@@ -367,8 +367,8 @@ public class ImportMpd {
         card.setNumber(array[0]);
         card.setMpdItem(items.get(array[1]));
         card.setMpdItemString(array[1]);
-        card.setMrbItem(array[2].replace("\n", ",").trim());
-        card.setRelatedTasksString(array[3].replace("\n", ",").trim());
+        card.setMrbItem(array[2].replace("\n", ", ").trim());
+        card.setRelatedTasksString(array[3].replace("\n", ", ").trim());
         card.setTask(array[4]);
         card.setTitle(array[5]);
         card.setEdition(edition);
@@ -404,7 +404,7 @@ public class ImportMpd {
         CellType cellType = cell.getCellType();
         switch (cellType) {
             case BLANK, STRING: {
-                return cell.getStringCellValue().replaceAll("\n", " ");
+                return cell.getStringCellValue().replaceAll("\n", ", ");
             }
             case NUMERIC: {
                 return String.valueOf(cell.getNumericCellValue());

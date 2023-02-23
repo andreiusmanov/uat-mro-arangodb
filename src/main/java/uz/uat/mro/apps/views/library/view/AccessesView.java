@@ -2,9 +2,7 @@ package uz.uat.mro.apps.views.library.view;
 
 import org.vaadin.crudui.crud.impl.GridCrud;
 
-import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.data.provider.ListDataView;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
