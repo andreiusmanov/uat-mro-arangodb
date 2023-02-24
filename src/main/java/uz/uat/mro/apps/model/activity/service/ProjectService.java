@@ -18,6 +18,8 @@ import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.aircraft.repository.AircraftsRepository;
 import uz.uat.mro.apps.model.common.entity.Firm;
 import uz.uat.mro.apps.model.common.repository.FirmsRepository;
+import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.model.library.repository.MpdEditionsRepository;
 
 @AllArgsConstructor
 @Service
@@ -27,6 +29,7 @@ public class ProjectService {
     private FirmsRepository firmRepo;
     private AircraftsRepository acRepo;
     private MaintenanceCardsRepository cardRepo;
+    private MpdEditionsRepository editionRepo;
 
     public Project save(Project project) {
         return projectRepo.save(project);
@@ -74,6 +77,10 @@ public class ProjectService {
 
     public List<MaintenanceCard> findEoCards(String project) {
         return StreamSupport.stream(cardRepo.findCardsByProject(project).spliterator(), false).toList();
+    }
+
+    public List<MpdEdition> findAllEditions() {
+        return StreamSupport.stream(editionRepo.findAll().spliterator(), false).toList();
     }
 
 }

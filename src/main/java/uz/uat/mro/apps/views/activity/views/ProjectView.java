@@ -26,6 +26,7 @@ public class ProjectView extends VerticalLayout {
     private TextField startDate;
     private TextField endDate;
     private TextField maintenanceString;
+    private TextField edition;
     private Project project;
 
     ProjectView() {
@@ -62,7 +63,10 @@ public class ProjectView extends VerticalLayout {
         maintenanceString = new TextField("Виды сервиса");
         maintenanceString.setValue(project.getMaintenanceString());
         maintenanceString.setReadOnly(true);
+        edition = new TextField("MPD version");
+        edition.setValue(project.getEdition().getNumber() + " " + project.getEdition().getDate());
+        edition.setReadOnly(true);
 
-        form.add(number, date, customer, supplier, aircraft, startDate, endDate, maintenanceString);
+        form.add(number, date, customer, supplier, aircraft, edition, startDate, endDate, maintenanceString);
     }
 }

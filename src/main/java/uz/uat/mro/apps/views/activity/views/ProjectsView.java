@@ -16,6 +16,7 @@ import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.service.ProjectService;
 import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.common.layouts.InitialLayout;
@@ -43,7 +44,7 @@ public class ProjectsView extends VerticalLayout {
             dataItem.setEnabled(!grid.getGrid().getSelectedItems().isEmpty());
         });
 
-        grid.getGrid().setColumns("number", "date", "customer.shortName", "supplier.shortName", "aircraft.regNumber",
+        grid.getGrid().setColumns("number", "date", "customer.shortName", "supplier.shortName", "aircraft.regNumber", 
                 "maintenanceString");
         grid.getGrid().getColumnByKey("number").setHeader("Номер");
         grid.getGrid().getColumnByKey("date").setHeader("Дата");
@@ -58,9 +59,9 @@ public class ProjectsView extends VerticalLayout {
         grid.setFindAllOperation(service::findAll);
 
         CrudFormFactory<Project> factory = grid.getCrudFormFactory();
-        factory.setVisibleProperties("number", "date", "customer", "supplier", "aircraft", "startDate", "endDate",
+        factory.setVisibleProperties("number", "date", "customer", "supplier", "aircraft", "edition", "startDate", "endDate",
                 "maintenanceString");
-        factory.setFieldCaptions("Номер", "Дата", "Заказчик", "Исполнитель", "ВС номер", "Дата начала",
+        factory.setFieldCaptions("Номер", "Дата", "Заказчик", "Исполнитель", "ВС номер", "Издание MPD", "Дата начала",
                 "Дата окончания", "Виды работ");
 
         factory.setFieldProvider("customer", user -> {
@@ -81,6 +82,13 @@ public class ProjectsView extends VerticalLayout {
             aircrafts.setItems(service.findAllAircrafts());
             aircrafts.setItemLabelGenerator(e -> e.getRegNumber());
             return aircrafts;
+        });
+        
+        factory.setFieldProvider("edition", user -> {
+            ComboBox<MpdEdition> editions = new ComboBox<>();
+            editions.setItems(service.findAllEditions());
+            editions.setItemLabelGenerator(e -> e.getNumber() + " "  + e.getDate());
+            return editions;
         });
 
     }

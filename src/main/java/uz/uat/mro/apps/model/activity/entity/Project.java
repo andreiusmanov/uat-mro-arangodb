@@ -16,6 +16,7 @@ import uz.uat.mro.apps.model.activity.edge.MaintenanceType;
 import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.common.entity.Firm;
 import uz.uat.mro.apps.model.common.entity.Maintenance;
+import uz.uat.mro.apps.model.library.entity.MpdEdition;
 
 @Data
 @Document("projects")
@@ -24,6 +25,8 @@ public class Project {
     private String id;
     @ArangoId
     private String arangoId;
+    @Ref
+    private MpdEdition edition;
     private String number;
     private LocalDate date;
     private LocalDate startDate;
