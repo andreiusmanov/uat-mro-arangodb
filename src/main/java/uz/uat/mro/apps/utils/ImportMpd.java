@@ -386,13 +386,12 @@ public class ImportMpd {
         List<MpdMh> mhs = new ArrayList<>(0);
 
         set.stream().forEach(strings -> {
-            System.out.println(strings[0]);
             MpdMh mh = new MpdMh();
             mh.setEdition(edition);
             mh.setMpdItem(items.get(strings[0]));
             mh.setMpdItemString(strings[0]);
-            mh.setOpenMh(strings[1]);
-            mh.setCloseMh(strings[2]);
+            mh.setAccessMh(strings[1]);
+            mh.setTaskcardMh(strings[2]);
             mh.setTotalMh(strings[3]);
             mh.setAccessString(strings[4]);
             mhs.add(mh);

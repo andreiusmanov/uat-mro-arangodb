@@ -17,6 +17,7 @@ import uz.uat.mro.apps.views.activity.layouts.ProjectLayout;
 @PageTitle(value = "Проект")
 @Route(value = "project", layout = ProjectLayout.class)
 public class ProjectView extends VerticalLayout {
+
     private FormLayout form;
     private TextField number;
     private TextField date;
@@ -30,7 +31,6 @@ public class ProjectView extends VerticalLayout {
     private Project project;
 
     ProjectView() {
-
         this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         form();
         add(form);

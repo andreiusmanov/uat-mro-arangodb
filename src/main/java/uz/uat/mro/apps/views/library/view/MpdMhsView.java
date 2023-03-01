@@ -31,7 +31,12 @@ public class MpdMhsView extends VerticalLayout {
 
     private void grid() {
         this.grid = new GridCrud<>(MpdMh.class);
-        this.grid.getGrid().setColumns("mpdItem.number", "openMh", "closeMh", "totalMh", "accessString");
+        this.grid.getGrid().setColumns("mpdItemString", "accessMh", "taskcardMh", "totalMh", "accessString");
+        this.grid.getGrid().getColumnByKey("mpdItemString").setHeader("MPD Item");
+        this.grid.getGrid().getColumnByKey("accessMh").setHeader("Access MHs");
+        this.grid.getGrid().getColumnByKey("taskcardMh").setHeader("Taskcard MHs");
+        this.grid.getGrid().getColumnByKey("totalMh").setHeader("Total MHs");
+        this.grid.getGrid().getColumnByKey("accessString").setHeader("Accesses");
 
         this.grid.setFindAllOperation(() -> service.findMhByEdition(edition.getArangoId()));
 

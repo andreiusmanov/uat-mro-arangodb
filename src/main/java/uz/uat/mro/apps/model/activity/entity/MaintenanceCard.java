@@ -22,10 +22,10 @@ public class MaintenanceCard {
     @Ref
     private Project project;
     @Ref
-    private MpdTaskcard taskcard;
-    private String taskcardString;
+    private MpdTaskcard taskcard; // linked reference from mpd taskcards
+    private String taskcardString; // TASKCARD NUMBER FROM DOC
     private String mpReference;
-    private String description;
-    private String remarks;
+    private String description; // description
+    private String remarks; // all other information
 
 }

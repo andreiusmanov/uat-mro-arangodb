@@ -25,7 +25,7 @@ public class Project {
     private String id;
     @ArangoId
     private String arangoId;
-    @Ref
+    @Ref(lazy = false)
     private MpdEdition edition;
     private String number;
     private LocalDate date;
@@ -38,8 +38,7 @@ public class Project {
     @Ref(lazy = false)
     private Aircraft aircraft;
     private String maintenanceString;
-    @Relations(edges = {MaintenanceType.class}, lazy = false, direction = Direction.OUTBOUND)
+    @Relations(edges = { MaintenanceType.class }, lazy = false, direction = Direction.OUTBOUND)
     private List<Maintenance> maintenance;
-
 
 }

@@ -25,8 +25,8 @@ public class MpdMh {
     @Ref(lazy = false)
     private MpdItem mpdItem;
     private String mpdItemString;
-    private String openMh;
-    private String closeMh;
+    private String accessMh;
+    private String taskcardMh;
     private String totalMh;
     private String accessString;
     @Relations(edges = RelatedAccess.class, direction = Direction.OUTBOUND, lazy = false)
