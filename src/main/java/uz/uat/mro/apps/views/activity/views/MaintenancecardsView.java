@@ -2,7 +2,9 @@ package uz.uat.mro.apps.views.activity.views;
 
 import org.vaadin.crudui.crud.impl.GridCrud;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -23,7 +25,9 @@ public class MaintenancecardsView extends VerticalLayout {
     private ProjectService service;
     private Project project;
     private GridCrud<MaintenanceCard> grid;
+    private Button downloadButton;
     private MenuBar menu;
+
     private MenuItem allMc;
     private MenuItem routineMc;
     private MenuItem htMc;
@@ -50,6 +54,13 @@ public class MaintenancecardsView extends VerticalLayout {
         grid.getGrid().getColumnByKey("description").setHeader("Description");
         grid.getGrid().getColumnByKey("remarks").setHeader("Remarks");
 
+        downloadButton = new Button(VaadinIcon.DOWNLOAD.create());
+        downloadButton.addClickListener(click -> {
+            ImportDialog dialog = new ImportDialog();
+            dialog.open();
+            dialog.setCloseOnEsc(true);
+        });
+        grid.getCrudLayout().addToolbarComponent(downloadButton);
         grid.getCrudLayout().addToolbarComponent(menu);
     }
 
