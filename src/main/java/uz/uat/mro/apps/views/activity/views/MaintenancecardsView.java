@@ -13,6 +13,7 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.activity.entity.Project;
+import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
 import uz.uat.mro.apps.model.activity.service.ProjectService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
@@ -22,7 +23,7 @@ import uz.uat.mro.apps.views.activity.layouts.ProjectLayout;
 @Route(value = "activity/maintenancecards", layout = ProjectLayout.class)
 public class MaintenancecardsView extends VerticalLayout {
 
-    private ProjectService service;
+    private MaintenanceCardsService service;
     private Project project;
     private GridCrud<MaintenanceCard> grid;
     private Button downloadButton;
@@ -33,7 +34,7 @@ public class MaintenancecardsView extends VerticalLayout {
     private MenuItem htMc;
     private MenuItem eoMc;
 
-    public MaintenancecardsView(ProjectService service) {
+    public MaintenancecardsView(MaintenanceCardsService service) {
         this.service = service;
         this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         menu();
@@ -43,10 +44,10 @@ public class MaintenancecardsView extends VerticalLayout {
 
     private void grid() {
         this.grid = new GridCrud<>(MaintenanceCard.class);
-        grid.setAddOperation(service::saveCard);
-        grid.setUpdateOperation(service::saveCard);
-        grid.setDeleteOperation(service::deleteCard);
-        grid.setFindAllOperation(() -> service.findAllCards(project.getArangoId()));
+        grid.setAddOperation(service::save);
+        grid.setUpdateOperation(service::save);
+        grid.setDeleteOperation(service::delete);
+        grid.setFindAllOperation(() -> service.findAllByProject(project.getArangoId()));
         grid.getGrid().setColumns("number", "mpReference", "taskcardString", "description", "remarks");
         grid.getGrid().getColumnByKey("number").setHeader("Number");
         grid.getGrid().getColumnByKey("mpReference").setHeader("MP Reference");
@@ -56,7 +57,7 @@ public class MaintenancecardsView extends VerticalLayout {
 
         downloadButton = new Button(VaadinIcon.DOWNLOAD.create());
         downloadButton.addClickListener(click -> {
-            ImportDialog dialog = new ImportDialog();
+            ImportDialog dialog = new ImportDialog(service);
             dialog.open();
             dialog.setCloseOnEsc(true);
         });
@@ -73,19 +74,20 @@ public class MaintenancecardsView extends VerticalLayout {
         eoMc = menu.addItem("EO MC");
 
         allMc.addClickListener(e -> {
-            grid.setFindAllOperation(() -> service.findAllCards(project.getArangoId()));
+            grid.setFindAllOperation(() -> service.findAllByProject(project.getArangoId()));
 
         });
 
-        routineMc.addClickListener(e -> {
-            grid.setFindAllOperation(() -> service.findRoutineCards(project.getArangoId()));
-        });
-        htMc.addClickListener(e -> {
-            grid.setFindAllOperation(() -> service.findHtCards(project.getArangoId()));
-        });
-        eoMc.addClickListener(e -> {
-            grid.setFindAllOperation(() -> service.findEoCards(project.getArangoId()));
-        });
+        // routineMc.addClickListener(e -> {
+        // grid.setFindAllOperation(() ->
+        // service.findRoutineCards(project.getArangoId()));
+        // });
+        // htMc.addClickListener(e -> {
+        // grid.setFindAllOperation(() -> service.findHtCards(project.getArangoId()));
+        // });
+        // eoMc.addClickListener(e -> {
+        // grid.setFindAllOperation(() -> service.findEoCards(project.getArangoId()));
+        // });
     }
 
 }

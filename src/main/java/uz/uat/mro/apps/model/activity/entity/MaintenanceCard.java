@@ -16,7 +16,10 @@ public class MaintenanceCard {
     private String id;
     @ArangoId
     private String arangoId;
-    private String number;
+    private String sequence; // sequence number in resource file
+    private String number; // maintenance card number
+    @Ref
+    private TaskGroup taskGroup;
     @Ref
     private MaintenanceArea maintenanceArea;
     @Ref
@@ -27,5 +30,6 @@ public class MaintenanceCard {
     private String mpReference;
     private String description; // description
     private String remarks; // all other information
+    private Boolean valid; // indication of cancelled/active card
 
 }
