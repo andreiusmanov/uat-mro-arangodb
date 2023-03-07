@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
@@ -86,7 +88,7 @@ public class ImportMC {
         return null;
     }
 
-    public static void importCards(MaintenanceCardsService service, String directoryName, Project project) {
+    public static void importCards(MaintenanceCardsService service, String directoryName, Project project) throws IOException {
         if (directoryName.isBlank()) {
             return;
         }
