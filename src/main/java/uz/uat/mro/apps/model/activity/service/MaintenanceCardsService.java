@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
@@ -15,6 +16,7 @@ import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 
 @AllArgsConstructor
+@Service
 public class MaintenanceCardsService {
     private MaintenanceCardsRepository cardsRepo;
     private TaskGroupsRepository taskgroupRepo;
@@ -63,13 +65,17 @@ public class MaintenanceCardsService {
         cardsRepo.delete(card);
     }
 
-/**
- * find cards for the project
- * @param project
- * @return
- */
+    /**
+     * find cards for the project
+     * 
+     * @param project
+     * @return
+     */
     public List<MaintenanceCard> findAllByProject(String project) {
         return StreamSupport.stream(cardsRepo.findCardsByProject(project).spliterator(), false).toList();
     }
 
+    public List<MaintenanceCard> saveAll(List<MaintenanceCard> cards) {
+        return StreamSupport.stream(cardsRepo.saveAll(cards).spliterator(), false).toList();
+    }
 }
