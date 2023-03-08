@@ -11,7 +11,7 @@
     "@vaadin-component-factory/vcf-enhanced-crud": "1.6.0",
     "@vaadin-component-factory/vcf-nav": "1.0.6",
     "@vaadin/accordion": "23.3.4",
-    "@vaadin/app-layout": "23.3.4",
+    "@vaadin/app-layout": "23.3.7",
     "@vaadin/avatar": "23.3.4",
     "@vaadin/avatar-group": "23.3.4",
     "@vaadin/bundles": "23.3.5",
