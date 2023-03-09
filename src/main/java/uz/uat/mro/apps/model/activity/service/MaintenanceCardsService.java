@@ -74,6 +74,15 @@ public class MaintenanceCardsService {
     public List<MaintenanceCard> findAllByProject(String project) {
         return StreamSupport.stream(cardsRepo.findCardsByProject(project).spliterator(), false).toList();
     }
+    public List<MaintenanceCard> findRoutineByProject(String project) {
+        return StreamSupport.stream(cardsRepo.findRoutineCardsByProject(project).spliterator(), false).toList();
+    }
+    public List<MaintenanceCard> findHtByProject(String project) {
+        return StreamSupport.stream(cardsRepo.findHardtimeCardsByProject(project).spliterator(), false).toList();
+    }
+    public List<MaintenanceCard> findEoByProject(String project) {
+        return StreamSupport.stream(cardsRepo.findEoCardsByProject(project).spliterator(), false).toList();
+    }
 
     public List<MaintenanceCard> saveAll(List<MaintenanceCard> cards) {
         return StreamSupport.stream(cardsRepo.saveAll(cards).spliterator(), false).toList();

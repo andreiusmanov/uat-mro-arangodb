@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDDestination;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDPageDestination;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDDocumentOutline;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
@@ -52,7 +57,6 @@ public class ImportMC {
             m.setDescription(card[3]);
             m.setRemarks(card[4]);
             m.setValid(true);
-            System.out.println(m.getNumber());
             if (m.getTaskGroup().getId().equals("ht") || m.getTaskGroup().getId().equals("routine")) {
                 m.setTaskcard(service.findTaskcardByNumberAndEdition(card[2], edition));
             }
@@ -88,7 +92,8 @@ public class ImportMC {
         return null;
     }
 
-    public static void importCards(MaintenanceCardsService service, String directoryName, Project project) throws IOException {
+    public static void importCards(MaintenanceCardsService service, String directoryName, Project project)
+            throws IOException {
         if (directoryName.isBlank()) {
             return;
         }
@@ -100,10 +105,24 @@ public class ImportMC {
                     return name.toLowerCase().endsWith(".pdf");
                 }
             };
-            String[] file = dirName.list(filter);
+            String[] files = dirName.list(filter);
 
-            PDDocument document = PDDocument.load(new File("file_path.pdf"));
+            for (String file : files) {
+                PDDocument document = PDDocument.load(new File(directoryName + "/" + file));
+                PDDocumentOutline outline = document.getDocumentCatalog().getDocumentOutline();
 
+                if (outline != null) {
+                    PDOutlineItem item = outline.getFirstChild();
+                    while (item != null) {
+                        PDPage page = item.findDestinationPage(document);
+                        System.out.println("Title: " + item.getTitle() + ", Page number: " + document.getPages().indexOf(page));
+                        item = item.getNextSibling();
+                    }
+                }
+
+                document.close();
+
+            }
         }
 
     }

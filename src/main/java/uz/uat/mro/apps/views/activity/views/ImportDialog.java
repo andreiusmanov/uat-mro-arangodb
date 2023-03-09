@@ -18,6 +18,7 @@ public class ImportDialog extends Dialog {
     private MaintenanceCardsService service;
     private FormLayout form;
     private TextField fileName;
+    private TextField fileMpd;
     private Button load;
     private Project project;
 
@@ -31,17 +32,20 @@ public class ImportDialog extends Dialog {
 
     private void form() {
         this.form = new FormLayout();
-        this.fileName = new TextField("Файл");
+        this.fileName = new TextField("Файл LOV Maintenance Cards");
+        this.fileMpd = new TextField("Файл MPD Task Cards");
         this.load = new Button("Загрузить");
-        form.add(fileName, load);
+        form.add(fileName, fileMpd, load);
     }
 
     private void load() {
         load.addClickListener(click -> {
             try {
                 ImportMC.importMaintenanceCards(service, fileName.getValue(), project);
+                ImportMC.importCards(service, fileMpd.getValue(), project);
             } catch (IOException | CsvException e) {
                 e.printStackTrace();
             }
-    });
-}}
+        });
+    }
+}
