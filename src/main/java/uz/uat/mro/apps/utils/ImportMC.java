@@ -9,12 +9,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.StreamSupport;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDDocumentOutline;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
+import org.apache.pdfbox.text.PDFTextStripper;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
@@ -59,6 +62,7 @@ public class ImportMC {
             if (m.getTaskGroup().getId().equals("ht") || m.getTaskGroup().getId().equals("routine")) {
                 m.setTaskcard(service.findTaskcardByNumberAndEdition(card[2], edition));
             }
+            m.setTaskcardString(m.getTaskcard().getNumber());
             m.setProject(project);
             list.add(m);
         });
@@ -115,14 +119,33 @@ public class ImportMC {
 
                     for (PDOutlineItem item : itemsMain) {
                         PDPage page = item.findDestinationPage(document);
+                  
                         System.out.println(
                                 "Title: " + item.getTitle() + ", Page number: " + document.getPages().indexOf(page));
                         List<PDOutlineItem> items = getItems(item);
                         for (PDOutlineItem itemSec : items) {
                             PDPage pageSec = itemSec.findDestinationPage(document);
-                            System.out.println(
-                                    "Title: " + itemSec.getTitle() + ", Page number: "
-                                            + document.getPages().indexOf(pageSec));
+                            int pageNumber = document.getPages().indexOf(pageSec);
+                            Pattern pattern = Pattern.compile("\\d{2}-\\d{3}-\\d{2}-\\d{2}");
+                            String input = itemSec.getTitle();
+                            Matcher matcher = pattern.matcher(input);
+                            boolean isMatch = matcher.find();
+
+                            if (isMatch) {
+                                PDFTextStripper stripper = new PDFTextStripper();
+                                stripper.setStartPage(pageNumber);
+                                stripper.setEndPage(pageNumber);
+                                stripper.setSortByPosition(true);
+                                System.out.println(stripper.getText(document));
+
+                                MaintenanceCard mc = service.findMaintenanceCardByNumber(matcher.group(1), project)
+                                        .get();
+
+                            }
+
+                            // System.out.println(
+                            //         "Title: " + itemSec.getTitle() + ", Page number: "
+                            //                 + document.getPages().indexOf(pageSec));
                         }
                     }
 

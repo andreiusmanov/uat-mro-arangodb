@@ -1,6 +1,7 @@
 package uz.uat.mro.apps.model.activity.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Example;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
+import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.TaskGroupsRepository;
@@ -74,12 +76,15 @@ public class MaintenanceCardsService {
     public List<MaintenanceCard> findAllByProject(String project) {
         return StreamSupport.stream(cardsRepo.findCardsByProject(project).spliterator(), false).toList();
     }
+
     public List<MaintenanceCard> findRoutineByProject(String project) {
         return StreamSupport.stream(cardsRepo.findRoutineCardsByProject(project).spliterator(), false).toList();
     }
+
     public List<MaintenanceCard> findHtByProject(String project) {
         return StreamSupport.stream(cardsRepo.findHardtimeCardsByProject(project).spliterator(), false).toList();
     }
+
     public List<MaintenanceCard> findEoByProject(String project) {
         return StreamSupport.stream(cardsRepo.findEoCardsByProject(project).spliterator(), false).toList();
     }
@@ -87,4 +92,11 @@ public class MaintenanceCardsService {
     public List<MaintenanceCard> saveAll(List<MaintenanceCard> cards) {
         return StreamSupport.stream(cardsRepo.saveAll(cards).spliterator(), false).toList();
     }
+
+    public Optional<MaintenanceCard> findMaintenanceCardByNumber(String number, Project project) {
+        MaintenanceCard mc = new MaintenanceCard();
+        mc.setProject(project);
+        mc.setTaskcardString(number);
+        return cardsRepo.findOne(Example.of(mc));
+    };
 }

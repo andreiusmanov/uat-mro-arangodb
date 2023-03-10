@@ -18,18 +18,19 @@ public class MaintenanceCard {
     private String arangoId;
     private String sequence; // sequence number in resource file
     private String number; // maintenance card number
-    @Ref
+    @Ref(lazy = false)
     private TaskGroup taskGroup;
-    @Ref
+    @Ref(lazy = false)
     private MaintenanceArea maintenanceArea;
-    @Ref
+    @Ref(lazy = false)
     private Project project;
-    @Ref
+    @Ref(lazy = false)
     private MpdTaskcard taskcard; // linked reference from mpd taskcards
     private String taskcardString; // TASKCARD NUMBER FROM DOC
     private String mpReference;
     private String description; // description
     private String remarks; // all other information
     private Boolean valid; // indication of cancelled/active card
+    private Mtc manifactirersTaskcard; // Mtc record
 
 }

@@ -1,5 +1,8 @@
 package uz.uat.mro.apps.model.activity.repository;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Example;
 import org.springframework.data.repository.query.Param;
 
 import com.arangodb.springframework.annotation.Query;
