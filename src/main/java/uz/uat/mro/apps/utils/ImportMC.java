@@ -9,11 +9,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDDestination;
-import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDPageDestination;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDDocumentOutline;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
 
@@ -112,10 +111,24 @@ public class ImportMC {
                 PDDocumentOutline outline = document.getDocumentCatalog().getDocumentOutline();
 
                 if (outline != null) {
+                    List<PDOutlineItem> itemsMain = getItems(outline);
+
+                    for (PDOutlineItem item : itemsMain) {
+                        PDPage page = item.findDestinationPage(document);
+                        System.out.println(
+                                "Title: " + item.getTitle() + ", Page number: " + document.getPages().indexOf(page));
+                        List<PDOutlineItem> items = getItems(item);
+                        for (PDOutlineItem itemSec : items) {
+                            PDPage pageSec = itemSec.findDestinationPage(document);
+                            System.out.println(
+                                    "Title: " + itemSec.getTitle() + ", Page number: "
+                                            + document.getPages().indexOf(pageSec));
+                        }
+                    }
+
                     PDOutlineItem item = outline.getFirstChild();
                     while (item != null) {
-                        PDPage page = item.findDestinationPage(document);
-                        System.out.println("Title: " + item.getTitle() + ", Page number: " + document.getPages().indexOf(page));
+
                         item = item.getNextSibling();
                     }
                 }
@@ -127,4 +140,11 @@ public class ImportMC {
 
     }
 
+    private static List<PDOutlineItem> getItems(PDOutlineItem parent) {
+        return StreamSupport.stream(parent.children().spliterator(), false).toList();
+    }
+
+    private static List<PDOutlineItem> getItems(PDDocumentOutline parent) {
+        return StreamSupport.stream(parent.children().spliterator(), false).toList();
+    }
 }
