@@ -96,15 +96,15 @@ public class MpdZonesService {
     }
 
     public List<MpdAccess> findAccessByZone(String zone) {
-        return accessesRepo.FindByZone(zone);
+        return accessesRepo.findByZone(zone);
     }
 
     public List<MpdAccess> findAccessBySubzone(String subzone) {
-        return accessesRepo.FindBySubzone(subzone);
+        return accessesRepo.findBySubzone(subzone);
     }
 
     public List<MpdAccess> findAllAccessByModel(String model) {
-        List<MpdAccess> findByModel = accessesRepo.FindByModel(model);
+        List<MpdAccess> findByModel = accessesRepo.findByModel(model);
         return findByModel;
     }
 

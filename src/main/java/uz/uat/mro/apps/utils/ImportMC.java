@@ -23,9 +23,11 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
+import uz.uat.mro.apps.model.activity.entity.MaintenanceTaskcard;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
+import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 
 public class ImportMC {
@@ -119,13 +121,13 @@ public class ImportMC {
 
                     for (PDOutlineItem item : itemsMain) {
                         PDPage page = item.findDestinationPage(document);
-                  
+
                         System.out.println(
                                 "Title: " + item.getTitle() + ", Page number: " + document.getPages().indexOf(page));
                         List<PDOutlineItem> items = getItems(item);
                         for (PDOutlineItem itemSec : items) {
                             PDPage pageSec = itemSec.findDestinationPage(document);
-                            int pageNumber = document.getPages().indexOf(pageSec);
+                            int pageNumber = document.getPages().indexOf(pageSec) + 1;
                             Pattern pattern = Pattern.compile("\\d{2}-\\d{3}-\\d{2}-\\d{2}");
                             String input = itemSec.getTitle();
                             Matcher matcher = pattern.matcher(input);
@@ -135,33 +137,53 @@ public class ImportMC {
                                 PDFTextStripper stripper = new PDFTextStripper();
                                 stripper.setStartPage(pageNumber);
                                 stripper.setEndPage(pageNumber);
-                                stripper.setSortByPosition(true);
-                                System.out.println(stripper.getText(document));
-
-                                MaintenanceCard mc = service.findMaintenanceCardByNumber(matcher.group(1), project)
-                                        .get();
-
+                                stripper.setSortByPosition(false);
+                                String input2 = stripper.getText(document).replaceAll("\n|\r", "_");
+                                Pattern pattern2 = Pattern
+                                        .compile("CARD NO._(.+)_DATE.+AREA_(.+)_VERSION.+SKILL_(.+)_AIRPLANE_");
+                                Matcher matcher2 = pattern2.matcher(input2);
+                                boolean isMatch2 = matcher2.find();
+                                if (isMatch2) {
+                                    String cardNo = matcher2.group(1).trim();
+                                    String area = matcher2.group(2).trim();
+                                    String skill = matcher2.group(3).trim();
+                                    System.out.println(cardNo);
+                                    List<MaintenanceCard> mcOptional = service.findMaintenanceCardByNumber(cardNo,
+                                            project);
+                                    if (!mcOptional.isEmpty()) {
+                                        for (MaintenanceCard c : mcOptional) {
+                                            MaintenanceTaskcard mtc = new MaintenanceTaskcard();
+                                            mtc.setProject(project);
+                                            mtc.setNumber(cardNo);
+                                            mtc.setWorkArea(area);
+                                            mtc.setSkill(skill);
+                                            c.setManifacturersTaskcard(mtc);
+                                            service.save(c);
+                                        }
+                                    }
+                                }
                             }
-
-                            // System.out.println(
-                            //         "Title: " + itemSec.getTitle() + ", Page number: "
-                            //                 + document.getPages().indexOf(pageSec));
                         }
                     }
-
-                    PDOutlineItem item = outline.getFirstChild();
-                    while (item != null) {
-
-                        item = item.getNextSibling();
-                    }
                 }
-
                 document.close();
 
             }
         }
 
     }
+
+public static void linkAccesses(MaintenanceCardsService service, Project project){
+    MpdEdition edition = project.getEdition();
+    List<MpdAccess> accesses = service.findByModel(edition.getModel().getArangoId());
+
+    for (MpdAccess access : accesses) {
+
+
+    }
+
+
+}
 
     private static List<PDOutlineItem> getItems(PDOutlineItem parent) {
         return StreamSupport.stream(parent.children().spliterator(), false).toList();

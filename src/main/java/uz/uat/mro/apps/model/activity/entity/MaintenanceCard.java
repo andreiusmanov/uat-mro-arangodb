@@ -31,6 +31,6 @@ public class MaintenanceCard {
     private String description; // description
     private String remarks; // all other information
     private Boolean valid; // indication of cancelled/active card
-    private Mtc manifactirersTaskcard; // Mtc record
+    private MaintenanceTaskcard manifacturersTaskcard; // Mtc record
 
 }

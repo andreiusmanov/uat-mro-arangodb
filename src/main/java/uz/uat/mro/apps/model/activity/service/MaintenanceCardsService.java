@@ -1,11 +1,12 @@
 package uz.uat.mro.apps.model.activity.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+
+import com.arangodb.springframework.annotation.Query;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
@@ -13,8 +14,10 @@ import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.TaskGroupsRepository;
+import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
+import uz.uat.mro.apps.model.library.repository.MpdAccessesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 
 @AllArgsConstructor
@@ -23,6 +26,7 @@ public class MaintenanceCardsService {
     private MaintenanceCardsRepository cardsRepo;
     private TaskGroupsRepository taskgroupRepo;
     private MpdTaskcardsRepository taskcardsRepo;
+    private MpdAccessesRepository accessesRepo;
 
     /**
      * collect task groups (eo, routine, ht)
@@ -93,10 +97,15 @@ public class MaintenanceCardsService {
         return StreamSupport.stream(cardsRepo.saveAll(cards).spliterator(), false).toList();
     }
 
-    public Optional<MaintenanceCard> findMaintenanceCardByNumber(String number, Project project) {
+    public List<MaintenanceCard> findMaintenanceCardByNumber(String number, Project project) {
         MaintenanceCard mc = new MaintenanceCard();
         mc.setProject(project);
         mc.setTaskcardString(number);
-        return cardsRepo.findOne(Example.of(mc));
+        return StreamSupport.stream(cardsRepo.findAll(Example.of(mc)).spliterator(), false).toList();
     };
+
+    public List<MpdAccess> findByModel(String model) {
+        return accessesRepo.findByModel(model);
+    }
+
 }
