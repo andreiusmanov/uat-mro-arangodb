@@ -173,17 +173,14 @@ public class ImportMC {
 
     }
 
-public static void linkAccesses(MaintenanceCardsService service, Project project){
-    MpdEdition edition = project.getEdition();
-    List<MpdAccess> accesses = service.findByModel(edition.getModel().getArangoId());
+    public static void linkAccesses(MaintenanceCardsService service, Project project) {
+        MpdEdition edition = project.getEdition();
+        List<MpdAccess> accesses = service.findByModel(edition.getModel().getArangoId());
+        for (MpdAccess access : accesses) {
 
-    for (MpdAccess access : accesses) {
-
+        }
 
     }
-
-
-}
 
     private static List<PDOutlineItem> getItems(PDOutlineItem parent) {
         return StreamSupport.stream(parent.children().spliterator(), false).toList();

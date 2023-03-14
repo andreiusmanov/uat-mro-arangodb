@@ -45,4 +45,9 @@ public class MpdAccess {
         this.model = model;
     }
 
+    public MpdAccess(MajorModel model, String number) {
+        this.model = model;
+        this.number = number;
+    }
+
 }

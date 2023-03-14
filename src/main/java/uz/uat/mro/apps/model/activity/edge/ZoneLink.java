@@ -9,11 +9,11 @@ import com.arangodb.springframework.annotation.To;
 
 import lombok.Data;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
-import uz.uat.mro.apps.model.library.entity.MpdAccess;
+import uz.uat.mro.apps.model.library.entity.MpdSubzone;
 
 @Data
-@Edge("access_links")
-public class AccessLink {
+@Edge("zone_links")
+public class ZoneLink {
     @Id
     private String id;
     @ArangoId
@@ -21,10 +21,6 @@ public class AccessLink {
     @From
     private MaintenanceCard card;
     @To
-    private MpdAccess access;
+    private MpdSubzone access;
 
-    public AccessLink(MaintenanceCard card, MpdAccess access) {
-        this.access = access;
-        this.card = card;
-    }
 }
