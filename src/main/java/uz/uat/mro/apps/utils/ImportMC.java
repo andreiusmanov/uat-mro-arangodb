@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.StreamSupport;
@@ -29,6 +30,7 @@ import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 
 public class ImportMC {
 
@@ -58,13 +60,17 @@ public class ImportMC {
             m.setTaskGroup((TaskGroup) findObjectByProperty(taskGroups, "name", card[0]));
             m.setSequence(card[1]);
             m.setNumber(card[2]);
+            System.out.println(m.getNumber());
             m.setDescription(card[3]);
             m.setRemarks(card[4]);
             m.setValid(true);
             if (m.getTaskGroup().getId().equals("ht") || m.getTaskGroup().getId().equals("routine")) {
-                m.setTaskcard(service.findTaskcardByNumberAndEdition(card[2], edition));
+                Optional<MpdTaskcard> opt = service.findTaskcardByNumberAndEdition(card[2], edition);
+                if (opt.isPresent()) {
+                    m.setTaskcard(opt.get());
+                    m.setTaskcardString(m.getTaskcard().getNumber());
+                }
             }
-            m.setTaskcardString(m.getTaskcard().getNumber());
             m.setProject(project);
             list.add(m);
         });

@@ -8,7 +8,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.activity.edge.AccessLink;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
@@ -46,11 +45,11 @@ public class MaintenanceCardsService {
      * @param edition
      * @return
      */
-    public MpdTaskcard findTaskcardByNumberAndEdition(String number, MpdEdition edition) {
+    public Optional<MpdTaskcard> findTaskcardByNumberAndEdition(String number, MpdEdition edition) {
         MpdTaskcard t = new MpdTaskcard();
         t.setEdition(edition);
         t.setNumber(number);
-        return taskcardsRepo.findOne(Example.of(t)).get();
+        return taskcardsRepo.findOne(Example.of(t));
     }
 
     /**
@@ -112,7 +111,7 @@ public class MaintenanceCardsService {
 
     public Optional<MpdAccess> getAccess(MajorModel model, String number) {
         MpdAccess access = new MpdAccess(model, number);
-        accessesRepo.findOne(Example.of(access));
+        return accessesRepo.findOne(Example.of(access));
     }
 
     public void getCards(MaintenanceCardsService service, Project project, MpdEdition edition) {
@@ -127,7 +126,7 @@ public class MaintenanceCardsService {
             for (int i = 0; i < accesses.length; i++) {
                 if (!accesses[i].isBlank()) {
                     MpdAccess acc = service.getAccess(model, accesses[i]).get();
-AccessLink alink = new AccessLink()
+                    // AccessLink alink = new AccessLink()
                 }
             }
 

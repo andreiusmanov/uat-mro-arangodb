@@ -296,14 +296,14 @@ public class ImportMpd {
         }
         item.setNumber(array[0]);
         item.setAmmReference(array[1].replace("\n", ", ").trim());
-        item.setCat(array[2]);
+        item.setCat(array[2].replace(".0", "").trim());
         item.setTask(array[3]);
         item.setThreshold(array[4].replace("\n", ", ").trim());
         item.setRepeat(array[5].replace("\n", ", ").trim());
-        item.setZone(array[6].replace("\n", ", ").trim());
-        item.setAccess(array[7].replace("\n", ", ").trim());
-        item.setApl(array[8].replace("\n", ", ").trim());
-        item.setEngine(array[9].replace("\n", ", ").trim());
+        item.setZone(array[6].replace("\n", ", ").replace(".0", "").trim());
+        item.setAccess(array[7].replace("\n", ", ").replace(".0", "").trim());
+        item.setApl(array[8].replace("\n", ", ").replace(".0", "").trim());
+        item.setEngine(array[9].replace("\n", ", ").replace(".0", "").trim());
         item.setMh(array[10]);
         item.setDescription(array[11]);
         return item;
@@ -319,13 +319,13 @@ public class ImportMpd {
         }
         item.setNumber(array[0]);
         item.setAmmReference(array[1].replace("\n", ", ").trim());
-        item.setPgm(array[2]);
-        item.setZone(array[3].replace("\n", ", ").trim());
-        item.setAccess(array[4].replace("\n", ", ").trim());
+        item.setPgm(array[2].replace(".0", "").trim());
+        item.setZone(array[3].replace("\n", ", ").replace(".0", "").trim());
+        item.setAccess(array[4].replace("\n", ", ").replace(".0", "").trim());
         item.setThreshold(array[5].replace("\n", ", ").trim());
         item.setRepeat(array[6].replace("\n", ", ").trim());
-        item.setApl(array[7].replace("\n", ", ").trim());
-        item.setEngine(array[8].replace("\n", ", ").trim());
+        item.setApl(array[7].replace("\n", ", ").replace(".0", "").trim());
+        item.setEngine(array[8].replace("\n", ", ").replace(".0", "").trim());
         item.setMh(array[9]);
         item.setDescription(array[10]);
         return item;
@@ -343,12 +343,12 @@ public class ImportMpd {
         }
         item.setNumber(array[0]);
         item.setAmmReference(array[1].replace("\n", ", ").trim());
-        item.setZone(array[2].replace("\n", ", ").trim());
-        item.setAccess(array[3].replace("\n", ", ").trim());
+        item.setZone(array[2].replace("\n", ", ").replace(".0", "").trim());
+        item.setAccess(array[3].replace("\n", ", ").replace(".0", "").trim());
         item.setThreshold(array[4].replace("\n", ", ").trim());
         item.setRepeat(array[5].replace("\n", ", ").trim());
-        item.setApl(array[6].replace("\n", ", ").trim());
-        item.setEngine(array[7].replace("\n", ", ").trim());
+        item.setApl(array[6].replace("\n", ", ").replace(".0", "").trim());
+        item.setEngine(array[7].replace("\n", ", ").replace(".0", "").trim());
         item.setMh(array[8]);
         item.setDescription(array[9]);
         return item;
@@ -393,7 +393,7 @@ public class ImportMpd {
             mh.setAccessMh(strings[1]);
             mh.setTaskcardMh(strings[2]);
             mh.setTotalMh(strings[3]);
-            mh.setAccessString(strings[4]);
+            mh.setAccessString(strings[4].trim().replaceAll(" ", ", "));
             mhs.add(mh);
         });
         service.saveAllMhs(mhs);
