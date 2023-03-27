@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
@@ -34,21 +36,12 @@ public class MpdZonesService {
     }
 
     public Map<String, MpdZone> getAllZones(String model) {
-        Map<String, MpdZone> map = new HashMap<>();
-        List<MpdZone> findByModel = repo.findByModel(model);
-        for (MpdZone mpdZone : findByModel) {
-            map.put(mpdZone.getCode(), mpdZone);
-        }
-        return map;
+        return repo.findByModel(model).stream().collect(Collectors.toMap(MpdZone::getCode, Function.identity()));
     }
 
     public Map<String, MpdSubzone> getAllSubzones(String model) {
-        Map<String, MpdSubzone> map = new HashMap<>();
-        List<MpdSubzone> findByModel = subzonesRepo.findByModel(model);
-        for (MpdSubzone mpdZone : findByModel) {
-            map.put(mpdZone.getCode(), mpdZone);
-        }
-        return map;
+        return subzonesRepo.findSubzonesByModel(model).stream()
+                .collect(Collectors.toMap(MpdSubzone::getCode, Function.identity()));
     }
 
     public MpdZone save(MpdZone entity) {

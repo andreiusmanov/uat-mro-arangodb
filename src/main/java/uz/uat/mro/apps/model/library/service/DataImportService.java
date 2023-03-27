@@ -45,7 +45,7 @@ public class DataImportService {
     }
 
     public Map<String, MpdSubzone> getAllSubzones(String model) {
-        List<MpdSubzone> findByModel = subzonesRepo.findByModel(model);
+        List<MpdSubzone> findByModel = subzonesRepo.findSubzonesByModel(model);
         return findByModel.stream().collect(Collectors.toMap(MpdSubzone::getCode, subzone -> subzone));
     }
 
