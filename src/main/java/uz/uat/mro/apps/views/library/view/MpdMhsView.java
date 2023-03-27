@@ -15,7 +15,7 @@ import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
 
 @PageTitle(value = "MPD Man-Hours")
-@Route(value = "library/man-hours", layout = MpdLayout.class)
+@Route(value = "mpd/man-hours", layout = MpdLayout.class)
 public class MpdMhsView extends VerticalLayout {
 
     private MpdZonesService service;
