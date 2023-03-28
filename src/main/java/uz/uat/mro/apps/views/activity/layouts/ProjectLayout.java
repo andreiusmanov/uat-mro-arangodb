@@ -5,7 +5,6 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
@@ -16,6 +15,7 @@ import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
+import uz.uat.mro.apps.views.activity.views.MaintenancePlanView;
 import uz.uat.mro.apps.views.activity.views.MaintenancecardsView;
 import uz.uat.mro.apps.views.activity.views.MaterialListView;
 import uz.uat.mro.apps.views.activity.views.ProjectView;
@@ -56,7 +56,7 @@ public class ProjectLayout extends AppLayout {
         nav.addItem(new AppNavItem("Контракт", ProjectView.class, "la la-file"));
         nav.addItem(new AppNavItem("LOV Рабочие карты", MaintenancecardsView.class, "la la-file"));
         nav.addItem(new AppNavItem("Materials List", MaterialListView.class, "la la-file"));
-        nav.addItem(new AppNavItem("План работ", ProjectView.class, "la la-file"));
+        nav.addItem(new AppNavItem("План работ", MaintenancePlanView.class, "la la-file"));
         return nav;
     }
 
