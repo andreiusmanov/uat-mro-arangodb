@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uz.uat.mro.apps.model.common.entity.WorkDate;
-import uz.uat.mro.apps.model.common.repository.WorkDateRepository;
 import uz.uat.mro.apps.model.common.service.WorkDateService;
 
 public class DateUtil {
@@ -21,7 +20,7 @@ public class DateUtil {
 
     public static void main(String[] args) {
 
-        DateUtil util = new DateUtil(service);
+        final DateUtil util = new DateUtil(service);
         int i = 800;
         LocalDate start = LocalDate.of(2022, 9, 30);
         List<WorkDate> list = new ArrayList<>();

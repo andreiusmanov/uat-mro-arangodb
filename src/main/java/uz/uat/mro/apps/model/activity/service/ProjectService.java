@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.arangodb.springframework.annotation.Query;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceTypeRepository;
@@ -18,6 +17,7 @@ import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.aircraft.repository.AircraftsRepository;
 import uz.uat.mro.apps.model.common.entity.Firm;
 import uz.uat.mro.apps.model.common.repository.FirmsRepository;
+import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.repository.MpdEditionsRepository;
 

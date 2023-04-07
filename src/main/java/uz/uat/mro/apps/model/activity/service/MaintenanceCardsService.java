@@ -8,12 +8,12 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.TaskGroupsRepository;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
+import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;

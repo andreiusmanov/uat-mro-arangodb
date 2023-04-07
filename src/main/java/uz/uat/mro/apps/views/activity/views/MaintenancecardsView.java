@@ -11,9 +11,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
+import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.activity.layouts.ProjectLayout;

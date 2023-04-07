@@ -23,11 +23,11 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
-import uz.uat.mro.apps.model.activity.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceTaskcard;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
+import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;

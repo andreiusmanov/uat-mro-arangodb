@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.activity.layouts;
+package uz.uat.mro.apps.views.ppcd.layouts;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -15,17 +15,17 @@ import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
-import uz.uat.mro.apps.views.activity.views.MaintenancePlanView;
-import uz.uat.mro.apps.views.activity.views.MaintenancecardsView;
-import uz.uat.mro.apps.views.activity.views.MaterialListView;
-import uz.uat.mro.apps.views.activity.views.ProjectView;
+import uz.uat.mro.apps.views.ppcd.views.AcrsView;
+import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
+import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
+import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
 
-public class ProjectLayout extends AppLayout {
+public class PlanningLayout extends AppLayout {
     private H2 viewTitle;
     private Project project;
 
-    public ProjectLayout() {
+    public PlanningLayout() {
         this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
@@ -54,11 +54,11 @@ public class ProjectLayout extends AppLayout {
 
     private AppNav createNavigation() {
         AppNav nav = new AppNav();
-        nav.addItem(new AppNavItem("Контракт", ProjectView.class, "la la-file"));
-        nav.addItem(new AppNavItem("LOV Рабочие карты", MaintenancecardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Materials List", MaterialListView.class, "la la-file"));
-        nav.addItem(new AppNavItem("План работ", MaintenancePlanView.class, "la la-file"));
-        nav.addItem(new AppNavItem("PPCD", PpcdStartView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Старт", PpcdStartView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Открытые карты", JobcardsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Закрытые карты", ClosedCardsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Non-Routine карты", NonRoutineCardsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("ACR", AcrsView.class, "la la-file"));
         return nav;
     }
 

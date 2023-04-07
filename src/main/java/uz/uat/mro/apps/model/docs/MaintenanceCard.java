@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.activity.entity;
+package uz.uat.mro.apps.model.docs;
 
 import org.springframework.data.annotation.Id;
 
@@ -7,6 +7,10 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
+import uz.uat.mro.apps.model.activity.entity.MaintenanceArea;
+import uz.uat.mro.apps.model.activity.entity.MaintenanceTaskcard;
+import uz.uat.mro.apps.model.activity.entity.Project;
+import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 
 @Data
