@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.ppcd.layouts;
+package uz.uat.mro.apps.views.operations.layouts;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -17,15 +17,15 @@ import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.ppcd.views.AcrsView;
 import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
-import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
 import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
+import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
 
-public class PlanningLayout extends AppLayout {
+public class OperationsLayout extends AppLayout {
     private H2 viewTitle;
     private Project project;
 
-    public PlanningLayout() {
+    public OperationsLayout() {
         this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
