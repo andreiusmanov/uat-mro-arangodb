@@ -31,7 +31,7 @@ public class OperationsLayout extends AppLayout {
         addDrawerContent();
         addHeaderContent();
     }
-
+ 
     private void addHeaderContent() {
         DrawerToggle toggle = new DrawerToggle();
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
