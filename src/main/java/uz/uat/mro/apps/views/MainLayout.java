@@ -30,10 +30,8 @@ public class MainLayout extends AppLayout {
     private void addHeaderContent() {
         DrawerToggle toggle = new DrawerToggle();
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
-
         viewTitle = new H2();
         viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
-
         addToNavbar(true, toggle, viewTitle);
     }
 
