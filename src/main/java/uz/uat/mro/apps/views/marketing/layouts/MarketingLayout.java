@@ -1,5 +1,4 @@
-package uz.uat.mro.apps.views;
-
+package uz.uat.mro.apps.views.marketing.layouts;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -10,18 +9,24 @@ import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.about.AboutView;
+import uz.uat.mro.apps.model.activity.entity.Project;
+import uz.uat.mro.apps.utils.Keys;
+import uz.uat.mro.apps.utils.MyUtils;
+import uz.uat.mro.apps.views.ppcd.views.AcrsView;
+import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
+import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
+import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
+import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
-public class MainLayout extends AppLayout {
-
+public class MarketingLayout extends AppLayout {
     private H2 viewTitle;
+    private Project project;
 
-    public MainLayout() {
+    public MarketingLayout() {
+        this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -30,13 +35,15 @@ public class MainLayout extends AppLayout {
     private void addHeaderContent() {
         DrawerToggle toggle = new DrawerToggle();
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
+
         viewTitle = new H2();
         viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
+
         addToNavbar(true, toggle, viewTitle);
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("OOO UAT MRO");
+        H1 appName = new H1("UAT MRO");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -46,12 +53,12 @@ public class MainLayout extends AppLayout {
     }
 
     private AppNav createNavigation() {
-        // AppNav is not yet an official component.
-        // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
-
-        nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
-
+        nav.addItem(new AppNavItem("Старт", PpcdStartView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Открытые карты", JobcardsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Закрытые карты", ClosedCardsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Non-Routine карты", NonRoutineCardsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("ACR", AcrsView.class, "la la-file"));
         return nav;
     }
 
@@ -69,6 +76,7 @@ public class MainLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value();
+        return title == null ? "" : title.value() + " " + project.getAircraft().getRegNumber();
     }
+
 }
