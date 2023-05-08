@@ -15,18 +15,18 @@ import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
+import uz.uat.mro.apps.views.marketing.views.MarketingView;
 import uz.uat.mro.apps.views.ppcd.views.AcrsView;
 import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
 import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
 import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
+import uz.uat.mro.apps.views.reports.MarketingReportsView;
 
 public class MarketingLayout extends AppLayout {
     private H2 viewTitle;
-    private Project project;
 
     public MarketingLayout() {
-        this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -54,11 +54,8 @@ public class MarketingLayout extends AppLayout {
 
     private AppNav createNavigation() {
         AppNav nav = new AppNav();
-        nav.addItem(new AppNavItem("Старт", PpcdStartView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Открытые карты", JobcardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Закрытые карты", ClosedCardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Non-Routine карты", NonRoutineCardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("ACR", AcrsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Контракты", MarketingView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Отчеты", MarketingReportsView.class, "la la-file"));
         return nav;
     }
 
@@ -76,7 +73,7 @@ public class MarketingLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value() + " " + project.getAircraft().getRegNumber();
+        return title == null ? "" : title.value();
     }
 
 }

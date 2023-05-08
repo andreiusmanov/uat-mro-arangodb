@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.about;
+package uz.uat.mro.apps.views.main;
 
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H3;
@@ -10,7 +10,7 @@ import com.vaadin.flow.router.RouteAlias;
 @PageTitle("About")
 @Route(value = "about")
 @RouteAlias(value = "")
-public class AboutView extends VerticalLayout {
+public class MainView extends VerticalLayout {
 
     private Anchor marketing;
     private Anchor ppcd;
@@ -18,7 +18,7 @@ public class AboutView extends VerticalLayout {
     private Anchor logistics;
     private H3 title;
 
-    public AboutView() {
+    public MainView() {
         setSpacing(false);
         this.marketing = new Anchor("marketing", "Marketing");
         this.ppcd = new Anchor("ppcd", "PPCD");

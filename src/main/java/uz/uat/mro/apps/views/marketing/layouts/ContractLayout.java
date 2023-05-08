@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.common.layouts;
+package uz.uat.mro.apps.views.marketing.layouts;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -13,20 +13,19 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.activity.views.ProjectsView;
-import uz.uat.mro.apps.views.aircraft.view.MajorModelsView;
-import uz.uat.mro.apps.views.common.views.CountriesView;
-import uz.uat.mro.apps.views.library.view.MpdEditionsView;
+import uz.uat.mro.apps.model.activity.entity.Project;
+import uz.uat.mro.apps.utils.Keys;
+import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.main.MainView;
+import uz.uat.mro.apps.views.marketing.views.ContractView;
+import uz.uat.mro.apps.views.reports.ContractReportsView;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
-public class InitialLayout extends AppLayout {
-
+public class ContractLayout extends AppLayout {
     private H2 viewTitle;
+    private Project project;
 
-    public InitialLayout() {
+    public ContractLayout() {
+        this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -43,7 +42,7 @@ public class InitialLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("UAT MRO");
+        H1 appName = new H1("UAT MRO Контракт");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -53,15 +52,10 @@ public class InitialLayout extends AppLayout {
     }
 
     private AppNav createNavigation() {
-        // AppNav is not yet an official component.
-        // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
-
-        nav.addItem(new AppNavItem("About", MainView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Общие данные", CountriesView.class, VaadinIcon.GLOBE.create()));
-        nav.addItem(new AppNavItem("Модели ВС", MajorModelsView.class, VaadinIcon.AIRPLANE.create()));
-        nav.addItem(new AppNavItem("MPD Данные", MpdEditionsView.class, VaadinIcon.FILE.create()));
-        nav.addItem(new AppNavItem("Контракты", ProjectsView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new AppNavItem("Главная", MainView.class, VaadinIcon.MENU.create()));
+        nav.addItem(new AppNavItem("Контракт", ContractView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Отчеты", ContractReportsView.class, "la la-file"));
 
         return nav;
     }
@@ -80,6 +74,7 @@ public class InitialLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value();
+        return title == null ? "" : title.value() + " " + project.getAircraft().getRegNumber();
     }
+
 }
