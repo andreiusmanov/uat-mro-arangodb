@@ -116,7 +116,6 @@ public class ProjectsView extends VerticalLayout {
 
     private void statusesFilter() {
         statuses = new ComboBox<>();
-        statuses.setReadOnly(true);
         statuses.setItems(ProjectStatuses.projectStatuses());
         statuses.setValue(statuses.getListDataView().getItem(1));
         statuses.addValueChangeListener(change -> {

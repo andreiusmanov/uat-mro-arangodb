@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
@@ -18,6 +19,7 @@ import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.ppcd.views.AcrsView;
 import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
 import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
+import uz.uat.mro.apps.views.ppcd.views.PpcdReportsView;
 import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
 import uz.uat.mro.apps.views.ppcd.views.ProjectsView;
@@ -56,6 +58,7 @@ public class PpcdLayout extends AppLayout {
     private AppNav createNavigation() {
         AppNav nav = new AppNav();
         nav.addItem(new AppNavItem("Контракты", ProjectsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Отчеты", PpcdReportsView.class, VaadinIcon.LINE_BAR_CHART.create()));
         return nav;
     }
 
