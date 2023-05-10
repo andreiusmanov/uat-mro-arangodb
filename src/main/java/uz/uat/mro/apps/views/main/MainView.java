@@ -21,7 +21,7 @@ public class MainView extends VerticalLayout {
     public MainView() {
         setSpacing(false);
         this.marketing = new Anchor("marketing", "Marketing");
-        this.ppcd = new Anchor("ppcd", "PPCD");
+        this.ppcd = new Anchor("ppcd/projects", "PPCD");
         add(marketing, ppcd);
     }
 

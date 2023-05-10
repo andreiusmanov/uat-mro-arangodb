@@ -40,5 +40,6 @@ public class Project {
     private String maintenanceString;
     @Relations(edges = { MaintenanceType.class }, lazy = false, direction = Direction.OUTBOUND)
     private List<Maintenance> maintenance;
+    private String status;
 
 }

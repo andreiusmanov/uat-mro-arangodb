@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.marketing.layouts;
+package uz.uat.mro.apps.views.ppcd.layouts;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -6,7 +6,6 @@ import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
@@ -16,16 +15,18 @@ import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
-import uz.uat.mro.apps.views.main.MainView;
-import uz.uat.mro.apps.views.marketing.views.ContractView;
-import uz.uat.mro.apps.views.marketing.views.MarketingView;
-import uz.uat.mro.apps.views.reports.ContractReportsView;
+import uz.uat.mro.apps.views.ppcd.views.AcrsView;
+import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
+import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
+import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
+import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
+import uz.uat.mro.apps.views.ppcd.views.ProjectsView;
 
-public class ContractLayout extends AppLayout {
+public class PpcdLayout extends AppLayout {
     private H2 viewTitle;
     private Project project;
 
-    public ContractLayout() {
+    public PpcdLayout() {
         this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
@@ -43,7 +44,7 @@ public class ContractLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("UAT MRO Контракт");
+        H1 appName = new H1("UAT MRO");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -54,11 +55,7 @@ public class ContractLayout extends AppLayout {
 
     private AppNav createNavigation() {
         AppNav nav = new AppNav();
-        nav.addItem(new AppNavItem("Контракт", ContractView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Отчеты", ContractReportsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Маркетинг", MarketingView.class, VaadinIcon.ARROW_LEFT.create()));
-        nav.addItem(new AppNavItem("Home", MainView.class, VaadinIcon.ARROW_LEFT.create()));
-
+        nav.addItem(new AppNavItem("Контракты", ProjectsView.class, "la la-file"));
         return nav;
     }
 
@@ -76,7 +73,7 @@ public class ContractLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value() + " " + project.getAircraft().getRegNumber();
+        return title == null ? "" : title.value();
     }
 
 }

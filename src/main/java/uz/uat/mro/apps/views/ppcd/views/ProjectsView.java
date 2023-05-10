@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.marketing.views;
+package uz.uat.mro.apps.views.ppcd.views;
 
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.CrudFormFactory;
@@ -7,6 +7,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -20,12 +21,12 @@ import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.utils.ProjectStatuses;
-import uz.uat.mro.apps.views.marketing.layouts.MarketingLayout;
+import uz.uat.mro.apps.views.marketing.views.ContractView;
+import uz.uat.mro.apps.views.ppcd.layouts.PpcdLayout;
 
-@PageTitle(value = "Маркетинг")
-@Route(value = "marketing", layout = MarketingLayout.class)
-public class MarketingView extends VerticalLayout {
-
+@PageTitle(value = "Список проектов")
+@Route(value = "ppcd/projects", layout = PpcdLayout.class)
+public class ProjectsView extends VerticalLayout {
     private ProjectService service;
     private GridCrud<Project> grid;
     private Project project;
@@ -33,7 +34,7 @@ public class MarketingView extends VerticalLayout {
     private ComboBox<String> statuses;
     private GridListDataView<Project> listDataView;
 
-    public MarketingView(ProjectService service) {
+    public ProjectsView(ProjectService service) {
         this.service = service;
         grid();
         add(grid);
@@ -68,12 +69,6 @@ public class MarketingView extends VerticalLayout {
         factory.setFieldCaptions("Статус", "Номер", "Дата", "Заказчик", "Исполнитель", "ВС номер", "Издание MPD",
                 "Дата начала", "Дата окончания", "Виды работ");
 
-        factory.setFieldProvider("status", status -> {
-            ComboBox<String> statuses = new ComboBox<>();
-            statuses.setItems(ProjectStatuses.projectStatuses());
-            statuses.setItemLabelGenerator(e -> e);
-            return statuses;
-        });
         factory.setFieldProvider("customer", user -> {
             ComboBox<Firm> customers = new ComboBox<>();
             customers.setItems(service.findAllCustomers());
@@ -107,14 +102,21 @@ public class MarketingView extends VerticalLayout {
             MyUtils.setAttribute(Keys.PROJECT, project);
             UI.getCurrent().navigate(ContractView.class);
         });
+        grid.getCrudLayout().addToolbarComponent(viewButton);
+        grid.getDeleteButton().setEnabled(false);
+        grid.getDeleteButton().setVisible(false);
+
         this.listDataView = grid.getGrid().getListDataView();
         grid.getCrudLayout().addToolbarComponent(viewButton);
         statusesFilter();
-        grid.getCrudLayout().addFilterComponent(statuses);
+        Label label = new Label("Статус");
+        grid.getCrudLayout().addFilterComponents(label, statuses);
+
     }
 
     private void statusesFilter() {
         statuses = new ComboBox<>();
+        statuses.setReadOnly(true);
         statuses.setItems(ProjectStatuses.projectStatuses());
         statuses.setValue(statuses.getListDataView().getItem(1));
         statuses.addValueChangeListener(change -> {
