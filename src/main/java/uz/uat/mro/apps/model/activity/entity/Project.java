@@ -41,5 +41,5 @@ public class Project {
     @Relations(edges = { MaintenanceType.class }, lazy = false, direction = Direction.OUTBOUND)
     private List<Maintenance> maintenance;
     private String status;
-
+    private Double coefficent;
 }

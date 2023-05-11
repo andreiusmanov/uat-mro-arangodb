@@ -21,7 +21,6 @@ import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.utils.ProjectStatuses;
-import uz.uat.mro.apps.views.marketing.views.ContractView;
 import uz.uat.mro.apps.views.ppcd.layouts.PpcdLayout;
 
 @PageTitle(value = "Список проектов")
@@ -100,7 +99,7 @@ public class ProjectsView extends VerticalLayout {
         viewButton.setEnabled(false);
         viewButton.addClickListener(click -> {
             MyUtils.setAttribute(Keys.PROJECT, project);
-            UI.getCurrent().navigate(ContractView.class);
+            UI.getCurrent().navigate(ProjectView.class);
         });
         grid.getCrudLayout().addToolbarComponent(viewButton);
         grid.getDeleteButton().setEnabled(false);

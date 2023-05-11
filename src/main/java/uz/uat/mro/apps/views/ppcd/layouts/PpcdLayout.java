@@ -21,6 +21,7 @@ import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
 import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdReportsView;
 import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
+import uz.uat.mro.apps.views.ppcd.views.MroCoefficentView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
 import uz.uat.mro.apps.views.ppcd.views.ProjectsView;
 
