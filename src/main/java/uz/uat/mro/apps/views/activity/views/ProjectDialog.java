@@ -9,10 +9,10 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 
-import uz.uat.mro.apps.model.activity.entity.Project;
-import uz.uat.mro.apps.model.activity.service.ProjectService;
 import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.marketing.service.ProjectService;
 
 public class ProjectDialog extends Dialog {
     private ProjectService service;

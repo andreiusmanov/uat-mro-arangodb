@@ -9,9 +9,9 @@ import com.arangodb.springframework.annotation.Ref;
 import lombok.Data;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceArea;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceTaskcard;
-import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
+import uz.uat.mro.apps.model.marketing.entity.Project;
 
 @Data
 @Document("maintenance_cards")
@@ -35,6 +35,7 @@ public class MaintenanceCard {
     private String description; // description
     private String remarks; // all other information
     private Boolean valid; // indication of cancelled/active card
+    @Ref(lazy = false)
     private MaintenanceTaskcard manifacturersTaskcard; // Mtc record
 
 }

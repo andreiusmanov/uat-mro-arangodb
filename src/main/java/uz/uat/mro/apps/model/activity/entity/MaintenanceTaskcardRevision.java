@@ -6,6 +6,7 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
+import uz.uat.mro.apps.model.marketing.entity.Project;
 
 @Data
 @Document(value = "maintenance_taskcard_revision")

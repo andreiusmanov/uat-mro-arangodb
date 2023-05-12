@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.activity.entity;
+package uz.uat.mro.apps.model.marketing.entity;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -12,11 +12,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.activity.entity.Project;
-import uz.uat.mro.apps.model.activity.service.ProjectService;
 import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.common.entity.Firm;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.marketing.service.ProjectService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.common.layouts.InitialLayout;

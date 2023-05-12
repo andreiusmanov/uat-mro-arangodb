@@ -11,7 +11,7 @@ import com.arangodb.springframework.annotation.Relations.Direction;
 
 import lombok.Data;
 import uz.uat.mro.apps.model.activity.edge.MaintenanceType;
-import uz.uat.mro.apps.model.activity.entity.Project;
+import uz.uat.mro.apps.model.marketing.entity.Project;
 
 @Data
 @Document("maintenance")

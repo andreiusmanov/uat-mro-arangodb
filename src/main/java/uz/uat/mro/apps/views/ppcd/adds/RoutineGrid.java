@@ -6,9 +6,9 @@ import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
 import uz.uat.mro.apps.model.docs.MaintenanceCard;
+import uz.uat.mro.apps.model.marketing.entity.Project;
 
 public class RoutineGrid extends VerticalLayout {
     private MaintenanceCardsService service;

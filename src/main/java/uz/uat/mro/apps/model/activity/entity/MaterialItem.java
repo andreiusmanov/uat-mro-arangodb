@@ -8,6 +8,7 @@ import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
 import uz.uat.mro.apps.model.common.entity.Uom;
+import uz.uat.mro.apps.model.marketing.entity.Project;
 
 @Data
 @Document("material_items")

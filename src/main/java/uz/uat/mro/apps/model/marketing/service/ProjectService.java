@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.activity.service;
+package uz.uat.mro.apps.model.marketing.service;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import com.arangodb.springframework.annotation.Query;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.activity.entity.Project;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceTypeRepository;
-import uz.uat.mro.apps.model.activity.repository.ProjectRepository;
 import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.aircraft.repository.AircraftsRepository;
 import uz.uat.mro.apps.model.common.entity.Firm;
@@ -20,6 +18,8 @@ import uz.uat.mro.apps.model.common.repository.FirmsRepository;
 import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.repository.MpdEditionsRepository;
+import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.marketing.repository.ProjectRepository;
 
 @AllArgsConstructor
 @Service
