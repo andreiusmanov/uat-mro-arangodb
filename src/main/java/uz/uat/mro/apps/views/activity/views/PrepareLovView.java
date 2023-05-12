@@ -1,5 +1,6 @@
 package uz.uat.mro.apps.views.activity.views;
 
+import com.arangodb.springframework.annotation.Ref;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
@@ -41,7 +42,7 @@ public class PrepareLovView extends VerticalLayout {
         });
 
         revisionItem.addClickListener(click -> {
-            Notification.show("Arranging import of LOV MC");
+            Notification.show("Arranging import of revisions LOV MC");
         });
     }
 
