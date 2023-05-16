@@ -75,7 +75,8 @@ public class SubzonesView extends VerticalLayout {
         listDataView = grid.getGrid().getListDataView();
 
         grid.getCrudFormFactory().setNewInstanceSupplier(() -> {
-            MpdSubzone subzone = new MpdSubzone(model);
+            MpdSubzone subzone = new MpdSubzone();
+            subzone.setModel(model);
             return subzone;
         });
         CrudFormFactory<MpdSubzone> factory = grid.getCrudFormFactory();

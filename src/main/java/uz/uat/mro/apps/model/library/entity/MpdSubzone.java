@@ -32,9 +32,4 @@ public class MpdSubzone {
     private MpdZone zone;
     @Ref(lazy = false)
     private MajorModel model;
-
-    public MpdSubzone(MajorModel model) {
-        this.model = model;
-    }
-
 }

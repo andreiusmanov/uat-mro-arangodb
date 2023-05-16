@@ -28,7 +28,7 @@ public class ImportCardsView extends FormLayout {
     public ImportCardsView() {
         span();
         binder();
-
+        add(fileUrlSpan);
     }
 
     private void binder() {

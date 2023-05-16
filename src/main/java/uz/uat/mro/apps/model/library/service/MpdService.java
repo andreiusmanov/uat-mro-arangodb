@@ -34,9 +34,9 @@ public class MpdService {
         return itemsRepo.findOne(Example.of(item)).get();
     }
 
-    public List<MpdItem> findByNumberAndModel(String number, String model) {
-        return null; // itemsRepo.findByNumberAndModel(number, model);
-    }
+   // public List<MpdItem> findByNumberAndModel(String number, String model) {
+    //    return null; // itemsRepo.findByNumberAndModel(number, model);
+   // }
 
     public List<MpdItem> findItemsByEdition(String edition) {
         return itemsRepo.findByEdition(edition);

@@ -80,7 +80,8 @@ public class ImportMpd {
 
             List<String> codes = new ArrayList<>(0);
             list.stream().forEach(array -> {
-                MpdSubzone subzone = new MpdSubzone(model);
+                MpdSubzone subzone = new MpdSubzone();
+                subzone.setModel(model);
                 if (!codes.contains(array[0])) {
                     codes.add(array[0]);
                     subzone.setCode(array[0]);

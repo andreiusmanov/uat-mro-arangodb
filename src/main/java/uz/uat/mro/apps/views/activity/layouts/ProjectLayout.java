@@ -18,9 +18,10 @@ import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.activity.views.MaintenancePlanView;
 import uz.uat.mro.apps.views.activity.views.MaintenancecardsView;
 import uz.uat.mro.apps.views.activity.views.MaterialListView;
-import uz.uat.mro.apps.views.activity.views.PrepareLovView;
+import uz.uat.mro.apps.views.activity.views.RevisionsLovView;
 import uz.uat.mro.apps.views.activity.views.ProjectView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
+import uz.uat.mro.apps.views.ppcd.views.RevisionDownloadView;
 
 public class ProjectLayout extends AppLayout {
     private H2 viewTitle;
@@ -56,8 +57,9 @@ public class ProjectLayout extends AppLayout {
     private AppNav createNavigation() {
         AppNav nav = new AppNav();
         nav.addItem(new AppNavItem("Контракт", ProjectView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Подготовка Рабочих карт", PrepareLovView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Подготовка Рабочих карт", RevisionsLovView.class, "la la-file"));
         nav.addItem(new AppNavItem("LOV Рабочие карты", MaintenancecardsView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Загрузка данных LOV MC", RevisionDownloadView.class, "la la-file"));
         nav.addItem(new AppNavItem("Materials List", MaterialListView.class, "la la-file"));
         nav.addItem(new AppNavItem("План работ", MaintenancePlanView.class, "la la-file"));
         nav.addItem(new AppNavItem("PPCD", PpcdStartView.class, "la la-file"));

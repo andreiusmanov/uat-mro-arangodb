@@ -22,5 +22,4 @@ public class Revision {
     private Project project;
     private LocalDate date;
     private String description;
-    private boolean initial;
 }
