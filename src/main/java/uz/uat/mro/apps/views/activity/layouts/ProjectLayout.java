@@ -59,7 +59,6 @@ public class ProjectLayout extends AppLayout {
         nav.addItem(new AppNavItem("Контракт", ProjectView.class, "la la-file"));
         nav.addItem(new AppNavItem("Подготовка Рабочих карт", RevisionsLovView.class, "la la-file"));
         nav.addItem(new AppNavItem("LOV Рабочие карты", MaintenancecardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Загрузка данных LOV MC", RevisionDownloadView.class, "la la-file"));
         nav.addItem(new AppNavItem("Materials List", MaterialListView.class, "la la-file"));
         nav.addItem(new AppNavItem("План работ", MaintenancePlanView.class, "la la-file"));
         nav.addItem(new AppNavItem("PPCD", PpcdStartView.class, "la la-file"));
