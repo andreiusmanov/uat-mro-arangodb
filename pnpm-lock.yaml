@@ -107,6 +107,7 @@ specifiers:
   '@vaadin/vaadin-virtual-list': 23.3.11
   '@vaadin/vertical-layout': 23.3.11
   '@vaadin/virtual-list': 23.3.11
+  apexcharts: 3.35.0
   async: 3.2.2
   construct-style-sheets-polyfill: 3.1.0
   date-fns: 2.29.3
@@ -114,6 +115,7 @@ specifiers:
   line-awesome: 1.3.0
   lit: 2.6.1
   mkdirp: 1.0.4
+  onecolor: 3.1.0
   rollup-plugin-brotli: 3.1.0
   strip-css-comments: 5.0.0
   transform-ast: 2.4.4
@@ -229,10 +231,12 @@ dependencies:
   '@vaadin/vaadin-virtual-list': 23.3.11
   '@vaadin/vertical-layout': 23.3.11
   '@vaadin/virtual-list': 23.3.11
+  apexcharts: 3.35.0
   construct-style-sheets-polyfill: 3.1.0
   date-fns: 2.29.3
   line-awesome: 1.3.0
   lit: 2.6.1
+  onecolor: 3.1.0
 
 devDependencies:
   '@rollup/plugin-replace': 3.1.0
@@ -1356,7 +1360,7 @@ packages:
       babel-plugin-polyfill-corejs2: 0.3.3_@babel+core@7.21.8
       babel-plugin-polyfill-corejs3: 0.6.0_@babel+core@7.21.8
       babel-plugin-polyfill-regenerator: 0.4.1_@babel+core@7.21.8
-      core-js-compat: 3.30.1
+      core-js-compat: 3.30.2
       semver: 6.3.0
     transitivePeerDependencies:
       - supports-color
@@ -1663,14 +1667,14 @@ packages:
       string.prototype.matchall: 4.0.8
     dev: true
 
-  /@types/node/20.0.0:
-    resolution: {integrity: sha512-cD2uPTDnQQCVpmRefonO98/PPijuOnnEy5oytWJFPY1N9aJCz2wJ5kSGWO+zJoed2cY2JxQh6yBuUq4vIn61hw==}
+  /@types/node/20.1.5:
+    resolution: {integrity: sha512-IvGD1CD/nego63ySR7vrAKEX3AJTcmrAN2kn+/sDNLi1Ff5kBzDeEdqWDplK+0HAEoLYej137Sk0cUU8OLOlMg==}
     dev: true
 
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 20.0.0
+      '@types/node': 20.1.5
     dev: true
 
   /@types/trusted-types/2.0.3:
@@ -1731,7 +1735,7 @@ packages:
       '@vaadin/component-base': 23.3.11
       '@vaadin/item': 23.3.11
       '@vaadin/list-box': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
       '@vaadin/vaadin-themable-mixin': 23.3.11
@@ -1744,7 +1748,7 @@ packages:
       '@vaadin/component-base': 23.3.11
       '@vaadin/item': 23.3.11
       '@vaadin/list-box': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/tooltip': 23.3.11
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
@@ -2095,7 +2099,7 @@ packages:
       '@vaadin/input-container': 23.3.11
       '@vaadin/item': 23.3.11
       '@vaadin/lit-renderer': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
       '@vaadin/vaadin-themable-mixin': 23.3.11
@@ -2127,7 +2131,7 @@ packages:
       '@vaadin/button': 23.3.11
       '@vaadin/component-base': 23.3.11
       '@vaadin/dialog': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
       '@vaadin/vaadin-themable-mixin': 23.3.11
@@ -2142,7 +2146,7 @@ packages:
       '@vaadin/item': 23.3.11
       '@vaadin/list-box': 23.3.11
       '@vaadin/lit-renderer': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
       '@vaadin/vaadin-themable-mixin': 23.3.11
@@ -2168,7 +2172,7 @@ packages:
       '@vaadin/component-base': 23.3.11
       '@vaadin/field-base': 23.3.11
       '@vaadin/input-container': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
       '@vaadin/vaadin-themable-mixin': 23.3.11
@@ -2206,7 +2210,7 @@ packages:
       '@polymer/polymer': 3.5.1
       '@vaadin/component-base': 23.3.11
       '@vaadin/lit-renderer': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
       '@vaadin/vaadin-themable-mixin': 23.3.11
@@ -2237,7 +2241,7 @@ packages:
     dependencies:
       '@polymer/polymer': 3.5.1
       '@vaadin/component-base': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
       '@vaadin/vaadin-themable-mixin': 23.3.11
@@ -2353,7 +2357,7 @@ packages:
       '@polymer/polymer': 3.5.1
       '@vaadin/button': 23.3.11
       '@vaadin/component-base': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/password-field': 23.3.11
       '@vaadin/text-field': 23.3.11
       '@vaadin/vaadin-lumo-styles': 23.3.11
@@ -2435,8 +2439,8 @@ packages:
       '@vaadin/vaadin-themable-mixin': 23.3.11
     dev: false
 
-  /@vaadin/overlay/23.3.12:
-    resolution: {integrity: sha512-RSkzrjQAP4FOcNa/0gQw2k9l/TsoJue8megleHA1cDCXKvwC2Zff1Y1lENHH3vc18WcwLtiF+HQwDCOI0CdYBg==}
+  /@vaadin/overlay/23.3.13:
+    resolution: {integrity: sha512-859w05q9Qvr9dG1nYwLxjET7/amjL8aqiFQKGkJ7zEEqsBsxAIiWov0DdKf28XNvNV1xxAW8t6IoUoVsD4kprQ==}
     dependencies:
       '@open-wc/dedupe-mixin': 1.3.1
       '@polymer/polymer': 3.5.1
@@ -2516,7 +2520,7 @@ packages:
       '@vaadin/item': 23.3.11
       '@vaadin/list-box': 23.3.11
       '@vaadin/lit-renderer': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-list-mixin': 23.3.11
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
@@ -2600,7 +2604,7 @@ packages:
     dependencies:
       '@polymer/polymer': 3.5.1
       '@vaadin/component-base': 23.3.11
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
       '@vaadin/vaadin-lumo-styles': 23.3.11
       '@vaadin/vaadin-material-styles': 23.3.11
       '@vaadin/vaadin-themable-mixin': 23.3.11
@@ -2813,7 +2817,7 @@ packages:
   /@vaadin/vaadin-overlay/23.3.11:
     resolution: {integrity: sha512-2lytWz/WjJwQmpmIsC8CQNKMHlAmvY610/AGXxCfyUkd73PZb+LxZwulh5hDlhSQn72cxShp144ww8535DDMZA==}
     dependencies:
-      '@vaadin/overlay': 23.3.12
+      '@vaadin/overlay': 23.3.13
     dev: false
 
   /@vaadin/vaadin-progress-bar/23.3.11:
@@ -3000,6 +3004,17 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /apexcharts/3.35.0:
+    resolution: {integrity: sha512-oipJRkaxt8DPGRmn1kur6aPzML1JSpf2M3ecu+gyw+8xiNmT2C0p1uuuqPZrk+Lr2hmDxzNBPR7TvxwRl3ozgw==}
+    dependencies:
+      svg.draggable.js: 2.2.2
+      svg.easing.js: 2.0.0
+      svg.filter.js: 2.0.2
+      svg.pathmorphing.js: 0.1.3
+      svg.resize.js: 1.4.3
+      svg.select.js: 3.0.1
+    dev: false
+
   /array-buffer-byte-length/1.0.0:
     resolution: {integrity: sha512-LPuwb2P+NrQw3XhxGc36+XSvuBPopovXYTR9Ew++Du9Yb/bx5AzBfrIsBoj0EZUifjQU+sHL21sseZ3jerWO/A==}
     dependencies:
@@ -3041,7 +3056,7 @@ packages:
     dependencies:
       '@babel/core': 7.21.8
       '@babel/helper-define-polyfill-provider': 0.3.3_@babel+core@7.21.8
-      core-js-compat: 3.30.1
+      core-js-compat: 3.30.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3095,8 +3110,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001482
-      electron-to-chromium: 1.4.384
+      caniuse-lite: 1.0.30001487
+      electron-to-chromium: 1.4.396
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11_browserslist@4.21.5
     dev: true
@@ -3114,11 +3129,11 @@ packages:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
     dependencies:
       function-bind: 1.1.1
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
     dev: true
 
-  /caniuse-lite/1.0.30001482:
-    resolution: {integrity: sha512-F1ZInsg53cegyjroxLNW9DmrEQ1SuGRTO1QlpA0o2/6OpQ0gFeDRoq1yFmnr8Sakn9qwwt9DmbxHB6w167OSuQ==}
+  /caniuse-lite/1.0.30001487:
+    resolution: {integrity: sha512-83564Z3yWGqXsh2vaH/mhXfEM0wX+NlBCm1jYHOb97TrTWJEmPTccZgeLTPBUUb0PNVo+oomb7wkimZBIERClA==}
     dev: true
 
   /chalk/1.1.3:
@@ -3211,8 +3226,8 @@ packages:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
     dev: true
 
-  /core-js-compat/3.30.1:
-    resolution: {integrity: sha512-d690npR7MC6P0gq4npTl5n2VQeNAmUrJ90n+MHiKS7W2+xno4o3F5GDEuylSdi6EJ3VssibSGXOa1r3YXD3Mhw==}
+  /core-js-compat/3.30.2:
+    resolution: {integrity: sha512-nriW1nuJjUgvkEjIot1Spwakz52V9YkYHZAQG6A1eCgC8AA1p0zngrQEP9R0+V6hji5XilWKG1Bd0YRppmGimA==}
     dependencies:
       browserslist: 4.21.5
     dev: true
@@ -3261,11 +3276,11 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
     dependencies:
-      jake: 10.8.5
+      jake: 10.8.6
     dev: true
 
-  /electron-to-chromium/1.4.384:
-    resolution: {integrity: sha512-I97q0MmRAAqj53+a8vZsDkEXBZki+ehYAOPzwtQzALip52aEp2+BJqHFtTlsfjoqVZYwPpHC8wM6MbsSZQ/Eqw==}
+  /electron-to-chromium/1.4.396:
+    resolution: {integrity: sha512-pqKTdqp/c5vsrc0xUPYXTDBo9ixZuGY8es4ZOjjd6HD6bFYbu5QA09VoW3fkY4LF1T0zYk86lN6bZnNlBuOpdQ==}
     dev: true
 
   /es-abstract/1.21.2:
@@ -3278,7 +3293,7 @@ packages:
       es-set-tostringtag: 2.0.1
       es-to-primitive: 1.2.1
       function.prototype.name: 1.1.5
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       get-symbol-description: 1.0.0
       globalthis: 1.0.3
       gopd: 1.0.1
@@ -3312,7 +3327,7 @@ packages:
     resolution: {integrity: sha512-g3OMbtlwY3QewlqAiMLI47KywjWZoEytKr8pf6iTC8uJq5bIAH52Z9pnQ8pVL6whrCto53JZDuUIsifGeLorTg==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       has: 1.0.3
       has-tostringtag: 1.0.0
     dev: true
@@ -3644,11 +3659,12 @@ packages:
     engines: {node: '>=6.9.0'}
     dev: true
 
-  /get-intrinsic/1.2.0:
-    resolution: {integrity: sha512-L049y6nFOuom5wGyRc3/gdTLO94dySVKRACj1RmJZBQXlbTMhtNIgkWkUHq+jYmZvKf14EW1EoJnnjbmoHij0Q==}
+  /get-intrinsic/1.2.1:
+    resolution: {integrity: sha512-2DcsyfABl+gVHEfCOaTrWgyt+tb6MSEGmKq+kI5HwLbIYgjgmMcV8KQ41uaKz1xxUcn9tJtgFbQUEVcEbd0FYw==}
     dependencies:
       function-bind: 1.1.1
       has: 1.0.3
+      has-proto: 1.0.1
       has-symbols: 1.0.3
     dev: true
 
@@ -3661,7 +3677,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
     dev: true
 
   /glob-parent/5.1.2:
@@ -3697,7 +3713,7 @@ packages:
   /gopd/1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
     dev: true
 
   /graceful-fs/4.2.11:
@@ -3728,7 +3744,7 @@ packages:
   /has-property-descriptors/1.0.0:
     resolution: {integrity: sha512-62DVLZGoiEBDHQyqG4w9xCuZ7eJEwNmJRWw2VY84Oedb7WFcA27fiEVe8oUQx9hAUJ4ekurquucTGwsyO1XGdQ==}
     dependencies:
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
     dev: true
 
   /has-proto/1.0.1:
@@ -3774,7 +3790,7 @@ packages:
     resolution: {integrity: sha512-Y+R5hJrzs52QCG2laLn4udYVnxsfny9CpOhNhUvk/SSSVyF6T27FzRbF0sroPidSu3X8oEAkOn2K804mjpt6UQ==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       has: 1.0.3
       side-channel: 1.0.4
     dev: true
@@ -3783,7 +3799,7 @@ packages:
     resolution: {integrity: sha512-y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       is-typed-array: 1.1.10
     dev: true
 
@@ -3929,8 +3945,8 @@ packages:
       call-bind: 1.0.2
     dev: true
 
-  /jake/10.8.5:
-    resolution: {integrity: sha512-sVpxYeuAhWt0OTWITwT98oyV0GsXyMlXCF+3L1SuafBVUIr/uILGRB+NqwkzhgXKvoJpDIpQvqkUALgdmQsQxw==}
+  /jake/10.8.6:
+    resolution: {integrity: sha512-G43Ub9IYEFfu72sua6rzooi8V8Gz2lkfk48rW20vEWCGizeaEPlKB1Kh8JIA84yQbiAEfqlPmSpGgCKKxH3rDA==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -3944,7 +3960,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.0.0
+      '@types/node': 20.1.5
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: true
@@ -4005,11 +4021,11 @@ packages:
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.1.1
       '@lit/reactive-element': 1.6.1
-      lit-html: 2.7.3
+      lit-html: 2.7.4
     dev: false
 
-  /lit-html/2.7.3:
-    resolution: {integrity: sha512-9DyLzcn/kbRGowz2vFmSANFbRZTxYUgYYFqzie89w6GLpPUiBCDHfcdeRUV/k3Q2ueYxNjfv46yPCtKAEAPOVw==}
+  /lit-html/2.7.4:
+    resolution: {integrity: sha512-/Jw+FBpeEN+z8X6PJva5n7+0MzCVAH2yypN99qHYYkq8bI+j7I39GH+68Z/MZD6rGKDK9RpzBw7CocfmHfq6+g==}
     dependencies:
       '@types/trusted-types': 2.0.3
     dev: false
@@ -4019,7 +4035,7 @@ packages:
     dependencies:
       '@lit/reactive-element': 1.6.1
       lit-element: 3.3.2
-      lit-html: 2.7.3
+      lit-html: 2.7.4
     dev: false
 
   /lodash.debounce/4.0.8:
@@ -4171,6 +4187,11 @@ packages:
     dependencies:
       wrappy: 1.0.2
     dev: true
+
+  /onecolor/3.1.0:
+    resolution: {integrity: sha512-YZSypViXzu3ul5LMu/m6XjJ9ol8qAy9S2VjHl5E6UlhUH1KGKWabyEJifn0Jjpw23bYDzC2ucKMPGiH5kfwSGQ==}
+    engines: {node: '>=0.4.8'}
+    dev: false
 
   /path-is-absolute/1.0.1:
     resolution: {integrity: sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==}
@@ -4327,7 +4348,7 @@ packages:
       jest-worker: 26.6.2
       rollup: 2.79.1
       serialize-javascript: 4.0.0
-      terser: 5.17.1
+      terser: 5.17.4
     dev: true
 
   /rollup/2.79.1:
@@ -4352,7 +4373,7 @@ packages:
     resolution: {integrity: sha512-JBUUzyOgEwXQY1NuPtvcj/qcBDbDmEvWufhlnXZIm75DEHp+afM1r1ujJpJsV/gSM4t59tpDyPi1sd6ZaPFfsA==}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       is-regex: 1.1.4
     dev: true
 
@@ -4361,8 +4382,8 @@ packages:
     hasBin: true
     dev: true
 
-  /semver/7.5.0:
-    resolution: {integrity: sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==}
+  /semver/7.5.1:
+    resolution: {integrity: sha512-Wvss5ivl8TMRZXXESstBA4uR5iXgEN/VC5/sOcuXdVLzcdkz4HWetIoRfG5gb5X+ij/G9rw9YoGn3QoQ8OCSpw==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -4379,7 +4400,7 @@ packages:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       object-inspect: 1.12.3
     dev: true
 
@@ -4423,7 +4444,7 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       es-abstract: 1.21.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       has-symbols: 1.0.3
       internal-slot: 1.0.5
       regexp.prototype.flags: 1.5.0
@@ -4514,6 +4535,60 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
+  /svg.draggable.js/2.2.2:
+    resolution: {integrity: sha512-JzNHBc2fLQMzYCZ90KZHN2ohXL0BQJGQimK1kGk6AvSeibuKcIdDX9Kr0dT9+UJ5O8nYA0RB839Lhvk4CY4MZw==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      svg.js: 2.7.1
+    dev: false
+
+  /svg.easing.js/2.0.0:
+    resolution: {integrity: sha512-//ctPdJMGy22YoYGV+3HEfHbm6/69LJUTAqI2/5qBvaNHZ9uUFVC82B0Pl299HzgH13rKrBgi4+XyXXyVWWthA==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      svg.js: 2.7.1
+    dev: false
+
+  /svg.filter.js/2.0.2:
+    resolution: {integrity: sha512-xkGBwU+dKBzqg5PtilaTb0EYPqPfJ9Q6saVldX+5vCRy31P6TlRCP3U9NxH3HEufkKkpNgdTLBJnmhDHeTqAkw==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      svg.js: 2.7.1
+    dev: false
+
+  /svg.js/2.7.1:
+    resolution: {integrity: sha512-ycbxpizEQktk3FYvn/8BH+6/EuWXg7ZpQREJvgacqn46gIddG24tNNe4Son6omdXCnSOaApnpZw6MPCBA1dODA==}
+    dev: false
+
+  /svg.pathmorphing.js/0.1.3:
+    resolution: {integrity: sha512-49HWI9X4XQR/JG1qXkSDV8xViuTLIWm/B/7YuQELV5KMOPtXjiwH4XPJvr/ghEDibmLQ9Oc22dpWpG0vUDDNww==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      svg.js: 2.7.1
+    dev: false
+
+  /svg.resize.js/1.4.3:
+    resolution: {integrity: sha512-9k5sXJuPKp+mVzXNvxz7U0uC9oVMQrrf7cFsETznzUDDm0x8+77dtZkWdMfRlmbkEEYvUn9btKuZ3n41oNA+uw==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      svg.js: 2.7.1
+      svg.select.js: 2.1.2
+    dev: false
+
+  /svg.select.js/2.1.2:
+    resolution: {integrity: sha512-tH6ABEyJsAOVAhwcCjF8mw4crjXSI1aa7j2VQR8ZuJ37H2MBUbyeqYr5nEO7sSN3cy9AR9DUwNg0t/962HlDbQ==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      svg.js: 2.7.1
+    dev: false
+
+  /svg.select.js/3.0.1:
+    resolution: {integrity: sha512-h5IS/hKkuVCbKSieR9uQCj9w+zLHoPh+ce19bBYyqF53g6mnPB8sAtIbe1s9dh2S2fCmYX2xel1Ln3PJBbK4kw==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      svg.js: 2.7.1
+    dev: false
+
   /temp-dir/2.0.0:
     resolution: {integrity: sha512-aoBAniQmmwtcKp/7BzsH8Cxzv8OL736p7v1ihGb5e9DJ9kTwGWHrQrVB5+lfVDzfGrdRzXch+ig7LHaY1JTOrg==}
     engines: {node: '>=8'}
@@ -4529,8 +4604,8 @@ packages:
       unique-string: 2.0.0
     dev: true
 
-  /terser/5.17.1:
-    resolution: {integrity: sha512-hVl35zClmpisy6oaoKALOpS0rDYLxRFLHhRuDlEGTKey9qHjS1w9GMORjuwIMt70Wan4lwsLYyWDVnWgF+KUEw==}
+  /terser/5.17.4:
+    resolution: {integrity: sha512-jcEKZw6UPrgugz/0Tuk/PVyLAPfMBJf5clnGueo45wTweoV8yh7Q7PEkhkJ5uuUbC7zAxEcG3tqNr1bstkQ8nw==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -4761,7 +4836,7 @@ packages:
     engines: {vscode: ^1.52.0}
     dependencies:
       minimatch: 3.1.2
-      semver: 7.5.0
+      semver: 7.5.1
       vscode-languageserver-protocol: 3.16.0
     dev: true
 
