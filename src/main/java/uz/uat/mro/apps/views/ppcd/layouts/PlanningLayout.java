@@ -26,10 +26,10 @@ import uz.uat.mro.apps.views.ppcd.views.ProjectView;
 
 public class PlanningLayout extends AppLayout {
     private H2 viewTitle;
-    private Project project;
+    // private Project project;
 
     public PlanningLayout() {
-        this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
+        // this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -59,10 +59,13 @@ public class PlanningLayout extends AppLayout {
         AppNav nav = new AppNav();
         nav.addItem(new AppNavItem("Контракт", ProjectView.class, "la la-file"));
         nav.addItem(new AppNavItem("Коэффицент MRO", MroCoefficentView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Открытые карты", JobcardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Закрытые карты", ClosedCardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Non-Routine карты", NonRoutineCardsView.class, "la la-file"));
-        nav.addItem(new AppNavItem("ACR", AcrsView.class, "la la-file"));
+        // nav.addItem(new AppNavItem("Открытые карты", JobcardsView.class, "la
+        // la-file"));
+        // nav.addItem(new AppNavItem("Закрытые карты", ClosedCardsView.class, "la
+        // la-file"));
+        // nav.addItem(new AppNavItem("Non-Routine карты", NonRoutineCardsView.class,
+        // "la la-file"));
+        // nav.addItem(new AppNavItem("ACR", AcrsView.class, "la la-file"));
         nav.addItem(new AppNavItem("Действия по картам", MaintenancePlanView.class, "la la-file"));
         return nav;
     }

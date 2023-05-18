@@ -4,7 +4,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -22,6 +21,7 @@ public class ImportCardsView extends FormLayout {
     private Button button;
     private Span fileUrlSpan;
     private Binder<Revision> binder;
+    
 
     private Revision revision;
 
@@ -47,7 +47,4 @@ public class ImportCardsView extends FormLayout {
         fileUrlSpan.add(fileUrl, new Div(), button);
     }
 
-    private void data() {
-
-    }
 }

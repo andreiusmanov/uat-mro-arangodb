@@ -8,17 +8,19 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
+import uz.uat.mro.apps.model.activity.repository.RevisionRepository;
 import uz.uat.mro.apps.model.activity.repository.TaskGroupsRepository;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
-import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 import uz.uat.mro.apps.model.library.repository.MpdAccessesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 @AllArgsConstructor
 @Service
@@ -28,6 +30,7 @@ public class MaintenanceCardsService {
     private MpdTaskcardsRepository taskcardsRepo;
     private MpdAccessesRepository accessesRepo;
     private MpdAccessesRepository zonesRepo;
+    private RevisionRepository revisionRepo;
 
     /**
      * collect task groups (eo, routine, ht)
@@ -41,6 +44,19 @@ public class MaintenanceCardsService {
     /**
      * find mpd taskcard by number and edition
      * 
+     * @param number
+     * @param edition
+     * @return
+     */
+    public Optional<Revision> findRevision(String number, Project project) {
+        Revision t = new Revision();
+        t.setNumber(number);
+        t.setProject(project);
+        return revisionRepo.findOne(Example.of(t));
+    }
+
+    /**
+     * find mpd taskcard by number and edition
      * @param number
      * @param edition
      * @return

@@ -8,8 +8,8 @@ import com.arangodb.springframework.annotation.From;
 import com.arangodb.springframework.annotation.To;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
+import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 @Data
 @Edge("access_links")

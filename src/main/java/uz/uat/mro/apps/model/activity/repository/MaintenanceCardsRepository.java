@@ -6,7 +6,7 @@ import com.arangodb.springframework.annotation.Query;
 import com.arangodb.springframework.repository.ArangoRepository;
 
 import uz.uat.mro.apps.model.activity.service.LinkServiceClass;
-import uz.uat.mro.apps.model.docs.MaintenanceCard;
+import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 public interface MaintenanceCardsRepository extends ArangoRepository<MaintenanceCard, String> {
 

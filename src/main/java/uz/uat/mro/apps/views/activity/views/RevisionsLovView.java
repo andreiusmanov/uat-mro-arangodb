@@ -48,7 +48,7 @@ public class RevisionsLovView extends VerticalLayout {
     private void grid() {
         this.grid = new GridCrud<>(Revision.class);
         this.grid.getGrid().setItems(service.getRevisionsByProject(project.getArangoId()));
-        this.grid.getGrid().setColumns("number", "date", "description", "project.number");
+        this.grid.getGrid().setColumns("number", "date", "description", "project.number", "status");
         this.grid.getGrid().getColumnByKey("project.number").setHeader("Контракт");
 
         grid.getGrid().getSelectionModel().addSelectionListener(rev -> {
@@ -67,7 +67,7 @@ public class RevisionsLovView extends VerticalLayout {
             r.setProject(project);
             return r;
         });
-        factory.setVisibleProperties("project.number", "number", "date", "description");
+        factory.setVisibleProperties("project.number", "number", "date", "description", "status");
         factory.setFieldCaptions("Контракт", "Номер", "Дата", "Описание");
 
         factory.setFieldProvider("description", element -> {

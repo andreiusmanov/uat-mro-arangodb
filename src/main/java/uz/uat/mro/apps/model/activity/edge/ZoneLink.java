@@ -8,8 +8,8 @@ import com.arangodb.springframework.annotation.From;
 import com.arangodb.springframework.annotation.To;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdSubzone;
+import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 @Data
 @Edge("zone_links")

@@ -18,10 +18,9 @@ import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.activity.views.MaintenancePlanView;
 import uz.uat.mro.apps.views.activity.views.MaintenancecardsView;
 import uz.uat.mro.apps.views.activity.views.MaterialListView;
-import uz.uat.mro.apps.views.activity.views.RevisionsLovView;
 import uz.uat.mro.apps.views.activity.views.ProjectView;
+import uz.uat.mro.apps.views.activity.views.RevisionsLovView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
-import uz.uat.mro.apps.views.ppcd.views.RevisionDownloadView;
 
 public class ProjectLayout extends AppLayout {
     private H2 viewTitle;

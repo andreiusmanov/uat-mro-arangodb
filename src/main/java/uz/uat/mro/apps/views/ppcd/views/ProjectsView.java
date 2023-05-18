@@ -6,6 +6,7 @@ import org.vaadin.crudui.form.CrudFormFactory;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -61,6 +62,7 @@ public class ProjectsView extends VerticalLayout {
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
         grid.setFindAllOperation(service::findAll);
+        grid.getGrid().addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
 
         CrudFormFactory<Project> factory = grid.getCrudFormFactory();
         factory.setVisibleProperties("status", "number", "date", "customer", "supplier", "aircraft", "edition",

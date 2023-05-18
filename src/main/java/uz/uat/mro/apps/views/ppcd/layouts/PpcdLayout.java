@@ -16,21 +16,15 @@ import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
-import uz.uat.mro.apps.views.ppcd.views.AcrsView;
-import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
-import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
 import uz.uat.mro.apps.views.ppcd.views.PpcdReportsView;
-import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
-import uz.uat.mro.apps.views.ppcd.views.MroCoefficentView;
-import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
 import uz.uat.mro.apps.views.ppcd.views.ProjectsView;
 
 public class PpcdLayout extends AppLayout {
     private H2 viewTitle;
-    private Project project;
+    // private Project project;
 
     public PpcdLayout() {
-        this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
+        // this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();

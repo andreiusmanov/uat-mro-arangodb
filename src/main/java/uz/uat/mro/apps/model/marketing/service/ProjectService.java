@@ -15,11 +15,11 @@ import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.aircraft.repository.AircraftsRepository;
 import uz.uat.mro.apps.model.common.entity.Firm;
 import uz.uat.mro.apps.model.common.repository.FirmsRepository;
-import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.repository.MpdEditionsRepository;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.marketing.repository.ProjectRepository;
+import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 @AllArgsConstructor
 @Service

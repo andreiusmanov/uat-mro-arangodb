@@ -26,11 +26,11 @@ import com.opencsv.exceptions.CsvException;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceTaskcard;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
-import uz.uat.mro.apps.model.docs.MaintenanceCard;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 public class ImportMC {
 
@@ -58,12 +58,13 @@ public class ImportMC {
         cards.stream().forEach(card -> {
             MaintenanceCard m = new MaintenanceCard();
             m.setTaskGroup((TaskGroup) findObjectByProperty(taskGroups, "name", card[0]));
-            m.setSequence(card[1]);
-            m.setNumber(card[2]);
-            System.out.println(m.getNumber());
-            m.setDescription(card[3]);
-            m.setRemarks(card[4]);
-            m.setValid(true);
+            m.setRevision(service.findRevision(card[1], project).get());
+            m.setSequence(card[2]);
+            m.setTaskCode(card[3]);
+            m.setMhrs(card[4]);
+            m.setNumber(card[5]);
+            m.setDescription(card[6]);
+            m.setRemarks(card[7]);
             if (m.getTaskGroup().getId().equals("ht") || m.getTaskGroup().getId().equals("routine")) {
                 Optional<MpdTaskcard> opt = service.findTaskcardByNumberAndEdition(card[2], edition);
                 if (opt.isPresent()) {
