@@ -38,6 +38,10 @@ public class RevisionDownloadView extends VerticalLayout {
         this.grid = new GridCrud<>(ImportedCards.class);
         grid.getGrid().setPageSize(20);
 
+    
+
+
+
         this.confirmButton = new Button("Подтвердить");
         this.cancelButton = new Button("Отклонить");
 
