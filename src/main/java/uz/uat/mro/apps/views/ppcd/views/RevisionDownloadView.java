@@ -11,6 +11,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
+import uz.uat.mro.apps.model.ppcd.entity.ImportedCards;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 import uz.uat.mro.apps.views.activity.layouts.ProjectLayout;
 
@@ -22,7 +23,7 @@ public class RevisionDownloadView extends VerticalLayout {
     private TextField url;
     private Button chooser;
     private Dialog uploadDialog;
-    private GridCrud<MaintenanceCard> grid;
+    private GridCrud<ImportedCards> grid;
     private Button confirmButton;
     private Button cancelButton;
 
@@ -34,9 +35,9 @@ public class RevisionDownloadView extends VerticalLayout {
     }
 
     private void grid() {
-        this.grid = new GridCrud<>(MaintenanceCard.class);
+        this.grid = new GridCrud<>(ImportedCards.class);
         grid.getGrid().setPageSize(20);
-        
+
         this.confirmButton = new Button("Подтвердить");
         this.cancelButton = new Button("Отклонить");
 
