@@ -12,7 +12,6 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
 import uz.uat.mro.apps.model.ppcd.entity.ImportedCards;
-import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 import uz.uat.mro.apps.views.activity.layouts.ProjectLayout;
 
 @PageTitle(value = "Загрузка списка рабочих карт")
@@ -38,9 +37,8 @@ public class RevisionDownloadView extends VerticalLayout {
         this.grid = new GridCrud<>(ImportedCards.class);
         grid.getGrid().setPageSize(20);
 
-    
-
-
+        grid.getGrid().setColumns("action", "sequence", "number", "revision", "taskGroup", "taskcard",
+                "taskCode", "mhrs", "description", "remarks", "status", "project");
 
         this.confirmButton = new Button("Подтвердить");
         this.cancelButton = new Button("Отклонить");
