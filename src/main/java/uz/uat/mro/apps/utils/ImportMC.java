@@ -1,8 +1,11 @@
 package uz.uat.mro.apps.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
@@ -24,15 +27,47 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 import uz.uat.mro.apps.model.activity.entity.MaintenanceTaskcard;
+import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.ppcd.entity.ImportedCard;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
+import uz.uat.mro.apps.model.ppcd.service.ImportedCardsService;
 
 public class ImportMC {
+
+    public static void importRevisionCards(ImportedCardsService service, InputStream file, Project project,
+            Revision revision)
+            throws IOException, CsvException {
+        if (file.available() == 0) {
+            return;
+        }
+        List<String[]> cards = normalizeCards2(file);
+        List<ImportedCard> list = new ArrayList<>();
+
+        cards.stream().forEach(card -> {
+            ImportedCard m = new ImportedCard();
+            m.setAction(card[0]);
+            m.setSequence(card[1]);
+            m.setNumber(card[2]);
+            m.setRevision(revision);
+            m.setTaskGroup(card[4]);
+            m.setTaskcard(card[5]);
+            m.setTaskCode(card[6]);
+            m.setMhrs(card[7]);
+            m.setDescription(card[8]);
+            m.setRemarks(card[9]);
+            m.setStatus(card[10]);
+            m.setProject(project);
+            list.add(m);
+        });
+
+        service.saveAll(list);
+    }
 
     /**
      * import data from xls
@@ -82,6 +117,16 @@ public class ImportMC {
 
     private static List<String[]> normalizeCards(String fileName) throws IOException, CsvException {
         try (Reader reader = Files.newBufferedReader(Path.of(fileName))) {
+            try (CSVReader csvReader = new CSVReader(reader)) {
+                return csvReader.readAll();
+            }
+        }
+    }
+
+    private static List<String[]> normalizeCards2(InputStream file) throws IOException, CsvException {
+        try (
+                InputStreamReader streamReader = new InputStreamReader(file);
+                Reader reader = new BufferedReader(streamReader)) {
             try (CSVReader csvReader = new CSVReader(reader)) {
                 return csvReader.readAll();
             }
