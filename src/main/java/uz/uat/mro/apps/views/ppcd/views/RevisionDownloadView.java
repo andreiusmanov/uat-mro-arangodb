@@ -52,7 +52,6 @@ public class RevisionDownloadView extends VerticalLayout {
     private void grid() {
         this.grid = new GridCrud<>(ImportedCard.class);
         grid.getGrid().setPageSize(20);
-
         grid.getGrid().setColumns("action", "sequence", "number", "revision", "taskGroup", "taskcard",
                 "taskCode", "mhrs", "description", "remarks", "status", "project");
 
@@ -67,7 +66,7 @@ public class RevisionDownloadView extends VerticalLayout {
         grid.setDeleteOperation(service::delete);
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
-        grid.setFindAllOperation(() -> service.findAllByRevision(revision));
+        grid.setFindAllOperation(() -> service.findByRevision(revision));
     }
 
     private void dialog() {

@@ -28,10 +28,7 @@ public class ImportedCardsService {
         repo.delete(card);
     }
 
-    public List<ImportedCard> findAllByRevision(Revision revision) {
-        ImportedCard card = new ImportedCard();
-        card.setRevision(revision);
-        return StreamSupport.stream(repo.findAll(Example.of(card)).spliterator(), false).toList();
+    public List<ImportedCard> findByRevision(Revision revision) {
+        return StreamSupport.stream(repo.findByRevision(revision.getArangoId()).spliterator(), false).toList();
     }
-
 }
