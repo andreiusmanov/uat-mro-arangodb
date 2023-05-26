@@ -43,7 +43,6 @@ public class RevisionsLovView extends VerticalLayout {
     public RevisionsLovView(RevisionService service) {
         this.service = service;
         this.project = (Project) MyUtils.getAttribute("project");
-
         grid();
         menu();
         add(menu, grid);
@@ -63,7 +62,7 @@ public class RevisionsLovView extends VerticalLayout {
 
         grid.getGrid().getSelectionModel().addSelectionListener(rev -> {
             boolean selected = !grid.getGrid().getSelectedItems().isEmpty();
-            grid.getGrid().getSelectionModel().getFirstSelectedItem();
+            revision = grid.getGrid().getSelectionModel().getFirstSelectedItem().get();
             download.setEnabled(selected);
         });
 
