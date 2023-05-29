@@ -20,19 +20,18 @@ public class ImportedCard {
     private String id;
     @ArangoId
     private String arangoId;
-    private String action;
-    private String sequence;
-    private String number;
+    @Ref(lazy = false)
+    private Project project;
     @Ref(lazy = false)
     private Revision revision;
+    private String action;
     private String taskGroup;
-    private String taskcard;
-    private String taskCode;
+    private String revisionNumber;
+    private String sequence;
+    private String number;
+    private String function;
     private String mhrs;
     private String description;
     private String remarks;
     private String status;
-    @Ref(lazy = false)
-    private Project project;
-
 }

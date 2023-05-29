@@ -40,8 +40,7 @@ import uz.uat.mro.apps.model.ppcd.service.ImportedCardsService;
 
 public class ImportMC {
 
-    public static void importRevisionCards(ImportedCardsService service, InputStream file, Project project,
-            Revision revision)
+    public static void importRevisionCards(ImportedCardsService service, InputStream file, Revision revision)
             throws IOException, CsvException {
         if (file.available() == 0) {
             return;
@@ -51,22 +50,54 @@ public class ImportMC {
 
         cards.stream().forEach(card -> {
             ImportedCard m = new ImportedCard();
-            m.setAction(card[0]);
-            m.setSequence(card[1]);
-            m.setNumber(card[2]);
+            m.setProject(revision.getProject());
             m.setRevision(revision);
-            m.setTaskGroup(card[4]);
-            m.setTaskcard(card[5]);
-            m.setTaskCode(card[6]);
-            m.setMhrs(card[7]);
-            m.setDescription(card[8]);
-            m.setRemarks(card[9]);
-            m.setStatus(card[10]);
-            m.setProject(project);
+            m.setAction(card[0]);
+            m.setTaskGroup(card[1]);
+            m.setRevisionNumber(card[2]);
+            m.setSequence(card[3]);
+            m.setNumber(card[4]);
+            m.setMhrs(card[5]);
+            m.setFunction(card[6]);
+            m.setDescription(card[7]);
+            m.setRemarks(card[8]);
+            m.setStatus("imported");
             list.add(m);
         });
 
         service.saveAll(list);
+    }
+
+    public void convertImportedCards2MaintenanceCards(ImportedCardsService service1, MaintenanceCardsService service2,
+            Revision revision) {
+
+        Project project = revision.getProject();
+        List<ImportedCard> cards = service1.findByRevision(revision);
+        MpdEdition edition = project.getEdition();
+        List<MaintenanceCard> list = new ArrayList<>();
+        List<TaskGroup> taskGroups = service2.findAllTaskgroups();
+
+        cards.stream().forEach(card -> {
+            MaintenanceCard m = new MaintenanceCard();
+            m.setTaskGroup((TaskGroup) findObjectByProperty(taskGroups, "name", card.getTaskGroup()));
+            m.setRevision(revision);
+            m.setSequence(card.getSequence());
+            // m.setTaskCode(card[3]);
+            m.setMhrs(card.getMhrs());
+            m.setNumber(card.getNumber());
+            m.setDescription(card.getDescription());
+            m.setRemarks(card.getRemarks());
+            if (m.getTaskGroup().getId().equals("ht") || m.getTaskGroup().getId().equals("routine")) {
+                Optional<MpdTaskcard> opt = service2.findTaskcardByNumberAndEdition(card.getNumber(), edition);
+                if (opt.isPresent()) {
+                    m.setTaskcard(opt.get());
+                    m.setTaskcardString(m.getTaskcard().getNumber());
+                }
+            }
+            m.setProject(project);
+            list.add(m);
+        });
+
     }
 
     /**

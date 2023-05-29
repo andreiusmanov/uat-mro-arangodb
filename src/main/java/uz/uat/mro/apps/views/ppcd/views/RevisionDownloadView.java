@@ -9,6 +9,7 @@ import com.opencsv.exceptions.CsvException;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
@@ -52,8 +53,18 @@ public class RevisionDownloadView extends VerticalLayout {
     private void grid() {
         this.grid = new GridCrud<>(ImportedCard.class);
         grid.getGrid().setPageSize(20);
-        grid.getGrid().setColumns("action", "sequence", "number", "revision", "taskGroup", "taskcard",
-                "taskCode", "mhrs", "description", "remarks", "status", "project");
+        grid.getGrid().setColumns("action", "sequence", "number", "revisionNumber", "taskGroup", "mhrs",
+                "description", "remarks", "status");
+
+        grid.getGrid().getColumnByKey("action").setHeader("Действие");
+        grid.getGrid().getColumnByKey("sequence").setHeader("№№");
+        grid.getGrid().getColumnByKey("number").setHeader("Номер TC");
+        grid.getGrid().getColumnByKey("revisionNumber").setHeader("Ревизия");
+        grid.getGrid().getColumnByKey("taskGroup").setHeader("Группа задач");
+        grid.getGrid().getColumnByKey("mhrs").setHeader("MHRs");
+        grid.getGrid().getColumnByKey("description").setHeader("Описание");
+        grid.getGrid().getColumnByKey("remarks").setHeader("Пометки");
+        grid.getGrid().getColumnByKey("status").setHeader("Статус");
 
         this.confirmButton = new Button("Подтвердить");
         this.cancelButton = new Button("Отклонить");
@@ -84,7 +95,9 @@ public class RevisionDownloadView extends VerticalLayout {
         upload.addSucceededListener(event -> {
             InputStream inputStream = buffer.getInputStream();
             try {
-                ImportMC.importRevisionCards(service, inputStream, project, revision);
+                ImportMC.importRevisionCards(service, inputStream, revision);
+                Notification.show("Import completed");
+                uploadDialog.close();
             } catch (IOException | CsvException e) {
                 e.printStackTrace();
             }
