@@ -95,6 +95,7 @@ public class RevisionsLovView extends VerticalLayout {
         });
 
         this.download = new Button(VaadinIcon.DOWNLOAD.create());
+        this.download.setTooltipText("Загрузка списка TC");
         this.download.setEnabled(false);
         this.download.addClickListener(click -> {
             MyUtils.setAttribute(Keys.REVISION, revision);

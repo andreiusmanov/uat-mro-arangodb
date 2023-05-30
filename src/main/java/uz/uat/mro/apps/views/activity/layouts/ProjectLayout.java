@@ -78,7 +78,7 @@ public class ProjectLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value() + " " + project.getAircraft().getRegNumber();
+        return title == null ? "" : title.value(); // + " " + project.getAircraft().getRegNumber();
     }
 
 }

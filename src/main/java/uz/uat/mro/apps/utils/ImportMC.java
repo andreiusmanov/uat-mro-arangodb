@@ -68,7 +68,8 @@ public class ImportMC {
         service.saveAll(list);
     }
 
-    public static void convertImportedCards2MaintenanceCards(ImportedCardsService service1, MaintenanceCardsService service2,
+    public static void convertImportedCards2MaintenanceCards(ImportedCardsService service1,
+            MaintenanceCardsService service2,
             Revision revision) {
 
         Project project = revision.getProject();
@@ -80,9 +81,9 @@ public class ImportMC {
         cards.stream().forEach(card -> {
             MaintenanceCard m = new MaintenanceCard();
             m.setTaskGroup((TaskGroup) findObjectByProperty(taskGroups, "name", card.getTaskGroup()));
+            m.setProject(project);
             m.setRevision(revision);
             m.setSequence(card.getSequence());
-            // m.setTaskCode(card[3]);
             m.setMhrs(card.getMhrs());
             m.setNumber(card.getNumber());
             m.setDescription(card.getDescription());
@@ -94,10 +95,9 @@ public class ImportMC {
                     m.setTaskcardString(m.getTaskcard().getNumber());
                 }
             }
-            m.setProject(project);
             list.add(m);
         });
-
+        service2.saveAll(list);
     }
 
     /**
