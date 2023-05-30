@@ -17,6 +17,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.activity.entity.Revision;
+import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.ppcd.entity.ImportedCard;
 import uz.uat.mro.apps.model.ppcd.service.ImportedCardsService;
@@ -30,6 +31,7 @@ import uz.uat.mro.apps.views.activity.layouts.ProjectLayout;
 public class RevisionDownloadView extends VerticalLayout {
 
     private ImportedCardsService service;
+    private MaintenanceCardsService service2;
     private Project project;
     private Revision revision;
     private Dialog uploadDialog;
@@ -41,8 +43,9 @@ public class RevisionDownloadView extends VerticalLayout {
     private Button importButton;
     private Button cancel2Button;
 
-    public RevisionDownloadView(ImportedCardsService service) {
+    public RevisionDownloadView(ImportedCardsService service, MaintenanceCardsService service2) {
         this.service = service;
+        this.service2 = service2;
         this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         this.revision = (Revision) MyUtils.getAttribute(Keys.REVISION);
         grid();
@@ -69,6 +72,10 @@ public class RevisionDownloadView extends VerticalLayout {
         this.confirmButton = new Button("Подтвердить");
         this.cancelButton = new Button("Отклонить");
         this.startUpload = new Button("Загрузить");
+
+        confirmButton.addClickListener(click -> {
+            ImportMC.convertImportedCards2MaintenanceCards(service, service2, revision);
+        });
 
         grid.getCrudLayout().addToolbarComponent(confirmButton);
         grid.getCrudLayout().addToolbarComponent(cancelButton);

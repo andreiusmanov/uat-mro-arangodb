@@ -68,7 +68,7 @@ public class ImportMC {
         service.saveAll(list);
     }
 
-    public void convertImportedCards2MaintenanceCards(ImportedCardsService service1, MaintenanceCardsService service2,
+    public static void convertImportedCards2MaintenanceCards(ImportedCardsService service1, MaintenanceCardsService service2,
             Revision revision) {
 
         Project project = revision.getProject();
