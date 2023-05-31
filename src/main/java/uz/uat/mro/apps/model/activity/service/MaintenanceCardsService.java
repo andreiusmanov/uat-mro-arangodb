@@ -57,6 +57,7 @@ public class MaintenanceCardsService {
 
     /**
      * find mpd taskcard by number and edition
+     * 
      * @param number
      * @param edition
      * @return
@@ -150,6 +151,15 @@ public class MaintenanceCardsService {
 
         );
 
+    }
+
+    public MaintenanceCard findMaintenanceCard(Project project, String sequence, String number) {
+
+        MaintenanceCard m = new MaintenanceCard();
+        m.setProject(project);
+        m.setSequence(sequence);
+        m.setNumber(number);
+        return cardsRepo.findOne(Example.of(m)).get();
     }
 
 }

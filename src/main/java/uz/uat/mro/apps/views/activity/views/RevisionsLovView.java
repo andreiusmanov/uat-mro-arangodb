@@ -34,9 +34,6 @@ public class RevisionsLovView extends VerticalLayout {
     private RevisionService service;
     private Project project;
     private Revision revision;
-    private MenuBar menu;
-    private MenuItem importItem;
-    private MenuItem revisionItem;
     private GridCrud<Revision> grid;
     private Button download;
 
@@ -44,8 +41,7 @@ public class RevisionsLovView extends VerticalLayout {
         this.service = service;
         this.project = (Project) MyUtils.getAttribute("project");
         grid();
-        menu();
-        add(menu, grid);
+        add(grid);
     }
 
     private void grid() {
@@ -103,20 +99,4 @@ public class RevisionsLovView extends VerticalLayout {
         });
         grid.getCrudLayout().addToolbarComponent(download);
     }
-
-    private void menu() {
-        this.menu = new MenuBar();
-        this.menu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
-        importItem = menu.addItem("Импорт", "Импорт LOV Maintenance Cards");
-        revisionItem = menu.addItem("Ревизия", "Регистрация ревизии LOV Maintenance Cards");
-
-        importItem.addClickListener(click -> {
-            Notification.show("Arranging import of LOV MC");
-        });
-
-        revisionItem.addClickListener(click -> {
-            Notification.show("Arranging import of revisions LOV MC");
-        });
-    }
-
 }

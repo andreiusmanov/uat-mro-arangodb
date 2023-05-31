@@ -18,7 +18,6 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
-import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.ppcd.entity.ImportedCard;
 import uz.uat.mro.apps.model.ppcd.service.ImportedCardsService;
 import uz.uat.mro.apps.utils.ImportMC;
@@ -32,7 +31,6 @@ public class RevisionDownloadView extends VerticalLayout {
 
     private ImportedCardsService service;
     private MaintenanceCardsService service2;
-    private Project project;
     private Revision revision;
     private Dialog uploadDialog;
     private GridCrud<ImportedCard> grid;
@@ -46,7 +44,6 @@ public class RevisionDownloadView extends VerticalLayout {
     public RevisionDownloadView(ImportedCardsService service, MaintenanceCardsService service2) {
         this.service = service;
         this.service2 = service2;
-        this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         this.revision = (Revision) MyUtils.getAttribute(Keys.REVISION);
         grid();
         dialog();
