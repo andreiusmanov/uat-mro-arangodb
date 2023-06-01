@@ -2,6 +2,7 @@ package uz.uat.mro.apps.views.ppcd.views;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.vaadin.crudui.crud.impl.GridCrud;
 
@@ -10,6 +11,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
@@ -19,6 +21,7 @@ import com.vaadin.flow.router.Route;
 import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
 import uz.uat.mro.apps.model.ppcd.entity.ImportedCard;
+import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.ppcd.service.ImportedCardsService;
 import uz.uat.mro.apps.utils.ImportMC;
 import uz.uat.mro.apps.utils.Keys;
@@ -100,7 +103,9 @@ public class RevisionDownloadView extends VerticalLayout {
             InputStream inputStream = buffer.getInputStream();
             try {
                 ImportMC.importRevisionCards(service, inputStream, revision);
-                Notification.show("Import completed");
+                List<ImportedCard> l = service.findByRevision(revision);
+                grid.getGrid().setItems(l);
+                Notification.show("Импортировано " + l.size() + " записей.", 3, Position.MIDDLE);
                 uploadDialog.close();
             } catch (IOException | CsvException e) {
                 e.printStackTrace();

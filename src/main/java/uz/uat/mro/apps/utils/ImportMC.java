@@ -57,8 +57,8 @@ public class ImportMC {
             m.setRevisionNumber(card[2]);
             m.setSequence(card[3]);
             m.setNumber(card[4]);
-            m.setMhrs(card[5]);
-            m.setFunction(card[6]);
+            m.setFunction(card[5]);
+            m.setMhrs(card[6]);
             m.setDescription(card[7]);
             m.setRemarks(card[8]);
             m.setStatus("imported");
@@ -100,38 +100,41 @@ public class ImportMC {
                         }
                     }
                     m.setStatus("active");
+                    list.add(m);
                     break;
                 }
 
                 case ("REMOVE"): {
                     String sequence = card.getSequence();
                     String number = card.getNumber();
-                    MaintenanceCard c = service2.findMaintenanceCard(project, sequence, number);
-                    c.setStatus("removed");
+                    MaintenanceCard m = service2.findMaintenanceCard(project, sequence, number);
+                    m.setStatus("removed");
+                    m.setRevision(revision);
+                    list.add(m);
                     break;
                 }
                 case ("UPDATE"): {
                     String sequence = card.getSequence();
                     String number = card.getNumber();
-                    MaintenanceCard c = service2.findMaintenanceCard(project, sequence, number);
+                    MaintenanceCard m = service2.findMaintenanceCard(project, sequence, number);
 
-                    c.setTaskGroup((TaskGroup) findObjectByProperty(taskGroups, "name", card.getTaskGroup()));
-                    c.setProject(project);
-                    c.setRevision(revision);
-                    c.setSequence(card.getSequence());
-                    c.setMhrs(card.getMhrs());
-                    c.setNumber(card.getNumber());
-                    c.setDescription(card.getDescription());
-                    c.setRemarks(card.getRemarks());
-                    if (c.getTaskGroup().getId().equals("ht") || c.getTaskGroup().getId().equals("routine")) {
+                    m.setTaskGroup((TaskGroup) findObjectByProperty(taskGroups, "name", card.getTaskGroup()));
+                    m.setProject(project);
+                    m.setRevision(revision);
+                    m.setSequence(card.getSequence());
+                    m.setMhrs(card.getMhrs());
+                    m.setNumber(card.getNumber());
+                    m.setDescription(card.getDescription());
+                    m.setRemarks(card.getRemarks());
+                    if (m.getTaskGroup().getId().equals("ht") || m.getTaskGroup().getId().equals("routine")) {
                         Optional<MpdTaskcard> opt = service2.findTaskcardByNumberAndEdition(card.getNumber(), edition);
                         if (opt.isPresent()) {
-                            c.setTaskcard(opt.get());
-                            c.setTaskcardString(c.getTaskcard().getNumber());
+                            m.setTaskcard(opt.get());
+                            m.setTaskcardString(m.getTaskcard().getNumber());
                         }
                     }
-                    c.setStatus("active");
-                    list.add(c);
+                    m.setStatus("active");
+                    list.add(m);
                     break;
                 }
             }
