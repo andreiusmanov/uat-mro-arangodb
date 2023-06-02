@@ -8,6 +8,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.SelectVariant;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -47,6 +48,7 @@ public class MaintenancecardsView extends VerticalLayout {
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
         grid.setFindAllOperation(() -> service.findAllByProject(project.getArangoId()));
+        grid.getGrid().
         grid.getGrid().setColumns("number", "mpReference", "taskcardString", "description", "remarks");
         grid.getGrid().getColumnByKey("number").setHeader("Number");
         grid.getGrid().getColumnByKey("mpReference").setHeader("MP Reference");

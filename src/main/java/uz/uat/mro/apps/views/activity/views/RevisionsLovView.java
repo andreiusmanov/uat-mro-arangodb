@@ -66,6 +66,7 @@ public class RevisionsLovView extends VerticalLayout {
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
         grid.setFindAllOperation(() -> service.getRevisionsByProject(project.getArangoId()));
+
         CrudFormFactory<Revision> factory = grid.getCrudFormFactory();
         factory.setNewInstanceSupplier(() -> {
             Revision r = new Revision();
@@ -99,4 +100,8 @@ public class RevisionsLovView extends VerticalLayout {
         });
         grid.getCrudLayout().addToolbarComponent(download);
     }
+
+
+
+
 }

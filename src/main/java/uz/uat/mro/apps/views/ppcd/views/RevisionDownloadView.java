@@ -20,8 +20,8 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
+import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.ppcd.entity.ImportedCard;
-import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.ppcd.service.ImportedCardsService;
 import uz.uat.mro.apps.utils.ImportMC;
 import uz.uat.mro.apps.utils.Keys;
@@ -35,6 +35,7 @@ public class RevisionDownloadView extends VerticalLayout {
     private ImportedCardsService service;
     private MaintenanceCardsService service2;
     private Revision revision;
+    private Project project;
     private Dialog uploadDialog;
     private GridCrud<ImportedCard> grid;
     private Button startUpload;
@@ -48,6 +49,8 @@ public class RevisionDownloadView extends VerticalLayout {
         this.service = service;
         this.service2 = service2;
         this.revision = (Revision) MyUtils.getAttribute(Keys.REVISION);
+        this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
+
         grid();
         dialog();
         add(new H3("Загрузка данных LOV MC"), grid);
@@ -74,7 +77,7 @@ public class RevisionDownloadView extends VerticalLayout {
         this.startUpload = new Button("Загрузить");
 
         confirmButton.addClickListener(click -> {
-            ImportMC.convertImportedCards2MaintenanceCards(service, service2, revision);
+            ImportMC.convertImportedCards2MaintenanceCards(service, service2, revision, project);
         });
 
         grid.getCrudLayout().addToolbarComponent(confirmButton);
@@ -92,10 +95,6 @@ public class RevisionDownloadView extends VerticalLayout {
 
         this.importButton = new Button("Import");
         this.cancel2Button = new Button("Cancel");
-
-        importButton.addClickListener(click -> {
-
-        });
 
         MemoryBuffer buffer = new MemoryBuffer();
         Upload upload = new Upload(buffer);

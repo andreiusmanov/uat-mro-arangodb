@@ -89,13 +89,11 @@ public class MaintenanceCardsService {
         cardsRepo.delete(card);
     }
 
-    /**
-     * find cards for the project
-     * 
-     * @param project
-     * @return
-     */
     public List<MaintenanceCard> findAllByProject(String project) {
+        return StreamSupport.stream(cardsRepo.findCardsByProject(project).spliterator(), false).toList();
+    }
+    
+    public List<MaintenanceCard> findAllByProjectActive(String project) {
         return StreamSupport.stream(cardsRepo.findCardsByProject(project).spliterator(), false).toList();
     }
 

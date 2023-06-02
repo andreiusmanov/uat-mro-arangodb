@@ -70,9 +70,9 @@ public class ImportMC {
 
     public static void convertImportedCards2MaintenanceCards(ImportedCardsService service1,
             MaintenanceCardsService service2,
-            Revision revision) {
+            Revision revision, Project projectt) {
 
-        Project project = revision.getProject();
+        Project project = projectt;
         List<ImportedCard> cards = service1.findByRevision(revision);
         MpdEdition edition = project.getEdition();
         List<MaintenanceCard> list = new ArrayList<>();
@@ -283,7 +283,7 @@ public class ImportMC {
                                             mtc.setNumber(cardNo);
                                             mtc.setWorkArea(area);
                                             mtc.setSkill(skill);
-                                            c.setManifacturersTaskcard(mtc);
+                                            //c.setManifacturersTaskcard(mtc);
                                             service.save(c);
                                         }
                                     }
