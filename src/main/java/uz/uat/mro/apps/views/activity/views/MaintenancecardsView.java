@@ -76,8 +76,7 @@ public class MaintenancecardsView extends VerticalLayout {
 
         this.card = grid.getGrid().getSelectionModel().getFirstSelectedItem().orElse(null);
 
-         grid.getCrudFormFactory().buildNewForm(CrudOperation.READ, card,
-         isAttached(), null, null)
+         grid.getCrudFormFactory().setFieldCaptions(null);
 
     }
 
