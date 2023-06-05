@@ -1,9 +1,11 @@
 package uz.uat.mro.apps.views.activity.views;
 
+import org.vaadin.crudui.crud.CrudOperation;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
@@ -28,6 +30,7 @@ public class MaintenancecardsView extends VerticalLayout {
     private GridCrud<MaintenanceCard> grid;
     private Button downloadButton;
     private MenuBar menu;
+    private MaintenanceCard card;
 
     private MenuItem allMc;
     private MenuItem routineMc;
@@ -48,13 +51,19 @@ public class MaintenancecardsView extends VerticalLayout {
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
         grid.setFindAllOperation(() -> service.findAllByProject(project.getArangoId()));
-        grid.getGrid().
-        grid.getGrid().setColumns("number", "mpReference", "taskcardString", "description", "remarks");
+        // grid.getGrid().setSelectionMode(SelectionMode.MULTI);
+
+        grid.getGrid().setColumns("sequence", "number", "revision.number", "mhrs", "taskGroup.name",
+                "taskcardString", "description", "remarks", "status");
+        grid.getGrid().getColumnByKey("sequence").setHeader("№№");
         grid.getGrid().getColumnByKey("number").setHeader("Number");
-        grid.getGrid().getColumnByKey("mpReference").setHeader("MP Reference");
-        grid.getGrid().getColumnByKey("taskcardString").setHeader("MPD Taskcard");
-        grid.getGrid().getColumnByKey("description").setHeader("Description");
-        grid.getGrid().getColumnByKey("remarks").setHeader("Remarks");
+        grid.getGrid().getColumnByKey("revision.number").setHeader("Ревизия");
+        grid.getGrid().getColumnByKey("mhrs").setHeader("MHs");
+        grid.getGrid().getColumnByKey("taskGroup.name").setHeader("Тип задания");
+        grid.getGrid().getColumnByKey("taskcardString").setHeader("MPD TC");
+        grid.getGrid().getColumnByKey("description").setHeader("Описание");
+        grid.getGrid().getColumnByKey("remarks").setHeader("Пометки");
+        grid.getGrid().getColumnByKey("status").setHeader("Статус");
 
         downloadButton = new Button(VaadinIcon.DOWNLOAD.create());
         downloadButton.addClickListener(click -> {
@@ -64,6 +73,11 @@ public class MaintenancecardsView extends VerticalLayout {
         });
         grid.getCrudLayout().addToolbarComponent(downloadButton);
         grid.getCrudLayout().addToolbarComponent(menu);
+
+        this.card = grid.getGrid().getSelectionModel().getFirstSelectedItem().orElse(null);
+
+         grid.getCrudFormFactory().buildNewForm(CrudOperation.READ, card,
+         isAttached(), null, null)
 
     }
 
