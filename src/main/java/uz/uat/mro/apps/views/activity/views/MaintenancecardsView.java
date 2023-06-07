@@ -76,7 +76,8 @@ public class MaintenancecardsView extends VerticalLayout {
 
         this.card = grid.getGrid().getSelectionModel().getFirstSelectedItem().orElse(null);
 
-         grid.getCrudFormFactory().setFieldCaptions(null);
+        //  grid.getCrudFormFactory().setFieldCaptions("sequence", "number", "revision.number", "mhrs", "taskGroup.name",
+        //  "taskcardString", "description", "remarks", "status");
 
     }
 
