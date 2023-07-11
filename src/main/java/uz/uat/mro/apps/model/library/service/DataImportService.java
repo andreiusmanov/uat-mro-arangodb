@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
@@ -43,21 +45,14 @@ public class DataImportService {
     }
 
     public Map<String, MpdSubzone> getAllSubzones(String model) {
-        Map<String, MpdSubzone> map = new HashMap<>();
-        List<MpdSubzone> findByModel = subzonesRepo.findByModel(model);
-        for (MpdSubzone mpdZone : findByModel) {
-            map.put(mpdZone.getCode(), mpdZone);
-        }
-        return map;
+        List<MpdSubzone> findByModel = subzonesRepo.findSubzonesByModel(model);
+        return findByModel.stream().collect(Collectors.toMap(MpdSubzone::getCode, subzone -> subzone));
     }
 
     public Map<String, MpdItem> getAllMpdItems(MpdEdition edition) {
-        Map<String, MpdItem> map = new HashMap<>();
-        List<MpdItem> itemsList = StreamSupport.stream(itemsRepo.getMpdItems(edition.getArangoId()).spliterator(),false).toList();
-        for (MpdItem item : itemsList) {
-            map.put(item.getNumber(), item);
-        }
-        return map;
+        List<MpdItem> itemsList = StreamSupport
+                .stream(itemsRepo.getMpdItems(edition.getArangoId()).spliterator(), false).toList();
+        return itemsList.stream().collect(Collectors.toMap(MpdItem::getNumber, mpdItem -> mpdItem));
     }
 
     public List<MpdZone> saveAllZones(Collection<MpdZone> entities) {
@@ -85,7 +80,8 @@ public class DataImportService {
     }
 
     public MpdItem findByNumberAndEdition(String number, MpdEdition edition) {
-        return itemsRepo.findByEdition(edition.getArangoId()).stream().filter(e -> e.getNumber().equals(number)).findFirst().get();
+        return itemsRepo.findByEdition(edition.getArangoId()).stream().filter(e -> e.getNumber().equals(number))
+                .findFirst().get();
     }
 
 }

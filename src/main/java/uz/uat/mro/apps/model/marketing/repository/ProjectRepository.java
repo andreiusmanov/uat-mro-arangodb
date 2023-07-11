@@ -1,8 +1,8 @@
-package uz.uat.mro.apps.model.activity.repository;
+package uz.uat.mro.apps.model.marketing.repository;
 
 import com.arangodb.springframework.repository.ArangoRepository;
 
-import uz.uat.mro.apps.model.activity.entity.Project;
+import uz.uat.mro.apps.model.marketing.entity.Project;
 
 public interface ProjectRepository extends ArangoRepository<Project, String> {
 }

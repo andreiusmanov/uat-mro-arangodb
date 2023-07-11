@@ -12,7 +12,7 @@ import uz.uat.mro.apps.model.library.entity.MpdZone;
 public interface MpdZonesRepository extends ArangoRepository<MpdZone, String> {
     
     
-    @Query(value = "for i in mpd_zones filter i.model == @model return i")
+    @Query(value = "for i in mpd_zones filter i.model == @model sort i.code asc return i")
     public List<MpdZone> findByModel(@Param("model") String model);
 
     

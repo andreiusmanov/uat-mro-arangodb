@@ -59,30 +59,4 @@ public class Ata100ChaptersView extends VerticalLayout {
         this.grid.setFindAllOperation(service::findAll);
 
     }
-
-    /*
-     * private void loadAndSaveChapters() throws IOException, CsvValidationException
-     * {
-     * String filePath = "/home/andreyu/Downloads/ata-100-chapters.csv";
-     * List<String[]> list = new ArrayList<>();
-     * List<Ata100Chapter> chapters = new ArrayList<>();
-     * try (Reader reader = Files.newBufferedReader(Path.of(filePath))) {
-     * try (CSVReader csvReader = new CSVReader(reader)) {
-     * String[] line;
-     * while ((line = csvReader.readNext()) != null) {
-     * list.add(line);
-     * }
-     * }
-     * for (String[] strings : list) {
-     * Ata100Chapter chapter = new Ata100Chapter();
-     * chapter.setGeneral(strings[0].trim());
-     * chapter.setId(strings[1].replace("ATA", "").trim());
-     * chapter.setName(strings[2].trim());
-     * chapters.add(chapter);
-     * }
-     * service.saveAll(chapters);
-     * }
-     * 
-     * }
-     */
 }

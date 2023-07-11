@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
@@ -12,9 +14,11 @@ import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
 import uz.uat.mro.apps.model.aircraft.repository.MajorModelsRepository;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
+import uz.uat.mro.apps.model.library.entity.MpdMh;
 import uz.uat.mro.apps.model.library.entity.MpdSubzone;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
 import uz.uat.mro.apps.model.library.repository.MpdAccessesRepository;
+import uz.uat.mro.apps.model.library.repository.MpdMhsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdSubzonesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdZonesRepository;
 
@@ -25,27 +29,19 @@ public class MpdZonesService {
     private MpdSubzonesRepository subzonesRepo;
     private MpdAccessesRepository accessesRepo;
     private MajorModelsRepository modelsRepo;
+    private MpdMhsRepository mhsRepo;
 
     public List<MpdZone> findZoneByModel(String model) {
         return repo.findByModel(model);
     }
 
     public Map<String, MpdZone> getAllZones(String model) {
-        Map<String, MpdZone> map = new HashMap<>();
-        List<MpdZone> findByModel = repo.findByModel(model);
-        for (MpdZone mpdZone : findByModel) {
-            map.put(mpdZone.getCode(), mpdZone);
-        }
-        return map;
+        return repo.findByModel(model).stream().collect(Collectors.toMap(MpdZone::getCode, Function.identity()));
     }
 
     public Map<String, MpdSubzone> getAllSubzones(String model) {
-        Map<String, MpdSubzone> map = new HashMap<>();
-        List<MpdSubzone> findByModel = subzonesRepo.findByModel(model);
-        for (MpdSubzone mpdZone : findByModel) {
-            map.put(mpdZone.getCode(), mpdZone);
-        }
-        return map;
+        return subzonesRepo.findSubzonesByModel(model).stream()
+                .collect(Collectors.toMap(MpdSubzone::getCode, Function.identity()));
     }
 
     public MpdZone save(MpdZone entity) {
@@ -76,8 +72,8 @@ public class MpdZonesService {
         subzonesRepo.delete(entity);
     }
 
-    public List<MpdSubzone> findAllSubzones() {
-        return StreamSupport.stream(subzonesRepo.findAll().spliterator(), false).toList();
+    public List<MpdSubzone> findAllSubzones(String model) {
+        return subzonesRepo.findSubzonesByModel(model);
     }
 
     public MpdAccess save(MpdAccess entity) {
@@ -92,19 +88,25 @@ public class MpdZonesService {
         return entity.getSynthetic();
     }
 
-    public List<MpdAccess> findAccessByZone(MpdZone zone) {
-        return accessesRepo.FindByZone(zone);
+    public List<MpdAccess> findAccessByZone(String zone) {
+        return accessesRepo.findByZone(zone);
     }
 
-    public List<MpdAccess> findAccessBySubzone(MpdSubzone subzone) {
-        return accessesRepo.FindBySubzone(subzone);
+    public List<MpdAccess> findAccessBySubzone(String subzone) {
+        return accessesRepo.findBySubzone(subzone);
     }
 
-    public List<MpdAccess> findAllAccessByModel(MajorModel model) {
-        return accessesRepo.FindByModel(model);
+    public List<MpdAccess> findAllAccessByModel(String model) {
+        List<MpdAccess> findByModel = accessesRepo.findByModel(model);
+        return findByModel;
     }
 
     public List<MajorModel> models() {
         return StreamSupport.stream(modelsRepo.findAll().spliterator(), false).toList();
     }
+
+    public List<MpdMh> findMhByEdition(String edition) {
+        return StreamSupport.stream(mhsRepo.findMhByEdition(edition).spliterator(), false).toList();
+    }
+
 }

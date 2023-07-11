@@ -39,9 +39,15 @@ public class MpdAccess {
     private String name;
     private Boolean synthetic;
     private String mmReference;
+    private String subzoneString;
 
     public MpdAccess(MajorModel model) {
         this.model = model;
+    }
+
+    public MpdAccess(MajorModel model, String number) {
+        this.model = model;
+        this.number = number;
     }
 
 }

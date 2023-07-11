@@ -60,23 +60,23 @@ public class SubzonesView extends VerticalLayout {
 
     private void grid() {
         this.grid = new GridCrud<>(MpdSubzone.class);
-        this.grid.getGrid().setColumns("code", "name", "description", "zone.code", "model.name");
+        this.grid.getGrid().setColumns("code", "name", "zone.code", "model.name");
         this.grid.getGrid().getColumnByKey("code").setHeader("Код");
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
-        this.grid.getGrid().getColumnByKey("description").setHeader("Описание");
         this.grid.getGrid().getColumnByKey("zone.code").setHeader("Зона ВС");
         this.grid.getGrid().getColumnByKey("model.name").setHeader("Модель ВС");
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(service::findAllSubzones);
+        grid.setFindAllOperation(() -> service.findAllSubzones(model.getArangoId()));
 
         // filter
         listDataView = grid.getGrid().getListDataView();
 
         grid.getCrudFormFactory().setNewInstanceSupplier(() -> {
-            MpdSubzone subzone = new MpdSubzone(model);
+            MpdSubzone subzone = new MpdSubzone();
+            subzone.setModel(model);
             return subzone;
         });
         CrudFormFactory<MpdSubzone> factory = grid.getCrudFormFactory();

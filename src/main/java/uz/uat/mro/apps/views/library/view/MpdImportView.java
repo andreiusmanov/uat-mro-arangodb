@@ -2,6 +2,7 @@ package uz.uat.mro.apps.views.library.view;
 
 import java.io.IOException;
 
+import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.button.Button;
@@ -70,6 +71,8 @@ public class MpdImportView extends VerticalLayout {
                 ImportMpd.importMpdTaskcards(service, taskcardsPanel.getFileName(), taskcardsPanel.getSheet(), edition);
                 ImportMpd.importBoeingMhs(service, mhsPanel.getFileName(), edition);
             } catch (CsvValidationException | IOException e) {
+                e.printStackTrace();
+            } catch (CsvException e) {
                 e.printStackTrace();
             }
         });
