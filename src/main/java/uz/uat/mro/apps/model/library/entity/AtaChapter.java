@@ -19,9 +19,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 
-@Document("ata100_chapters")
+@Document("ata_chapters")
 
-public class Ata100Chapter {
+public class AtaChapter {
     @Id
     private String id;
     @ArangoId
