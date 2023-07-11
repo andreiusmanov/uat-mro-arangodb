@@ -44,10 +44,10 @@ public class AircraftModelsView extends VerticalLayout {
             return producers;
         });
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findAll());
+        grid.setAddOperation(service::saveAircraftModel);
+        grid.setUpdateOperation(service::saveAircraftModel);
+        grid.setDeleteOperation(service::deleteAircraftModel);
+        grid.setFindAllOperation(() -> service.findAllAircraftModels());
     }
 
 }

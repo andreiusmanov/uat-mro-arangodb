@@ -8,19 +8,19 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.library.entity.Ata100Chapter;
-import uz.uat.mro.apps.model.library.service.Ata100ChaptersService;
+import uz.uat.mro.apps.model.library.entity.AtaChapter;
+import uz.uat.mro.apps.model.library.service.AtaChaptersService;
 import uz.uat.mro.apps.views.library.layout.LibraryLayout;
 
 @PageTitle(value = "ATA 100 Chapters")
 @Route(value = "ATA100", layout = LibraryLayout.class)
-public class Ata100ChaptersView extends VerticalLayout {
-    private Ata100ChaptersService service;
-    private GridCrud<Ata100Chapter> grid;
+public class AtaChaptersView extends VerticalLayout {
+    private AtaChaptersService service;
+    private GridCrud<AtaChapter> grid;
     private ComboBox<String> groups;
-    private GridListDataView<Ata100Chapter> listDataView;
+    private GridListDataView<AtaChapter> listDataView;
 
-    public Ata100ChaptersView(Ata100ChaptersService service) {
+    public AtaChaptersView(AtaChaptersService service) {
         super();
         this.service = service;
         grid();
@@ -46,7 +46,7 @@ public class Ata100ChaptersView extends VerticalLayout {
     }
 
     private void grid() {
-        this.grid = new GridCrud<>(Ata100Chapter.class);
+        this.grid = new GridCrud<>(AtaChapter.class);
         this.grid.getGrid().setColumns("general", "id", "name");
         this.grid.getGrid().getColumnByKey("general").setHeader("Группа");
         this.grid.getGrid().getColumnByKey("id").setHeader("Номер главы");

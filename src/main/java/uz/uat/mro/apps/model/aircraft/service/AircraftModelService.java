@@ -17,19 +17,19 @@ public class AircraftModelService {
     private AircraftModelsRepository repo;
     private MajorModelsRepository modelRepo;
 
-    public List<AircraftModel> findByMajorModel(MajorModel entity) {
+    public List<AircraftModel> findAircraftModelByMajorModel(MajorModel entity) {
         return repo.findByMajorModel(entity);
     }
 
-    public AircraftModel save(AircraftModel entity) {
+    public AircraftModel saveAircraftModel(AircraftModel entity) {
         return repo.save(entity);
     }
 
-    public void delete(AircraftModel entity) {
+    public void deleteAircraftModel(AircraftModel entity) {
         repo.delete(entity);
     }
 
-    public List<AircraftModel> findAll() {
+    public List<AircraftModel> findAllAircraftModels() {
         Iterable<AircraftModel> iterable = repo.findAll();
         return StreamSupport.stream(iterable.spliterator(), false).toList();
     }
