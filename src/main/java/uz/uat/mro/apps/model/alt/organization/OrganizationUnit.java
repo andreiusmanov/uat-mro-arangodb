@@ -1,26 +1,23 @@
-package uz.uat.mro.apps.model.alt.aircraft;
+package uz.uat.mro.apps.model.alt.organization;
 
-import org.springframework.data.annotation.Id;
-
+import com.arangodb.entity.Id;
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.alt.organization.Organization;
 
 @Data
-@Document("major_models")
-
-public class MajorModel {
+@Document("organization_units")
+public class OrganizationUnit {
     @Id
     private String id;
     @ArangoId
     private String arangoId;
-    private String code;
     private String name;
+    private String code;
     private String description;
-    @Ref
-    private Organization producer;
-
+    private String type;
+    @Ref(lazy = false)
+    private OrganizationUnitName unitName;
 }

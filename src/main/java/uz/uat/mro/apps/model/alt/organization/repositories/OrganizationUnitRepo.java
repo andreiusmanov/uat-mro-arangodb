@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.repositories;
+package uz.uat.mro.apps.model.alt.organization.repositories;
 
 import com.arangodb.springframework.repository.ArangoRepository;
 
