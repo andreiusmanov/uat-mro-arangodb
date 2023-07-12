@@ -21,7 +21,7 @@ import lombok.ToString;
 
 @Document("ata_chapters")
 
-public class AtaChapter {
+public class Ata100Chapter {
     @Id
     private String id;
     @ArangoId

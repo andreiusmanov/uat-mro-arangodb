@@ -1,24 +1,16 @@
-package uz.uat.mro.apps.model.common.entity;
+package uz.uat.mro.apps.model.alt.common;
 
 import java.util.Collection;
 
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
-import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
-import com.arangodb.springframework.annotation.Relations;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
-@Document("firms")
-
-public class Firm {
+public class Organization {
     @Id
     private String id;
     @ArangoId
@@ -28,7 +20,7 @@ public class Firm {
     private Country country;
     private String code;
     private String shortName;
-    @Relations(edges = OrganizedFirm.class, lazy = false)
+    //@Relations(edges = OrganizedFirm.class, lazy = false)
     private Collection<Department> departments;
 
-}
+    }
