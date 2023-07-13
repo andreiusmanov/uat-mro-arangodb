@@ -1,14 +1,20 @@
 package uz.uat.mro.apps.model.services.organization;
 
+import java.util.List;
+import java.util.stream.StreamSupport;
+
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import uz.uat.mro.apps.model.alt.common.Country;
 import uz.uat.mro.apps.model.alt.organization.Facility;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
+import uz.uat.mro.apps.model.alt.organization.OrganizationUnitName;
 import uz.uat.mro.apps.model.alt.organization.repositories.FacilityRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitNameRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitRepo;
+import uz.uat.mro.apps.model.repositories.CountryRepo;
 import uz.uat.mro.apps.model.repositories.OrganizationRepo;
 
 @Service
@@ -17,7 +23,13 @@ public class OrganizationService {
     private FacilityRepo facilityRepo;
     private OrganizationRepo organizationRepo;
     private OrganizationUnitRepo organizationUnitRepo;
-    private OrganizationUnitNameRepo organizationUnitName;
+    private OrganizationUnitNameRepo organizationUnitNameRepo;
+    private CountryRepo countryRepo;
+
+    // findAllCountries() is used in
+    public List<Country> findAllCountries() {
+        return StreamSupport.stream(countryRepo.findAll().spliterator(), false).toList();
+    }
 
     public Facility saveFacility(Facility facility) {
         return facilityRepo.save(facility);
@@ -39,6 +51,12 @@ public class OrganizationService {
         organizationRepo.delete(organization);
     };
 
+    // findAllOrganizations() is used in
+    // src/main/java/uz/uat/mro/apps/views/organization/views/OrganizationsView.java
+    public List<Organization> findAllOrganizations() {
+        return StreamSupport.stream(organizationRepo.findAll().spliterator(), false).toList();
+    }
+
     public OrganizationUnit saveOrganizationUnit(OrganizationUnit organizationUnit) {
         return organizationUnitRepo.save(organizationUnit);
     };
@@ -47,4 +65,11 @@ public class OrganizationService {
         organizationUnitRepo.delete(organizationUnit);
     };
 
+    public List<OrganizationUnitName> findAllOrganizationUnitNames() {
+        return StreamSupport.stream(organizationUnitNameRepo.findAll().spliterator(), false).toList();
+    }
+
+    public OrganizationUnitName findOrganizationUnitNameById(String id) {
+        return organizationUnitNameRepo.findById(id).get();
+    }
 }
