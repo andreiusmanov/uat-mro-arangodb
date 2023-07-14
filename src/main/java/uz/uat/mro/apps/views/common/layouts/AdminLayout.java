@@ -5,6 +5,7 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.Scroller;
@@ -15,10 +16,9 @@ import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.common.views.CountriesView;
 import uz.uat.mro.apps.views.common.views.CurrenciesView;
-import uz.uat.mro.apps.views.common.views.FirmsView;
 import uz.uat.mro.apps.views.common.views.StationsView;
 import uz.uat.mro.apps.views.common.views.UomsView;
-import uz.uat.mro.apps.views.common.views.WorkDaysView;
+import uz.uat.mro.apps.views.organization.views.OrganizationsView;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -36,10 +36,8 @@ public class AdminLayout extends AppLayout {
     private void addHeaderContent() {
         DrawerToggle toggle = new DrawerToggle();
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
-
         viewTitle = new H2();
         viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
-
         addToNavbar(true, toggle, viewTitle);
     }
 
@@ -48,23 +46,21 @@ public class AdminLayout extends AppLayout {
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
+        H3 title = new H3("Общие данные");
         Scroller scroller = new Scroller(createNavigation());
 
-        addToDrawer(header, scroller, createFooter());
+        addToDrawer(header, title, scroller, createFooter());
     }
 
     private AppNav createNavigation() {
         // AppNav is not yet an official component.
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
-
-        nav.addItem(new AppNavItem("Общие данные", CountriesView.class, VaadinIcon.GLOBE.create()));
         nav.addItem(new AppNavItem("Страны", CountriesView.class, VaadinIcon.GLOBE.create()));
-        nav.addItem(new AppNavItem("Station", StationsView.class, VaadinIcon.OFFICE.create()));
+        nav.addItem(new AppNavItem("Station", StationsView.class, VaadinIcon.MAP_MARKER.create()));
         nav.addItem(new AppNavItem("Валюты", CurrenciesView.class, VaadinIcon.MONEY.create()));
-        nav.addItem(new AppNavItem("Организации", FirmsView.class, VaadinIcon.OFFICE.create()));
+        nav.addItem(new AppNavItem("Организации", OrganizationsView.class, VaadinIcon.OFFICE.create()));
         nav.addItem(new AppNavItem("Ед. измерения", UomsView.class, VaadinIcon.RECORDS.create()));
-        nav.addItem(new AppNavItem("Расписание", WorkDaysView.class, VaadinIcon.RECORDS.create()));
 
         return nav;
     }

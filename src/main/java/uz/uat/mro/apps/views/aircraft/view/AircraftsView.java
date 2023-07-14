@@ -12,17 +12,17 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
 import uz.uat.mro.apps.model.aircraft.entity.AircraftModel;
-import uz.uat.mro.apps.model.aircraft.service.AircraftService;
+import uz.uat.mro.apps.model.aircraft.service.AircraftsService;
 import uz.uat.mro.apps.model.common.entity.Firm;
 import uz.uat.mro.apps.views.aircraft.layout.AircraftLayout;
 
 @PageTitle(value = "Воздушные суда")
 @Route(value = "aircrafts/aircrafts", layout = AircraftLayout.class)
 public class AircraftsView extends VerticalLayout {
-    private AircraftService service;
+    private AircraftsService service;
     private GridCrud<Aircraft> grid;
 
-    public AircraftsView(AircraftService service) {
+    public AircraftsView(AircraftsService service) {
         this.service = service;
         grid();
         add(grid);

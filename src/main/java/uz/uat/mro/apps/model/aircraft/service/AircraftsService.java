@@ -15,7 +15,7 @@ import uz.uat.mro.apps.model.common.repository.FirmsRepository;
 
 @AllArgsConstructor
 @Service
-public class AircraftService {
+public class AircraftsService {
     private AircraftsRepository repo;
     private AircraftModelsRepository modelsRepo;
     private FirmsRepository firmsRepo;

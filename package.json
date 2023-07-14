@@ -235,7 +235,11 @@
     "@vaadin/multi-select-combo-box": "$@vaadin/multi-select-combo-box",
     "@vaadin/tabsheet": "$@vaadin/tabsheet",
     "@vaadin/tooltip": "$@vaadin/tooltip",
-    "@vaadin-component-factory/vcf-enhanced-crud": "$@vaadin-component-factory/vcf-enhanced-crud"
+    "@vaadin-component-factory/vcf-enhanced-crud": "$@vaadin-component-factory/vcf-enhanced-crud",
+    "@vaadin-component-factory/vcf-nav": "$@vaadin-component-factory/vcf-nav",
+    "apexcharts": "$apexcharts",
+    "line-awesome": "$line-awesome",
+    "onecolor": "$onecolor"
   },
   "vaadin": {
     "dependencies": {

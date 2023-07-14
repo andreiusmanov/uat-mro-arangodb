@@ -6,10 +6,10 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.common.entity.Country;
-import uz.uat.mro.apps.model.common.entity.Currency;
-import uz.uat.mro.apps.model.common.repository.CountriesRepository;
-import uz.uat.mro.apps.model.common.repository.CurrenciesRepository;
+import uz.uat.mro.apps.model.alt.common.Country;
+import uz.uat.mro.apps.model.alt.common.Currency;
+import uz.uat.mro.apps.model.alt.common.repositories.CountriesRepository;
+import uz.uat.mro.apps.model.alt.common.repositories.CurrenciesRepository;
 
 @AllArgsConstructor
 @Service

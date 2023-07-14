@@ -28,4 +28,4 @@ public class Organization {
     @Relations(edges = HasUnit.class, lazy = false)
     private Collection<OrganizationUnit> departments;
 
-    }
+}

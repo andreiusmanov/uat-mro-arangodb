@@ -12,10 +12,10 @@ import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnitName;
 import uz.uat.mro.apps.model.alt.organization.repositories.FacilityRepo;
+import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitNameRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitRepo;
 import uz.uat.mro.apps.model.repositories.CountryRepo;
-import uz.uat.mro.apps.model.repositories.OrganizationRepo;
 
 @Service
 @AllArgsConstructor
@@ -38,6 +38,10 @@ public class OrganizationService {
     public void deleteFacility(Facility facility) {
         facilityRepo.delete(facility);
     };
+
+    public List<Facility> findAllFacilities(Organization organization) {
+        return StreamSupport.stream(facilityRepo.findAll().spliterator(), false).toList();
+    }
 
     public Facility getFacilityById(String id) {
         return facilityRepo.findById(id).get();

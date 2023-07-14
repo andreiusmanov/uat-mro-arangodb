@@ -11,9 +11,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.common.entity.Country;
-import uz.uat.mro.apps.model.common.entity.Station;
-import uz.uat.mro.apps.model.common.service.StationService;
+import uz.uat.mro.apps.model.alt.common.Country;
+import uz.uat.mro.apps.model.alt.common.Station;
+import uz.uat.mro.apps.model.services.common.StationService;
 import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Stations")
@@ -34,7 +34,7 @@ public class StationsView extends VerticalLayout {
 
     private void grid() {
         this.grid = new GridCrud<>(Station.class);
-        List<Station> list = service.findStations();
+        List<Station> list = service.findAllStations();
         this.grid.getGrid().setItems(list);
 
         this.grid.getGrid().setColumns("code", "country.code3", "name");
@@ -56,6 +56,6 @@ public class StationsView extends VerticalLayout {
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
         grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(service::findStations);
+        grid.setFindAllOperation(service::findAllStations);
     }
 }

@@ -12,6 +12,7 @@ import com.vaadin.flow.router.RouteAlias;
 @RouteAlias(value = "")
 public class MainView extends VerticalLayout {
 
+    private Anchor common;
     private Anchor marketing;
     private Anchor ppcd;
     private Anchor production;
@@ -22,7 +23,8 @@ public class MainView extends VerticalLayout {
         setSpacing(false);
         this.marketing = new Anchor("marketing", "Marketing");
         this.ppcd = new Anchor("ppcd/projects", "PPCD");
-        add(marketing, ppcd);
+        this.common = new Anchor("common", "Общие данные");
+        add(common, marketing, ppcd);
     }
 
 }

@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.views.common.layouts;
+package uz.uat.mro.apps.views.organization.layouts;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -15,10 +15,10 @@ import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.common.views.DepartmentsView;
 
-public class FirmLayout extends AppLayout{
+public class OrganizationLayout extends AppLayout{
     private H2 viewTitle;
 
-    public FirmLayout() {
+    public OrganizationLayout() {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
