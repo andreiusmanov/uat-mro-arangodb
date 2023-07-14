@@ -10,7 +10,6 @@ import lombok.Data;
 
 @Data
 @Document("countries")
-@PersistentIndex(fields = { "code2" })
 public class Country {
     @Id
     private String id;

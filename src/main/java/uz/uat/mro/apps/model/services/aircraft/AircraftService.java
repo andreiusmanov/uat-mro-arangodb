@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.services;
+package uz.uat.mro.apps.model.services.aircraft;
 
 import org.springframework.stereotype.Service;
 
