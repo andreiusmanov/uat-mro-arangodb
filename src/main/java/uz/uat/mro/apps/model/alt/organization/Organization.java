@@ -11,6 +11,7 @@ import com.arangodb.springframework.annotation.Relations;
 
 import lombok.Data;
 import uz.uat.mro.apps.model.alt.common.Country;
+import uz.uat.mro.apps.model.alt.organization.edges.HasFacility;
 import uz.uat.mro.apps.model.alt.organization.edges.HasUnit;
 
 @Data
@@ -27,5 +28,6 @@ public class Organization {
     private String shortName;
     @Relations(edges = HasUnit.class, lazy = false)
     private Collection<OrganizationUnit> departments;
-
+    @Relations(edges = HasFacility.class, lazy = false)
+    private Collection<Facility> facilities;
 }

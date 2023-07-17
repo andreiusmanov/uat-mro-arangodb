@@ -11,7 +11,9 @@ import uz.uat.mro.apps.model.alt.organization.Facility;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnitName;
+import uz.uat.mro.apps.model.alt.organization.edges.HasFacility;
 import uz.uat.mro.apps.model.alt.organization.repositories.FacilityRepo;
+import uz.uat.mro.apps.model.alt.organization.repositories.HasFacilityRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitNameRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitRepo;
@@ -24,7 +26,25 @@ public class OrganizationService {
     private OrganizationRepo organizationRepo;
     private OrganizationUnitRepo organizationUnitRepo;
     private OrganizationUnitNameRepo organizationUnitNameRepo;
+    private HasFacilityRepo hasFacilityRepo;
     private CountryRepo countryRepo;
+
+    public Facility saveFacility(Facility facility, Organization organization) {
+        Facility f = facilityRepo.save(facility);
+        HasFacility hasFacility = new HasFacility();
+        hasFacility.setFacility(facility);
+        hasFacility.setOrganization(organization);
+        hasFacilityRepo.save(hasFacility);
+        return f;
+    };
+
+    public HasFacility saveHasFacility(HasFacility hasFacility) {
+        return hasFacilityRepo.save(hasFacility);
+    };
+
+    public void deleteHasFacility(HasFacility hasFacility) {
+        hasFacilityRepo.delete(hasFacility);
+    };
 
     // findAllCountries() is used in
     public List<Country> findAllCountries() {

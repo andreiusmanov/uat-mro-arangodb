@@ -12,7 +12,7 @@ import uz.uat.mro.apps.model.services.organization.OrganizationService;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.organization.layouts.OrganizationLayout;
 
-@PageTitle(value = "Ангары")
+@PageTitle(value = "Объекты")
 @Route(value = "organization/facilities", layout = OrganizationLayout.class)
 public class FacilitiesView extends VerticalLayout {
 
@@ -38,7 +38,7 @@ public class FacilitiesView extends VerticalLayout {
     grid.setAddOperation(service::saveFacility);
     grid.setUpdateOperation(service::saveFacility);
     grid.setDeleteOperation(service::deleteFacility);
-    grid.setFindAllOperation(service::findAllFacilities(organization));
+  //  grid.setFindAllOperation(service::findAllFacilities(organization));
     
     
     
