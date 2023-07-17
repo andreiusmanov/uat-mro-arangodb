@@ -34,14 +34,12 @@ public class FacilitiesView extends VerticalLayout {
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
         this.grid.getGrid().getColumnByKey("code").setHeader("Код");
         this.grid.getGrid().getColumnByKey("description").setHeader("Описание");
-    
-    grid.setAddOperation(service::saveFacility);
-    grid.setUpdateOperation(service::saveFacility);
-    grid.setDeleteOperation(service::deleteFacility);
-  //  grid.setFindAllOperation(service::findAllFacilities(organization));
-    
-    
-    
+
+        grid.setAddOperation(service::saveFacility);
+        grid.setUpdateOperation(service::saveFacility);
+        grid.setDeleteOperation(service::deleteFacility);
+        grid.setFindAllOperation(() -> service.getFacilitiesByOrganization(organization.getId()));
+
     }
 
 }

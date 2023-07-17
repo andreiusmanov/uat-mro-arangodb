@@ -3,7 +3,6 @@ package uz.uat.mro.apps.model.alt.organization;
 import com.arangodb.entity.Id;
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
-import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
 
@@ -17,6 +16,4 @@ public class Facility {
     private String name;
     private String code;
     private String description;
-    @Ref
-    private Organization organization;
 }

@@ -29,14 +29,9 @@ public class OrganizationService {
     private HasFacilityRepo hasFacilityRepo;
     private CountryRepo countryRepo;
 
-    public Facility saveFacility(Facility facility, Organization organization) {
-        Facility f = facilityRepo.save(facility);
-        HasFacility hasFacility = new HasFacility();
-        hasFacility.setFacility(facility);
-        hasFacility.setOrganization(organization);
-        hasFacilityRepo.save(hasFacility);
-        return f;
-    };
+    public List<Facility> getFacilitiesByOrganization(String organization) {
+        return facilityRepo.getFacilitiesByOrganization(organization);
+    }
 
     public HasFacility saveHasFacility(HasFacility hasFacility) {
         return hasFacilityRepo.save(hasFacility);

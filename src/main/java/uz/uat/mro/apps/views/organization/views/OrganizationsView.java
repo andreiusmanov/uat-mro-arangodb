@@ -12,13 +12,11 @@ import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.common.Country;
-import uz.uat.mro.apps.model.alt.organization.Facility;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.services.organization.OrganizationService;
 import uz.uat.mro.apps.utils.MyUtils;
@@ -31,35 +29,35 @@ public class OrganizationsView extends VerticalLayout {
     private GridCrud<Organization> grid;
     private MenuBar menu;
     private MenuItem departmentItem;
-   // private MenuItem facilityItem;
     private Organization organization;
-    private Button facilityButton = new Button("Объекты");
 
     public OrganizationsView(OrganizationService service) {
         this.service = service;
-        grid();
         menu();
-        button();
-        add(new H3("Организации"), menu, facilityButton, grid);
+        grid();
+        add(new H3("Организации"), grid);
     }
 
-    private void button() {
-        facilityButton.addClickListener(e -> {
-            MyUtils.setAttribute("organization", organization);
-            Facility facility = new Facility();
-            facility.setOrganization(organization);
-            facility.setName("A");
-            facility.setCode("A1");
-            facility.setDescription("test A");
-            service.saveFacility(facility, organization);
-            Notification.show(organization.getFacilities().toString());
-        });
-    }
+    // private void button() {
+    // facilityButton.addClickListener(e -> {
+    // MyUtils.setAttribute("organization", organization);
+    // Facility facility = new Facility();
+    // facility.setName("A");
+    // facility.setCode("A1");
+    // facility.setDescription("test A");
+    // Facility savedFacility = service.saveFacility(facility);
+    // HasFacility hasFacility = new HasFacility();
+    // hasFacility.setFacility(savedFacility);
+    // hasFacility.setOrganization(organization);
+    // service.saveHasFacility(hasFacility);
+    // //Notification.show(organization.getFacilities().toString());
+    // });
+    // }
 
     private void menu() {
         this.menu = new MenuBar();
         menu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
-        departmentItem = menu.addItem("Просмотр");
+        departmentItem = menu.addItem("Обзор организации");
         departmentItem.setEnabled(false);
         departmentItem.addClickListener(e -> {
             MyUtils.setAttribute("organization", organization);
@@ -93,12 +91,12 @@ public class OrganizationsView extends VerticalLayout {
         grid.setDeleteOperation(service::deleteOrganization);
         grid.setFindAllOperation(service::findAllOrganizations);
 
+        grid.getCrudLayout().addToolbarComponent(menu);
+
         grid.getGrid().addSelectionListener(e -> {
             organization = e.getFirstSelectedItem().orElse(null);
             boolean res = e.getFirstSelectedItem().isPresent();
             departmentItem.setEnabled(res);
-//            facilityItem.setEnabled(res);
-            facilityButton.setEnabled(res);
         });
     }
 
