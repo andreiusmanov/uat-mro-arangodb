@@ -33,6 +33,15 @@ public class OrganizationService {
         return facilityRepo.getFacilitiesByOrganization(organization);
     }
 
+    public Facility saveFacility(Facility facility, Organization organization) {
+        Facility savedFacility = facilityRepo.save(facility);
+        HasFacility hasFacility = new HasFacility();
+        hasFacility.setOrganization(organization);
+        hasFacility.setFacility(savedFacility);
+        saveHasFacility(hasFacility);
+        return savedFacility;
+    };
+
     public HasFacility saveHasFacility(HasFacility hasFacility) {
         return hasFacilityRepo.save(hasFacility);
     };

@@ -15,6 +15,7 @@ import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.common.views.DepartmentsView;
 import uz.uat.mro.apps.views.organization.views.FacilitiesView;
+import uz.uat.mro.apps.views.organization.views.OrganizationView;
 
 public class OrganizationLayout extends AppLayout{
     private H2 viewTitle;
@@ -50,6 +51,7 @@ public class OrganizationLayout extends AppLayout{
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
+        nav.addItem(new AppNavItem("Общие данные", OrganizationView.class, VaadinIcon.ASTERISK.create()));
         nav.addItem(new AppNavItem("Орг. Структура", DepartmentsView.class, VaadinIcon.ASTERISK.create()));
         nav.addItem(new AppNavItem("Объекты", FacilitiesView.class, VaadinIcon.ASTERISK.create()));
         return nav;

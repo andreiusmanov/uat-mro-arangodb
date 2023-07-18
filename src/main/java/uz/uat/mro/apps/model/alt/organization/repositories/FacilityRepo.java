@@ -11,6 +11,6 @@ import uz.uat.mro.apps.model.alt.organization.Facility;
 
 public interface FacilityRepo extends ArangoRepository<Facility, String> {
 
-    @Query(value = "FOR f IN has_facilities FILTER f._from == @organization RETURN f._in")
+    @Query(value = "FOR h IN has_facilities for f in facilities FILTER h._from == @organization and f._id == h._to RETURN f")
     public List<Facility> getFacilitiesByOrganization(@Param("organization") String organization);
 }

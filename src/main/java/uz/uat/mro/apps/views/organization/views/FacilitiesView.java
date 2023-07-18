@@ -35,10 +35,34 @@ public class FacilitiesView extends VerticalLayout {
         this.grid.getGrid().getColumnByKey("code").setHeader("Код");
         this.grid.getGrid().getColumnByKey("description").setHeader("Описание");
 
-        grid.setAddOperation(service::saveFacility);
+        grid.setAddOperation(((facility) -> service.saveFacility(facility, organization)));
         grid.setUpdateOperation(service::saveFacility);
         grid.setDeleteOperation(service::deleteFacility);
         grid.setFindAllOperation(() -> service.getFacilitiesByOrganization(organization.getId()));
+
+        this.grid.getGrid().addSelectionListener(e -> {
+            if (e.getFirstSelectedItem().isPresent()) {
+                this.facility = e.getFirstSelectedItem().get();
+            }
+        });
+
+        // this.grid.getCrudFormFactory().buildNewForm(CrudOperation.ADD, new
+        // Facility(), false, (e) -> {}, null);
+
+        // private void button() {
+        // facilityButton.addClickListener(e -> {
+        // MyUtils.setAttribute("organization", organization);
+        // Facility facility = new Facility();
+        // facility.setName("A");
+        // facility.setCode("A1");
+        // facility.setDescription("test A");
+        // Facility savedFacility = service.saveFacility(facility);
+        // HasFacility hasFacility = new HasFacility();
+        // hasFacility.setFacility(savedFacility);
+        // hasFacility.setOrganization(organization);
+        // service.saveHasFacility(hasFacility);
+        // //Notification.show(organization.getFacilities().toString());
+        // });
 
     }
 

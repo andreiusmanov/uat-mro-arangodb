@@ -38,21 +38,7 @@ public class OrganizationsView extends VerticalLayout {
         add(new H3("Организации"), grid);
     }
 
-    // private void button() {
-    // facilityButton.addClickListener(e -> {
-    // MyUtils.setAttribute("organization", organization);
-    // Facility facility = new Facility();
-    // facility.setName("A");
-    // facility.setCode("A1");
-    // facility.setDescription("test A");
-    // Facility savedFacility = service.saveFacility(facility);
-    // HasFacility hasFacility = new HasFacility();
-    // hasFacility.setFacility(savedFacility);
-    // hasFacility.setOrganization(organization);
-    // service.saveHasFacility(hasFacility);
-    // //Notification.show(organization.getFacilities().toString());
-    // });
-    // }
+   
 
     private void menu() {
         this.menu = new MenuBar();
