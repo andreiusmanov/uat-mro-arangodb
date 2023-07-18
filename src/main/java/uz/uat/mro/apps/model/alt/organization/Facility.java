@@ -6,6 +6,7 @@ import com.arangodb.springframework.annotation.Document;
 
 import lombok.Data;
 
+
 @Data
 @Document("facilities")
 public class Facility {

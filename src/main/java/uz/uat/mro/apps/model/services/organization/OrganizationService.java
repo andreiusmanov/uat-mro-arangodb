@@ -3,6 +3,7 @@ package uz.uat.mro.apps.model.services.organization;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -30,7 +31,8 @@ public class OrganizationService {
     private CountryRepo countryRepo;
 
     public List<Facility> getFacilitiesByOrganization(String organization) {
-        return facilityRepo.getFacilitiesByOrganization(organization);
+        List<Facility> facilities = facilityRepo.getFacilitiesByOrganization(organization);
+        return facilities;
     }
 
     public Facility saveFacility(Facility facility, Organization organization) {

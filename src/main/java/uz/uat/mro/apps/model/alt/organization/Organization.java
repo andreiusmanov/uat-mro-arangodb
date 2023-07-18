@@ -14,6 +14,7 @@ import uz.uat.mro.apps.model.alt.common.Country;
 import uz.uat.mro.apps.model.alt.organization.edges.HasFacility;
 import uz.uat.mro.apps.model.alt.organization.edges.HasUnit;
 
+
 @Data
 @Document("organizations")
 public class Organization {
