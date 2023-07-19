@@ -12,8 +12,10 @@ import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnitName;
 import uz.uat.mro.apps.model.alt.organization.edges.HasFacility;
+import uz.uat.mro.apps.model.alt.organization.edges.HasUnit;
 import uz.uat.mro.apps.model.alt.organization.repositories.FacilityRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.HasFacilityRepo;
+import uz.uat.mro.apps.model.alt.organization.repositories.HasOrganizationUnitRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitNameRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitRepo;
@@ -23,24 +25,27 @@ import uz.uat.mro.apps.model.repositories.CountryRepo;
 @AllArgsConstructor
 public class OrganizationService {
     private FacilityRepo facilityRepo;
+    private HasOrganizationUnitRepo hasUnitRepo;
     private OrganizationRepo organizationRepo;
     private OrganizationUnitRepo organizationUnitRepo;
     private OrganizationUnitNameRepo organizationUnitNameRepo;
     private HasFacilityRepo hasFacilityRepo;
     private CountryRepo countryRepo;
 
+
+
     public List<Facility> findAllFacilities() {
         return StreamSupport.stream(facilityRepo.findAll().spliterator(), false).toList();
-    }
-
-    public List<Facility> getAllFacilities() {
-        List<Facility> facilities = facilityRepo.getAllFacilities();
-        return facilities;
     }
 
     public List<Facility> getFacilitiesByOrganization(String organization) {
         List<Facility> facilities = facilityRepo.getFacilitiesByOrganization(organization);
         return facilities;
+    }
+
+
+    public List<OrganizationUnit> getOrganizationUnitsByOrganization(String organization) {
+        return StreamSupport.stream(organizationUnitRepo.getOrganizationUnitsByOrganization(organization).spliterator(),false).toList();    
     }
 
     public Facility saveFacility(Facility facility, Organization organization) {
@@ -52,12 +57,26 @@ public class OrganizationService {
         return savedFacility;
     };
 
-    public HasFacility saveHasFacility(HasFacility hasFacility) {
-        return hasFacilityRepo.save(hasFacility);
+
+
+    public OrganizationUnit saveOrganizationUnit(OrganizationUnit unit, Organization organization) {
+        OrganizationUnit savedUnit = organizationUnitRepo.save(unit);
+        HasUnit hasUnit = new HasUnit();
+        hasUnit.setOrganization(organization);
+        hasUnit.setOrganizationUnit(unit);
+        saveHasOrganizationUnit(hasUnit);
+        return savedUnit;
     };
 
-    public void deleteHasFacility(HasFacility hasFacility) {
-        hasFacilityRepo.delete(hasFacility);
+
+    
+    private void saveHasOrganizationUnit(HasUnit hasUnit) {
+        hasUnitRepo.save(hasUnit);
+    }
+
+    
+    public HasFacility saveHasFacility(HasFacility hasFacility) {
+        return hasFacilityRepo.save(hasFacility);
     };
 
     // findAllCountries() is used in

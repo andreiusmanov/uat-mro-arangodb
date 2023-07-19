@@ -38,8 +38,7 @@ public class FacilitiesView extends VerticalLayout {
         grid.setAddOperation(((facility) -> service.saveFacility(facility, organization)));
         grid.setUpdateOperation(service::saveFacility);
         grid.setDeleteOperation(service::deleteFacility);
-        grid.setFindAllOperation(service::getAllFacilities); // () ->
-                                                             // service.getFacilitiesByOrganization(organization.getId()));
+        grid.setFindAllOperation(() -> service.getFacilitiesByOrganization(organization.getArangoId()));
 
         grid.getCrudFormFactory().setVisibleProperties("name", "code", "description");
 

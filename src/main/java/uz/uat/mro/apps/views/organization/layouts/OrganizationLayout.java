@@ -13,8 +13,8 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.views.common.views.DepartmentsView;
 import uz.uat.mro.apps.views.organization.views.FacilitiesView;
+import uz.uat.mro.apps.views.organization.views.OrganizationUnitsView;
 import uz.uat.mro.apps.views.organization.views.OrganizationView;
 
 public class OrganizationLayout extends AppLayout{
@@ -52,7 +52,7 @@ public class OrganizationLayout extends AppLayout{
         AppNav nav = new AppNav();
 
         nav.addItem(new AppNavItem("Общие данные", OrganizationView.class, VaadinIcon.ASTERISK.create()));
-        nav.addItem(new AppNavItem("Орг. Структура", DepartmentsView.class, VaadinIcon.ASTERISK.create()));
+        nav.addItem(new AppNavItem("Орг. Структура", OrganizationUnitsView.class, VaadinIcon.ASTERISK.create()));
         nav.addItem(new AppNavItem("Объекты", FacilitiesView.class, VaadinIcon.ASTERISK.create()));
         return nav;
     }

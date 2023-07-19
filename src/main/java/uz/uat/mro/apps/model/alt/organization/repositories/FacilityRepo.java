@@ -14,6 +14,4 @@ public interface FacilityRepo extends ArangoRepository<Facility, String> {
     @Query(value = "FOR h IN has_facilities for f in facilities FILTER h._from == @organization && f._id == h._to RETURN f")
     public List<Facility> getFacilitiesByOrganization(@Param("organization") String organization);
 
-    @Query(value = "for i in facilities return i")
-    public List<Facility> getAllFacilities();
 }
