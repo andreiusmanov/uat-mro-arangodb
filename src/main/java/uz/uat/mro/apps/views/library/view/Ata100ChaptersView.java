@@ -32,8 +32,7 @@ public class Ata100ChaptersView extends VerticalLayout {
     private void groups() {
         this.groups = new ComboBox<>();
         groups.setItems("ВСЕ ГРУППЫ", "AIRCRAFT GENERAL", "AIRFRAME SYSTEMS", "STRUCTURE", "PROPELLER/ROTOR",
-                "POWER PLANT",
-                "MISCELLANOUS");
+                "POWER PLANT", "MISCELLANOUS");
         groups.setValue("ВСЕ ГРУППЫ");
         this.grid.getCrudLayout().addFilterComponent(groups);
         groups.addValueChangeListener(change -> {

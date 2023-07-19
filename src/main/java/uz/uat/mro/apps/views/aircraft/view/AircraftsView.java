@@ -1,7 +1,5 @@
 package uz.uat.mro.apps.views.aircraft.view;
 
-import java.util.Optional;
-
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.CrudFormFactory;
 

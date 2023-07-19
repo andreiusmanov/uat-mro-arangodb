@@ -13,6 +13,7 @@ import com.vaadin.flow.router.RouteAlias;
 public class MainView extends VerticalLayout {
 
     private Anchor common;
+    private Anchor library;
     private Anchor marketing;
     private Anchor ppcd;
     private Anchor production;
@@ -24,7 +25,8 @@ public class MainView extends VerticalLayout {
         this.marketing = new Anchor("marketing", "Marketing");
         this.ppcd = new Anchor("ppcd/projects", "PPCD");
         this.common = new Anchor("common", "Общие данные");
-        add(common, marketing, ppcd);
+        this.library = new Anchor("library", "Библиотека");
+        add(common, library, marketing, ppcd);
     }
 
 }
