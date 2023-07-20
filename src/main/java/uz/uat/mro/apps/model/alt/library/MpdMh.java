@@ -9,6 +9,7 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 
 @Data
 @Document("mpd_mhs")
@@ -27,6 +28,6 @@ public class MpdMh {
     private String totalMh;
     private String accessString;
    // @Relations(edges = RelatedAccess.class, direction = Direction.OUTBOUND, lazy = false)
-    private List<ACAccess> accesses;
+    private List<AircraftAccess> accesses;
 
 }

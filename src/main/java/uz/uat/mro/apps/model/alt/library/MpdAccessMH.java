@@ -9,6 +9,7 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 
 @Data
 @Document("mpd_access_mhs")
@@ -18,7 +19,7 @@ public class MpdAccessMH {
     @ArangoId
     private String arangoId;
     @Ref
-    private ACAccess access;
+    private AircraftAccess access;
     @Ref
     private MpdEdition edition;
     private BigDecimal openMh;

@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceTypeRepository;
 import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
-import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftsRepo;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftRepo;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
@@ -24,7 +24,7 @@ public class ProjectService {
     private ProjectRepository projectRepo;
     private MaintenanceTypeRepository linkRepo;
     private OrganizationRepo firmRepo;
-    private AircraftsRepo acRepo;
+    private AircraftRepo acRepo;
     private MaintenanceCardsRepository cardRepo;
     private MpdEditionsRepository editionRepo;
 
