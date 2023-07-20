@@ -14,9 +14,9 @@ import com.arangodb.springframework.annotation.Relations.Direction;
 import lombok.Data;
 import uz.uat.mro.apps.model.activity.edge.MaintenanceType;
 import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
+import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.common.entity.Maintenance;
-import uz.uat.mro.apps.model.library.entity.MpdEdition;
 
 @Data
 @Document("projects")

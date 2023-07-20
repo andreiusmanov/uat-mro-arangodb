@@ -11,6 +11,7 @@ import com.arangodb.springframework.annotation.Relations;
 import com.arangodb.springframework.annotation.Relations.Direction;
 
 import lombok.Data;
+import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.library.edges.RelatedAccess;
 
 @Data

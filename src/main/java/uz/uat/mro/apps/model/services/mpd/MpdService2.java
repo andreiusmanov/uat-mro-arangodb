@@ -6,13 +6,16 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.MajorModelRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
 
 @Service
 @AllArgsConstructor
-public class MpdService {
+public class MpdService2 {
     private MpdEditionRepo mpdEditionRepo;
+    private MajorModelRepo majorModelRepo;
 
     // mpd edition
 
@@ -31,6 +34,13 @@ public class MpdService {
 
     public List<MpdEdition> getEditionsByModel(String model) {
         return mpdEditionRepo.getEditionsByModel(model);
+    }
+
+    // aircraft major models
+
+    public List<MajorModel> findAllModels() {
+        Iterable<MajorModel> models = majorModelRepo.findAll();
+        return StreamSupport.stream(models.spliterator(), false).toList();
     }
 
 }

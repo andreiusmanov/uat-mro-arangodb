@@ -12,8 +12,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
-import uz.uat.mro.apps.model.library.entity.MpdEdition;
-import uz.uat.mro.apps.model.library.service.MpdEditionService;
+import uz.uat.mro.apps.model.alt.library.MpdEdition;
+import uz.uat.mro.apps.model.services.mpd.MpdService2;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.LibraryLayout;
@@ -21,13 +21,12 @@ import uz.uat.mro.apps.views.library.layout.LibraryLayout;
 @PageTitle(value = "MPD издания")
 @Route(value = "library/mpd-editions", layout = LibraryLayout.class)
 public class MpdEditionsView extends VerticalLayout {
-    private MpdEditionService service;
+    private MpdService2 service;
     private GridCrud<MpdEdition> grid;
     private Button details;
-
     private MpdEdition edition;
 
-    public MpdEditionsView(MpdEditionService service) {
+    public MpdEditionsView(MpdService2 service) {
         this.service = service;
         details();
         grid();
@@ -68,10 +67,10 @@ public class MpdEditionsView extends VerticalLayout {
             return cb;
         });
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findAll());
+        grid.setAddOperation(service::saveMpdEdition);
+        grid.setUpdateOperation(service::saveMpdEdition);
+        grid.setDeleteOperation(service::deleteMpdEdition);
+        grid.setFindAllOperation(() -> service.getAllMpdEditions());
     }
 
 }

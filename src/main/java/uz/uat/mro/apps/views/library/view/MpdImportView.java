@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.library.entity.MpdEdition;
+import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.library.service.DataImportService;
 import uz.uat.mro.apps.utils.ImportMpd;
 import uz.uat.mro.apps.utils.Keys;

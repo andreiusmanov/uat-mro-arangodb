@@ -10,10 +10,10 @@ import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceTypeRepository;
 import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftRepo;
+import uz.uat.mro.apps.model.alt.library.MpdEdition;
+import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
-import uz.uat.mro.apps.model.library.entity.MpdEdition;
-import uz.uat.mro.apps.model.library.repository.MpdEditionsRepository;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.marketing.repository.ProjectRepository;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
@@ -26,7 +26,7 @@ public class ProjectService {
     private OrganizationRepo firmRepo;
     private AircraftRepo acRepo;
     private MaintenanceCardsRepository cardRepo;
-    private MpdEditionsRepository editionRepo;
+    private MpdEditionRepo editionRepo;
 
     public Project save(Project project) {
         return projectRepo.save(project);
