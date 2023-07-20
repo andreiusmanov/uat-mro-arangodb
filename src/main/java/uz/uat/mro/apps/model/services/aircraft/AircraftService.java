@@ -12,9 +12,9 @@ import uz.uat.mro.apps.model.alt.aircraft.AircraftModel;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftModelRepo;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftRepo;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.MajorModelRepo;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
-import uz.uat.mro.apps.model.repositories.MajorModelRepo;
 
 @Service
 @AllArgsConstructor

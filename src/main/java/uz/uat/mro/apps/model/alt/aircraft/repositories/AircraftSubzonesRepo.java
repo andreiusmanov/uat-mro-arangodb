@@ -4,12 +4,10 @@ import java.util.List;
 
 import com.arangodb.springframework.repository.ArangoRepository;
 
-import uz.uat.mro.apps.model.alt.aircraft.AircraftZone;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 
 
-public interface AircraftZonesRepo extends ArangoRepository<AircraftZone, String>{
-    
-List<AircraftZone> findByModel(MajorModel model);
-
+public interface AircraftSubzonesRepo extends ArangoRepository<AircraftSubzone, String>{
+    List<AircraftSubzone> findByModel(MajorModel model);
 }

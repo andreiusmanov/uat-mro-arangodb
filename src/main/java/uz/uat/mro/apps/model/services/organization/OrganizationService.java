@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.alt.common.Country;
+import uz.uat.mro.apps.model.alt.common.repositories.CountriesRepo;
 import uz.uat.mro.apps.model.alt.organization.Facility;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
@@ -19,7 +20,6 @@ import uz.uat.mro.apps.model.alt.organization.repositories.HasOrganizationUnitRe
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitNameRepo;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationUnitRepo;
-import uz.uat.mro.apps.model.repositories.CountryRepo;
 
 @Service
 @AllArgsConstructor
@@ -30,7 +30,7 @@ public class OrganizationService {
     private OrganizationUnitRepo organizationUnitRepo;
     private OrganizationUnitNameRepo organizationUnitNameRepo;
     private HasFacilityRepo hasFacilityRepo;
-    private CountryRepo countryRepo;
+    private CountriesRepo countryRepo;
 
 
 

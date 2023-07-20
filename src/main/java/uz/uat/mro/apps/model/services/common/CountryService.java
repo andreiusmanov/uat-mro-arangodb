@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.alt.common.Country;
-import uz.uat.mro.apps.model.alt.common.repositories.CountriesRepository;
+import uz.uat.mro.apps.model.alt.common.repositories.CountriesRepo;
 
 @AllArgsConstructor
 @Service
 public class CountryService {
-    private CountriesRepository repo;
+    private CountriesRepo repo;
 
     public Country save(Country entity) {
         return repo.save(entity);

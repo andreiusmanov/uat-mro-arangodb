@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.alt.common.Country;
 import uz.uat.mro.apps.model.alt.common.Currency;
-import uz.uat.mro.apps.model.alt.common.repositories.CountriesRepository;
+import uz.uat.mro.apps.model.alt.common.repositories.CountriesRepo;
 import uz.uat.mro.apps.model.alt.common.repositories.CurrenciesRepository;
 
 @AllArgsConstructor
 @Service
 public class CurrencyService {
     private CurrenciesRepository repo;
-    private CountriesRepository countriesRepo;
+    private CountriesRepo countriesRepo;
 
     public Currency save(Currency entity) {
         return repo.save(entity);
