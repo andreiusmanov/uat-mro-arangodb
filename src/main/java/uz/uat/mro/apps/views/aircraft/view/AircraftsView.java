@@ -8,19 +8,19 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
-import uz.uat.mro.apps.model.aircraft.entity.AircraftModel;
-import uz.uat.mro.apps.model.aircraft.service.AircraftsService;
-import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftModel;
+import uz.uat.mro.apps.model.alt.organization.Organization;
+import uz.uat.mro.apps.model.services.aircraft.AircraftService;
 import uz.uat.mro.apps.views.aircraft.layout.AircraftLayout;
 
 @PageTitle(value = "Воздушные суда")
 @Route(value = "aircrafts/aircrafts", layout = AircraftLayout.class)
 public class AircraftsView extends VerticalLayout {
-    private AircraftsService service;
+    private AircraftService service;
     private GridCrud<Aircraft> grid;
 
-    public AircraftsView(AircraftsService service) {
+    public AircraftsView(AircraftService service) {
         this.service = service;
         grid();
         add(grid);
@@ -40,26 +40,26 @@ public class AircraftsView extends VerticalLayout {
 
         factory.setFieldProvider("model", user -> {
             ComboBox<AircraftModel> models = new ComboBox<>();
-            models.setItems(service.findModels());
+            models.setItems(service.findAllAircraftModels());
             models.setItemLabelGenerator(e -> e.getName());
             return models;
         });
         factory.setFieldProvider("airline", user -> {
-            ComboBox<Firm> airlines = new ComboBox<>();
+            ComboBox<Organization> airlines = new ComboBox<>();
             airlines.setItems(service.findAirlineFirms());
             airlines.setItemLabelGenerator(e -> e.getName());
             return airlines;
         });
         factory.setFieldProvider("owner", user -> {
-            ComboBox<Firm> owners = new ComboBox<>();
-            owners.setItems(service.findOwnerFirms());
+            ComboBox<Organization> owners = new ComboBox<>();
+            owners.setItems(service.findAirlineFirms());
             owners.setItemLabelGenerator(e -> e.getName());
             return owners;
         });
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(service::findAll);
+        grid.setAddOperation(service::saveAircraft);
+        grid.setUpdateOperation(service::saveAircraft);
+        grid.setDeleteOperation(service::deleteAircraft);
+        grid.setFindAllOperation(service::findAllAircrafts);
     }
 }

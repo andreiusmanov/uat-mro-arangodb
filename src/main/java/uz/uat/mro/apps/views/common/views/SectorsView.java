@@ -9,7 +9,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.common.entity.Department;
+import uz.uat.mro.apps.model.alt.common.Department;
+import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
 import uz.uat.mro.apps.model.common.entity.Sector;
 import uz.uat.mro.apps.model.common.service.SectorService;
 import uz.uat.mro.apps.utils.MyUtils;
@@ -20,13 +21,13 @@ import uz.uat.mro.apps.views.common.layouts.DepartmentLayout;
 public class SectorsView extends VerticalLayout {
 
     private SectorService service;
-    private Department department;
+    private OrganizationUnit department;
     private Sector sector;
     private GridCrud<Sector> grid;
 
     public SectorsView(SectorService service) {
         this.service = service;
-        this.department = (Department) MyUtils.getAttribute("department");
+        this.department = (OrganizationUnit) MyUtils.getAttribute("department");
         grid();
         add(new H3("Участки/смены отдела " + department.getShortName()), grid);
     }
@@ -42,7 +43,7 @@ public class SectorsView extends VerticalLayout {
         factory.setVisibleProperties("department", "code", "name", "shortName");
         factory.setFieldCaptions("Отдел", "Код", "Наименование", "Аббревиатура");
         factory.setFieldProvider("department", user -> {
-            ComboBox<Department> cb = new ComboBox<>("Отдел", department);
+            ComboBox<OrganizationUnit> cb = new ComboBox<>("Отдел", department);
             cb.setItemLabelGenerator(e -> e.getShortName());
             return cb;
         });

@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.aircraft.entity;
+package uz.uat.mro.apps.model.alt.library;
 
 import org.springframework.data.annotation.Id;
 
@@ -7,23 +7,19 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 
 @Data
-@Document("aircrafts")
-public class Aircraft {
+@Document("ac_subzones")
+public class ACSubzone {
     @Id
     private String id;
     @ArangoId
     private String arangoId;
-    private String regNumber;
-    @Ref
-    private Firm airline;
-    @Ref
-    private Firm owner;
-    @Ref
-    private AircraftModel model;
-
-    
-
+    private String code;
+    private String name;
+    @Ref(lazy = false)
+    private MpdZone zone;
+    @Ref(lazy = false)
+    private MajorModel model;
 }

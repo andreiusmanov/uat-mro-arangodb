@@ -7,16 +7,16 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
-import uz.uat.mro.apps.model.aircraft.repository.MajorModelsRepository;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.repository.MpdEditionsRepository;
+import uz.uat.mro.apps.model.repositories.MajorModelRepo;
 
 @AllArgsConstructor
 @Service
 public class MpdEditionService {
     private MpdEditionsRepository repo;
-    private MajorModelsRepository modelsRepo;
+    private MajorModelRepo modelsRepo;
 
     public MpdEdition save(MpdEdition entity) {
         return repo.save(entity);
@@ -37,7 +37,6 @@ public class MpdEditionService {
         return StreamSupport.stream(repo.findAll().spliterator(), false).toList();
     }
 
-    
     public List<MajorModel> findAllModels() {
         return StreamSupport.stream(modelsRepo.findAll().spliterator(), false).toList();
     }

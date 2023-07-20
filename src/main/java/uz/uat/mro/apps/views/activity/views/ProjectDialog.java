@@ -9,8 +9,8 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 
-import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
-import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
+import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.marketing.service.ProjectService;
 
@@ -18,8 +18,8 @@ public class ProjectDialog extends Dialog {
     private ProjectService service;
     private TextField number;
     private DatePicker date;
-    private ComboBox<Firm> customer;
-    private ComboBox<Firm> supplier;
+    private ComboBox<Organization> customer;
+    private ComboBox<Organization> supplier;
     private DatePicker startDate;
     private DatePicker endDate;
     private ComboBox<Aircraft> aircraft;

@@ -5,7 +5,7 @@ import java.util.List;
 import com.arangodb.springframework.annotation.Query;
 import com.arangodb.springframework.repository.ArangoRepository;
 
-import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 
 public interface MpdEditionsRepository extends ArangoRepository<MpdEdition, String> {

@@ -1,7 +1,6 @@
 package uz.uat.mro.apps.model.library.service;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -11,8 +10,7 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
-import uz.uat.mro.apps.model.aircraft.repository.MajorModelsRepository;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdMh;
 import uz.uat.mro.apps.model.library.entity.MpdSubzone;
@@ -21,6 +19,7 @@ import uz.uat.mro.apps.model.library.repository.MpdAccessesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdMhsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdSubzonesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdZonesRepository;
+import uz.uat.mro.apps.model.repositories.MajorModelRepo;
 
 @AllArgsConstructor
 @Service
@@ -28,7 +27,7 @@ public class MpdZonesService {
     private MpdZonesRepository repo;
     private MpdSubzonesRepository subzonesRepo;
     private MpdAccessesRepository accessesRepo;
-    private MajorModelsRepository modelsRepo;
+    private MajorModelRepo modelsRepo;
     private MpdMhsRepository mhsRepo;
 
     public List<MpdZone> findZoneByModel(String model) {

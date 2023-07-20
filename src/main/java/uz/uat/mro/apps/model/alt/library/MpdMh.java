@@ -27,6 +27,6 @@ public class MpdMh {
     private String totalMh;
     private String accessString;
    // @Relations(edges = RelatedAccess.class, direction = Direction.OUTBOUND, lazy = false)
-    private List<MpdAccess> accesses;
+    private List<ACAccess> accesses;
 
 }

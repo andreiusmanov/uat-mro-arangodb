@@ -13,12 +13,14 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
+import uz.uat.mro.apps.views.main.HomeMenu;
 import uz.uat.mro.apps.views.organization.views.FacilitiesView;
 import uz.uat.mro.apps.views.organization.views.OrganizationUnitsView;
 import uz.uat.mro.apps.views.organization.views.OrganizationView;
 
 public class OrganizationLayout extends AppLayout{
     private H2 viewTitle;
+    private HomeMenu menu = new HomeMenu();
 
     public OrganizationLayout() {
         setPrimarySection(Section.DRAWER);
@@ -43,14 +45,14 @@ public class OrganizationLayout extends AppLayout{
 
         Scroller scroller = new Scroller(createNavigation());
 
-        addToDrawer(header, scroller, createFooter());
+        
+        addToDrawer(header, menu, scroller, createFooter());
     }
 
     private AppNav createNavigation() {
         // AppNav is not yet an official component.
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
-
         nav.addItem(new AppNavItem("Общие данные", OrganizationView.class, VaadinIcon.ASTERISK.create()));
         nav.addItem(new AppNavItem("Орг. Структура", OrganizationUnitsView.class, VaadinIcon.ASTERISK.create()));
         nav.addItem(new AppNavItem("Объекты", FacilitiesView.class, VaadinIcon.ASTERISK.create()));

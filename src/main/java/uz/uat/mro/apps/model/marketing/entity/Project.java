@@ -13,8 +13,8 @@ import com.arangodb.springframework.annotation.Relations.Direction;
 
 import lombok.Data;
 import uz.uat.mro.apps.model.activity.edge.MaintenanceType;
-import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
-import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
+import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.common.entity.Maintenance;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 
@@ -32,9 +32,9 @@ public class Project {
     private LocalDate startDate;
     private LocalDate endDate;
     @Ref(lazy = false)
-    private Firm customer;
+    private Organization customer;
     @Ref(lazy = false)
-    private Firm supplier;
+    private Organization supplier;
     @Ref(lazy = false)
     private Aircraft aircraft;
     private String maintenanceString;

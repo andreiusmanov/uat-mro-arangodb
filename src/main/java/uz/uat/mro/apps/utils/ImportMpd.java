@@ -23,7 +23,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 
-import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdItem;
@@ -51,7 +51,8 @@ public class ImportMpd {
                 }
             }
             set.stream().forEach(strings -> {
-                MpdZone zone = new MpdZone(model);
+                MpdZone zone = new MpdZone();
+                zone.setModel(model);
                 zone.setCode(strings[0]);
                 zone.setName(strings[1]);
                 zone.setModel(model);

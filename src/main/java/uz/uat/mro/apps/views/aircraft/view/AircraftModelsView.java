@@ -8,18 +8,18 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.aircraft.entity.AircraftModel;
-import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
-import uz.uat.mro.apps.model.aircraft.service.AircraftModelService;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftModel;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
+import uz.uat.mro.apps.model.services.aircraft.AircraftService;
 import uz.uat.mro.apps.views.aircraft.layout.AircraftLayout;
 
 @PageTitle(value = "Модели ВС")
 @Route(value = "aircrafts/models", layout = AircraftLayout.class)
 public class AircraftModelsView extends VerticalLayout {
-    private AircraftModelService service;
+    private AircraftService service;
     private GridCrud<AircraftModel> grid;
 
-    public AircraftModelsView(AircraftModelService service) {
+    public AircraftModelsView(AircraftService service) {
         this.service = service;
         grid();
         add(grid);
@@ -39,15 +39,15 @@ public class AircraftModelsView extends VerticalLayout {
 
         factory.setFieldProvider("majorModel", user -> {
             ComboBox<MajorModel> producers = new ComboBox<>();
-            producers.setItems(service.findMajorModels());
+            producers.setItems(service.findAllMajorModels());
             producers.setItemLabelGenerator(e -> e.getName());
             return producers;
         });
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findAll());
+        grid.setAddOperation(service::saveAircraftModel);
+        grid.setUpdateOperation(service::saveAircraftModel);
+        grid.setDeleteOperation(service::deleteAircraftModel);
+        grid.setFindAllOperation(() -> service.findAllAircraftModels());
     }
 
 }

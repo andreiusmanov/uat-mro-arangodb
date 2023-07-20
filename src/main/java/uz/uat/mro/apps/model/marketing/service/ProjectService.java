@@ -3,18 +3,15 @@ package uz.uat.mro.apps.model.marketing.service;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-
-import com.arangodb.springframework.annotation.Query;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceTypeRepository;
-import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
-import uz.uat.mro.apps.model.aircraft.repository.AircraftsRepository;
-import uz.uat.mro.apps.model.common.entity.Firm;
-import uz.uat.mro.apps.model.common.repository.FirmsRepository;
+import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftsRepo;
+import uz.uat.mro.apps.model.alt.organization.Organization;
+import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.repository.MpdEditionsRepository;
 import uz.uat.mro.apps.model.marketing.entity.Project;
@@ -26,8 +23,8 @@ import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 public class ProjectService {
     private ProjectRepository projectRepo;
     private MaintenanceTypeRepository linkRepo;
-    private FirmsRepository firmRepo;
-    private AircraftsRepository acRepo;
+    private OrganizationRepo firmRepo;
+    private AircraftsRepo acRepo;
     private MaintenanceCardsRepository cardRepo;
     private MpdEditionsRepository editionRepo;
 
@@ -43,11 +40,11 @@ public class ProjectService {
         return StreamSupport.stream(projectRepo.findAll().spliterator(), false).toList();
     }
 
-    public List<Firm> findAllCustomers() {
+    public List<Organization> findAllCustomers() {
         return StreamSupport.stream(firmRepo.findAll().spliterator(), false).toList();
     }
 
-    public List<Firm> findAllSuppliers() {
+    public List<Organization> findAllSuppliers() {
         return StreamSupport.stream(firmRepo.findAll().spliterator(), false).toList();
     }
 

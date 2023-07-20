@@ -10,14 +10,13 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Relations;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Document("persons")
 public class Person {
     @Id
@@ -32,6 +31,6 @@ public class Person {
     private String shortFio;
     private LocalDate dob;
     @Relations(edges = Works.class, lazy = false)
-    private Collection<Department> departments;
+    private Collection<OrganizationUnit> departments;
 
 }

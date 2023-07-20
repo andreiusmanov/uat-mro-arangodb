@@ -8,20 +8,19 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
-import uz.uat.mro.apps.model.aircraft.service.MajorModelService;
-import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
+import uz.uat.mro.apps.model.alt.organization.Organization;
+import uz.uat.mro.apps.model.services.aircraft.AircraftService;
 import uz.uat.mro.apps.views.aircraft.layout.AircraftLayout;
-
 
 @PageTitle(value = "Основные модели")
 @Route(value = "aircrafts/major-models", layout = AircraftLayout.class)
 public class MajorModelsView extends VerticalLayout {
-private MajorModelService service;
+    private AircraftService service;
 
-private GridCrud<MajorModel> grid;
+    private GridCrud<MajorModel> grid;
 
-    public MajorModelsView(MajorModelService service) {
+    public MajorModelsView(AircraftService service) {
         this.service = service;
         grid();
         add(grid);
@@ -39,17 +38,16 @@ private GridCrud<MajorModel> grid;
         factory.setVisibleProperties("code", "name", "description", "producer");
         factory.setFieldCaptions("Код", "Наименование", "Описание", "Производитель");
 
-        
         factory.setFieldProvider("producer", user -> {
-            ComboBox<Firm> producers = new ComboBox<>();
-            producers.setItems(service.findProducers());
+            ComboBox<Organization> producers = new ComboBox<>();
+            producers.setItems(service.findAllOrganizations());
             producers.setItemLabelGenerator(e -> e.getName());
             return producers;
         });
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findAll());
+        grid.setAddOperation(service::saveMajorModel);
+        grid.setUpdateOperation(service::saveMajorModel);
+        grid.setDeleteOperation(service::deleteMajorModel);
+        grid.setFindAllOperation(() -> service.findAllMajorModels());
     }
 }

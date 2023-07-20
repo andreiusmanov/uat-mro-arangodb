@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
 import uz.uat.mro.apps.model.library.service.MpdZonesService;
@@ -31,7 +31,7 @@ public class ZonesView extends VerticalLayout {
         this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         this.model = edition.getModel();
-     
+
         grid();
         menu();
         add(menu, grid);
@@ -58,7 +58,8 @@ public class ZonesView extends VerticalLayout {
         grid.setFindAllOperation(() -> service.findZoneByModel(model.getArangoId()));
 
         grid.getCrudFormFactory().setNewInstanceSupplier(() -> {
-            MpdZone zone = new MpdZone(model);
+            MpdZone zone = new MpdZone();
+            zone.setModel(model);
             return zone;
         });
         CrudFormFactory<MpdZone> factory = grid.getCrudFormFactory();
@@ -70,7 +71,6 @@ public class ZonesView extends VerticalLayout {
             c.setItemLabelGenerator(e -> e.getName());
             return c;
         });
-
 
     }
 }

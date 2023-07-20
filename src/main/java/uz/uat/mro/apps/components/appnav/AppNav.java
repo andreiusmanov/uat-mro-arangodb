@@ -50,6 +50,8 @@ public class AppNav extends Component implements HasSize, HasStyle {
         return this;
     }
 
+    
+
     /**
      * Removes the menu item from the menu.
      * <p>

@@ -6,20 +6,9 @@ import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import uz.uat.mro.apps.model.aircraft.entity.MajorModel;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
-@ToString
+import lombok.Data;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
+@Data
 @Document("mpd_subzones")
 public class MpdSubzone {
     @Id

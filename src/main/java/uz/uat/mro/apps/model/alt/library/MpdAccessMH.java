@@ -18,7 +18,7 @@ public class MpdAccessMH {
     @ArangoId
     private String arangoId;
     @Ref
-    private MpdAccess access;
+    private ACAccess access;
     @Ref
     private MpdEdition edition;
     private BigDecimal openMh;

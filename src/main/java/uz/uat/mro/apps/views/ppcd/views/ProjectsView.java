@@ -14,8 +14,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.aircraft.entity.Aircraft;
-import uz.uat.mro.apps.model.common.entity.Firm;
+import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
+import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.library.entity.MpdEdition;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.marketing.service.ProjectService;
@@ -71,13 +71,13 @@ public class ProjectsView extends VerticalLayout {
                 "Дата начала", "Дата окончания", "Виды работ");
 
         factory.setFieldProvider("customer", user -> {
-            ComboBox<Firm> customers = new ComboBox<>();
+            ComboBox<Organization> customers = new ComboBox<>();
             customers.setItems(service.findAllCustomers());
             customers.setItemLabelGenerator(e -> e.getShortName());
             return customers;
         });
         factory.setFieldProvider("supplier", user -> {
-            ComboBox<Firm> suppliers = new ComboBox<>();
+            ComboBox<Organization> suppliers = new ComboBox<>();
             suppliers.setItems(service.findAllSuppliers());
             suppliers.setItemLabelGenerator(e -> e.getShortName());
             return suppliers;

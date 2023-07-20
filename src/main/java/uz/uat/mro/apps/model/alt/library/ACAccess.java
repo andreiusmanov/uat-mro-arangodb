@@ -12,8 +12,8 @@ import lombok.Data;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 
 @Data
-@Document("mpd_accesses")
-public class MpdAccess {
+@Document("ac_accesses")
+public class ACAccess {
     @Id
     private String id;
     @ArangoId

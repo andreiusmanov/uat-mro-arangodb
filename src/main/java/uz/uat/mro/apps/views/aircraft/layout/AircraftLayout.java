@@ -2,11 +2,13 @@ package uz.uat.mro.apps.views.aircraft.layout;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
@@ -16,6 +18,9 @@ import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.aircraft.view.AircraftModelsView;
 import uz.uat.mro.apps.views.aircraft.view.AircraftsView;
 import uz.uat.mro.apps.views.aircraft.view.MajorModelsView;
+import uz.uat.mro.apps.views.common.views.CommonView;
+import uz.uat.mro.apps.views.library.view.LibraryView;
+import uz.uat.mro.apps.views.main.HomeMenu;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -23,6 +28,7 @@ import uz.uat.mro.apps.views.aircraft.view.MajorModelsView;
 public class AircraftLayout extends AppLayout {
 
     private H2 viewTitle;
+    private HomeMenu menu = new HomeMenu();
 
     public AircraftLayout() {
         setPrimarySection(Section.DRAWER);
@@ -46,8 +52,8 @@ public class AircraftLayout extends AppLayout {
         Header header = new Header(appName);
 
         Scroller scroller = new Scroller(createNavigation());
-
-        addToDrawer(header, scroller, createFooter());
+        menu.setWidthFull();
+        addToDrawer(header, menu, scroller, createFooter());
     }
 
     private AppNav createNavigation() {

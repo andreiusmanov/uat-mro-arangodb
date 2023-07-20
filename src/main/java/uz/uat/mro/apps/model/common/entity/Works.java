@@ -9,15 +9,11 @@ import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Edge;
 import com.arangodb.springframework.annotation.Relations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import uz.uat.mro.apps.model.alt.common.Department;
+import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Edge("works")
 public class Works {
     @Id
@@ -28,6 +24,6 @@ public class Works {
     private LocalDate start;
     private LocalDate end;
     @Relations(edges = Works.class, lazy = false)
-    private Collection<Department> departments;
+    private Collection<OrganizationUnit> departments;
 
 }
