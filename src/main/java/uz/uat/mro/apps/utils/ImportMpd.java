@@ -35,14 +35,13 @@ import uz.uat.mro.apps.model.library.service.DataImportService;
 
 public class ImportMpd {
 
-    public static void importBoeingZones(DataImportService service, String fileName, MpdEdition edition)
+    public static void importBoeingZones(DataImportService service, String fileName, MajorModel model)
             throws IOException, CsvValidationException {
         if (fileName.isBlank()) {
             return;
         }
         Set<String[]> set = new HashSet<>();
         Set<MpdZone> zones = new HashSet<>(0);
-        MajorModel model = edition.getModel();
         try (Reader reader = Files.newBufferedReader(Path.of(fileName))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
                 String[] line;
@@ -62,7 +61,7 @@ public class ImportMpd {
         }
     }
 
-    public static void importBoeingSubzones(DataImportService service, String filePath, MpdEdition edition)
+    public static void importBoeingSubzones(DataImportService service, String filePath, MajorModel model)
             throws IOException, CsvException {
 
         if (filePath.isBlank()) {
@@ -70,10 +69,7 @@ public class ImportMpd {
         }
         List<String[]> list = new ArrayList<>();
         Set<MpdSubzone> subzones = new HashSet<>(0);
-
-        MajorModel model = edition.getModel();
         Map<String, MpdZone> zonesMap = service.getAllZones(model.getArangoId());
-
         try (Reader reader = Files.newBufferedReader(Path.of(filePath))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
                 list = csvReader.readAll();
@@ -97,13 +93,12 @@ public class ImportMpd {
         }
     }
 
-    public static void importBoeingAccesses(DataImportService service, String accessesFile, MpdEdition edition)
+    public static void importBoeingAccesses(DataImportService service, String accessesFile, MajorModel model)
             throws IOException, CsvValidationException {
         if (accessesFile.isBlank()) {
             return;
         }
         Set<MpdAccess> accesses = new HashSet<>(0);
-        MajorModel model = edition.getModel();
         Map<String, MpdSubzone> subzonesMap = service.getAllSubzones(model.getArangoId());
         List<String[]> accessesArray = normalizeAccesses(accessesFile);
 
@@ -128,15 +123,12 @@ public class ImportMpd {
     }
 
     public static void importBoeingAccessesSynth(DataImportService service, String syntheticAccessesFile,
-            MpdEdition edition) throws IOException, CsvValidationException {
+            MajorModel model) throws IOException, CsvValidationException {
         if (syntheticAccessesFile.isBlank()) {
             return;
         }
         Set<MpdAccess> accesses = new HashSet<>(0);
-
-        MajorModel model = edition.getModel();
         Map<String, MpdSubzone> subzonesMap = service.getAllSubzones(model.getArangoId());
-
         List<String[]> synthAccessesArray = normalizeAccesses(syntheticAccessesFile);
         List<String> d = new ArrayList<>();
         synthAccessesArray.stream().forEach(array -> {

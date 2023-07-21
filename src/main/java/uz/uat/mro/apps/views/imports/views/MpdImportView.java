@@ -1,11 +1,11 @@
-package uz.uat.mro.apps.views.library.view;
+package uz.uat.mro.apps.views.imports.views;
 
 import java.io.IOException;
 
-import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -13,46 +13,47 @@ import com.vaadin.flow.router.Route;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.library.service.DataImportService;
 import uz.uat.mro.apps.utils.ImportMpd;
-import uz.uat.mro.apps.utils.Keys;
-import uz.uat.mro.apps.utils.MyUtils;
-import uz.uat.mro.apps.views.library.layout.MpdLayout;
+import uz.uat.mro.apps.views.imports.layouts.ImportLayout;
+import uz.uat.mro.apps.views.library.view.CsvFilePanel;
+import uz.uat.mro.apps.views.library.view.XlsMpdItemsFilePanel;
+import uz.uat.mro.apps.views.library.view.XlsMpdTaskcardsFilePanel;
 
 @PageTitle("Импорт данных MPD")
-@Route(value = "mpd/import", layout = MpdLayout.class)
+@Route(value = "import/import-mpd", layout = ImportLayout.class)
 public class MpdImportView extends VerticalLayout {
     private DataImportService service;
     private MpdEdition edition;
     private Accordion accordion;
-    private CsvFilePanel zonesPanel;
-    private CsvFilePanel subzonesPanel;
-    private CsvFilePanel accessesPanel;
-    private CsvFilePanel accessesSynthPanel;
     private CsvFilePanel mhsPanel;
     private XlsMpdItemsFilePanel itemsPanel;
     private XlsMpdTaskcardsFilePanel taskcardsPanel;
     private Button importButton;
+    private ComboBox<MpdEdition> editionComboBox;
 
     public MpdImportView(DataImportService service) {
         this.service = service;
-        this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
+        combobox();
         accordion();
         button();
-        add(accordion, importButton);
+        add(editionComboBox, accordion, importButton);
+    }
+
+    private void combobox() {
+        this.editionComboBox = new ComboBox<>();
+        this.editionComboBox.setItems(service.getMpdEditions());
+        this.editionComboBox.setItemLabelGenerator(
+                (edition) -> edition.getNumber() + " " + edition.getDate() + " " + edition.getMessage());
+        this.editionComboBox.addValueChangeListener(event -> {
+            this.edition = event.getValue();
+        });
+        editionComboBox.setLabel("Выберите издание MPD");
     }
 
     private void accordion() {
         this.accordion = new Accordion();
-        this.zonesPanel = new CsvFilePanel("Импорт зон ВС");
-        this.subzonesPanel = new CsvFilePanel("Импорт субзон ВС");
-        this.accessesPanel = new CsvFilePanel("Импорт доступов ВС");
-        this.accessesSynthPanel = new CsvFilePanel("Импорт синтетических доступов ВС");
         this.mhsPanel = new CsvFilePanel("Импорт данных Man Hours");
         this.itemsPanel = new XlsMpdItemsFilePanel("Импорт MPD Item");
         this.taskcardsPanel = new XlsMpdTaskcardsFilePanel("Импорт MPD Taskcards");
-        accordion.add(zonesPanel);
-        accordion.add(subzonesPanel);
-        accordion.add(accessesPanel);
-        accordion.add(accessesSynthPanel);
         accordion.add(itemsPanel);
         accordion.add(taskcardsPanel);
         accordion.add(mhsPanel);
@@ -63,16 +64,10 @@ public class MpdImportView extends VerticalLayout {
         this.importButton = new Button("Загрузить");
         importButton.addClickListener(clickEvent -> {
             try {
-                ImportMpd.importBoeingZones(service, zonesPanel.getFileName(), edition);
-                ImportMpd.importBoeingSubzones(service, subzonesPanel.getFileName(), edition);
-                ImportMpd.importBoeingAccesses(service, accessesPanel.getFileName(), edition);
-                ImportMpd.importBoeingAccessesSynth(service, accessesSynthPanel.getFileName(), edition);
                 ImportMpd.importMpdItems(service, itemsPanel.getFileName(), itemsPanel.getSheets(), edition);
                 ImportMpd.importMpdTaskcards(service, taskcardsPanel.getFileName(), taskcardsPanel.getSheet(), edition);
                 ImportMpd.importBoeingMhs(service, mhsPanel.getFileName(), edition);
-            } catch (CsvValidationException | IOException e) {
-                e.printStackTrace();
-            } catch (CsvException e) {
+            } catch (CsvValidationException | IOException  e) {
                 e.printStackTrace();
             }
         });

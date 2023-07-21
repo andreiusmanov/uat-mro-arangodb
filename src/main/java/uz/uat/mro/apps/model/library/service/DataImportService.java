@@ -10,7 +10,10 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.MajorModelRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
+import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
 import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdItem;
 import uz.uat.mro.apps.model.library.entity.MpdMh;
@@ -33,6 +36,8 @@ public class DataImportService {
     private MpdItemsRepository itemsRepo;
     private MpdTaskcardsRepository taskcardsRepo;
     private MpdMhsRepository mhsRepo;
+    private MajorModelRepo majorModelRepo;
+    private MpdEditionRepo editionRepo;
 
     public Map<String, MpdZone> getAllZones(String model) {
         Map<String, MpdZone> map = new HashMap<>();
@@ -81,6 +86,16 @@ public class DataImportService {
     public MpdItem findByNumberAndEdition(String number, MpdEdition edition) {
         return itemsRepo.findByEdition(edition.getArangoId()).stream().filter(e -> e.getNumber().equals(number))
                 .findFirst().get();
+    }
+
+    public List<MajorModel> getMajorModels() {
+        Iterable<MajorModel> models = majorModelRepo.findAll();
+        return StreamSupport.stream(models.spliterator(), false).toList();
+    }
+
+    public List<MpdEdition> getMpdEditions() {
+        Iterable<MpdEdition> editions = editionRepo.findAll();
+        return StreamSupport.stream(editions.spliterator(), false).toList();
     }
 
 }
