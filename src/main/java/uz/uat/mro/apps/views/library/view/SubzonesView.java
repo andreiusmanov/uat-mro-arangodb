@@ -14,11 +14,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftZone;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdSubzone;
 import uz.uat.mro.apps.model.library.entity.MpdZone;
-import uz.uat.mro.apps.model.library.service.MpdZonesService;
+import uz.uat.mro.apps.model.library.service.ZonesService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
@@ -26,14 +28,14 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 @PageTitle(value = "Субзоны")
 @Route(value = "mpd/subzones", layout = MpdLayout.class)
 public class SubzonesView extends VerticalLayout {
-    private MpdZonesService service;
-    private GridCrud<MpdSubzone> grid;
+    private ZonesService service;
+    private GridCrud<AircraftSubzone> grid;
     private MpdEdition edition;
     private MajorModel model;
     private MenuBar menu;
-    private GridListDataView<MpdSubzone> listDataView;
+    private GridListDataView<AircraftSubzone> listDataView;
 
-    public SubzonesView(MpdZonesService service) {
+    public SubzonesView(ZonesService service) {
         this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         this.model = edition.getModel();
@@ -45,41 +47,41 @@ public class SubzonesView extends VerticalLayout {
     private void menu() {
         this.menu = new MenuBar();
         this.menu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
-        List<MpdZone> zones = service.findZoneByModel(model.getArangoId());
+        List<AircraftZone> zones = service.findZoneByModel(model);
 
         MenuItem allZones = menu.addItem("Все Зоны");
         allZones.addClickListener(e -> listDataView.removeFilters());
 
-        for (MpdZone mpdZone : zones) {
-            menu.addItem(mpdZone.getCode(), e -> {
-                listDataView.setFilter(subzone -> subzone.getZone().equals(mpdZone));
+        for (AircraftZone zone : zones) {
+            menu.addItem(zone.getCode(), e -> {
+                listDataView.setFilter(subzone -> subzone.getZone().equals(zone));
             });
         }
 
     }
 
     private void grid() {
-        this.grid = new GridCrud<>(MpdSubzone.class);
+        this.grid = new GridCrud<>(AircraftSubzone.class);
         this.grid.getGrid().setColumns("code", "name", "zone.code", "model.name");
         this.grid.getGrid().getColumnByKey("code").setHeader("Код");
         this.grid.getGrid().getColumnByKey("name").setHeader("Наименование");
         this.grid.getGrid().getColumnByKey("zone.code").setHeader("Зона ВС");
         this.grid.getGrid().getColumnByKey("model.name").setHeader("Модель ВС");
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findAllSubzones(model.getArangoId()));
+        grid.setAddOperation(service::saveSubzone);
+        grid.setUpdateOperation(service::saveSubzone);
+        grid.setDeleteOperation(service::deleteSubzone);
+        grid.setFindAllOperation(() -> service.findAllSubzones(model));
 
         // filter
         listDataView = grid.getGrid().getListDataView();
 
         grid.getCrudFormFactory().setNewInstanceSupplier(() -> {
-            MpdSubzone subzone = new MpdSubzone();
+            AircraftSubzone subzone = new AircraftSubzone();
             subzone.setModel(model);
             return subzone;
         });
-        CrudFormFactory<MpdSubzone> factory = grid.getCrudFormFactory();
+        CrudFormFactory<AircraftSubzone> factory = grid.getCrudFormFactory();
         factory.setVisibleProperties("model", "zone", "code", "name", "description");
         factory.setFieldCaptions("Модель ВС", "Код зоны", "Код субзоны", "Наименование", "Описание");
 
@@ -90,7 +92,7 @@ public class SubzonesView extends VerticalLayout {
         });
 
         factory.setFieldProvider("zone", element -> {
-            ComboBox<MajorModel> c = new ComboBox<>("Код зоны", e -> service.findZoneByModel(model.getArangoId()));
+            ComboBox<MajorModel> c = new ComboBox<>("Код зоны", e -> service.findZoneByModel(model));
             c.setItemLabelGenerator(e -> e.getCode());
             return c;
         });

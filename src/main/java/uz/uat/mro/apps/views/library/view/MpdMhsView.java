@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.library.entity.MpdMh;
-import uz.uat.mro.apps.model.library.service.MpdZonesService;
+import uz.uat.mro.apps.model.library.service.ZonesService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
@@ -18,11 +18,11 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 @Route(value = "mpd/man-hours", layout = MpdLayout.class)
 public class MpdMhsView extends VerticalLayout {
 
-    private MpdZonesService service;
+    private ZonesService service;
     private GridCrud<MpdMh> grid;
     private MpdEdition edition;
 
-    public MpdMhsView(MpdZonesService service) {
+    public MpdMhsView(ZonesService service) {
         this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         grid();

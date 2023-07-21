@@ -9,7 +9,7 @@ import com.arangodb.springframework.annotation.Ref;
 import lombok.Data;
 
 @Data
-@Document("ac_zones")
+@Document("zones")
 
 public class AircraftZone {
     @Id

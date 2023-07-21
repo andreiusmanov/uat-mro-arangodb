@@ -10,7 +10,7 @@ import lombok.Data;
 import uz.uat.mro.apps.model.alt.library.MpdZone;
 
 @Data
-@Document("ac_subzones")
+@Document("subzones")
 public class AircraftSubzone {
     @Id
     private String id;
