@@ -30,8 +30,8 @@ import uz.uat.mro.apps.model.activity.entity.MaintenanceTaskcard;
 import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.ppcd.entity.ImportedCard;
@@ -283,7 +283,7 @@ public class ImportMC {
                                             mtc.setNumber(cardNo);
                                             mtc.setWorkArea(area);
                                             mtc.setSkill(skill);
-                                            //c.setManifacturersTaskcard(mtc);
+                                            // c.setManifacturersTaskcard(mtc);
                                             service.save(c);
                                         }
                                     }
@@ -301,8 +301,8 @@ public class ImportMC {
 
     public static void linkAccesses(MaintenanceCardsService service, Project project) {
         MpdEdition edition = project.getEdition();
-        List<MpdAccess> accesses = service.findByModel(edition.getModel().getArangoId());
-        for (MpdAccess access : accesses) {
+        List<AircraftAccess> accesses = service.findByModel(edition.getModel());
+        for (AircraftAccess access : accesses) {
 
         }
 

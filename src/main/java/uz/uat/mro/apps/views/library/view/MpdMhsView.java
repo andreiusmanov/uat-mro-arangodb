@@ -8,8 +8,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.entity.MpdMh;
-import uz.uat.mro.apps.model.library.service.ZonesService;
+import uz.uat.mro.apps.model.alt.library.MpdMh;
+import uz.uat.mro.apps.model.services.mpd.MpdService2;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
@@ -18,11 +18,11 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 @Route(value = "mpd/man-hours", layout = MpdLayout.class)
 public class MpdMhsView extends VerticalLayout {
 
-    private ZonesService service;
+    private MpdService2 service;
     private GridCrud<MpdMh> grid;
     private MpdEdition edition;
 
-    public MpdMhsView(ZonesService service) {
+    public MpdMhsView(MpdService2 service) {
         this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         grid();
@@ -42,7 +42,7 @@ public class MpdMhsView extends VerticalLayout {
                 .setTextAlign(ColumnTextAlign.END);
         this.grid.getGrid().getColumnByKey("accessString").setHeader("Accesses").setAutoWidth(true);
 
-        this.grid.setFindAllOperation(() -> service.findMhByEdition(edition.getArangoId()));
+        this.grid.setFindAllOperation(() -> service.findMhsByEdition(edition));
 
     }
 

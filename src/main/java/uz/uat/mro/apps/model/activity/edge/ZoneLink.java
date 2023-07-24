@@ -8,7 +8,7 @@ import com.arangodb.springframework.annotation.From;
 import com.arangodb.springframework.annotation.To;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.library.entity.MpdSubzone;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 @Data
@@ -21,6 +21,6 @@ public class ZoneLink {
     @From
     private MaintenanceCard card;
     @To
-    private MpdSubzone access;
+    private AircraftSubzone access;
 
 }

@@ -11,6 +11,7 @@ import com.arangodb.springframework.annotation.Relations;
 import com.arangodb.springframework.annotation.Relations.Direction;
 
 import lombok.Data;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.library.edges.RelatedAccess;
 
@@ -31,6 +32,6 @@ public class MpdMh {
     private String totalMh;
     private String accessString;
     @Relations(edges = RelatedAccess.class, direction = Direction.OUTBOUND, lazy = false)
-    private List<MpdAccess> accesses;
+    private List<AircraftAccess> accesses;
 
 }

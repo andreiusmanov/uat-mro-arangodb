@@ -18,6 +18,7 @@ public class MpdService {
 
     private MpdItemsRepository itemsRepo;
     private MpdTaskcardsRepository cardsRepo;
+    
 
     public MpdItem save(MpdItem item) {
         return itemsRepo.save(item);
@@ -34,15 +35,17 @@ public class MpdService {
         return itemsRepo.findOne(Example.of(item)).get();
     }
 
-   // public List<MpdItem> findByNumberAndModel(String number, String model) {
-    //    return null; // itemsRepo.findByNumberAndModel(number, model);
-   // }
+    // public List<MpdItem> findByNumberAndModel(String number, String model) {
+    // return null; // itemsRepo.findByNumberAndModel(number, model);
+    // }
 
     public List<MpdItem> findItemsByEdition(String edition) {
         return itemsRepo.findByEdition(edition);
     }
+
     public List<MpdTaskcard> findCardsByEdition(String edition) {
         return cardsRepo.findCardsByEdition(edition);
     }
 
+  
 }

@@ -13,11 +13,12 @@ import uz.uat.mro.apps.model.activity.entity.TaskGroup;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
 import uz.uat.mro.apps.model.activity.repository.RevisionRepository;
 import uz.uat.mro.apps.model.activity.repository.TaskGroupsRepository;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftAccessRepo;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftZonesRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
-import uz.uat.mro.apps.model.library.repository.MpdAccessesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
@@ -28,8 +29,8 @@ public class MaintenanceCardsService {
     private MaintenanceCardsRepository cardsRepo;
     private TaskGroupsRepository taskgroupRepo;
     private MpdTaskcardsRepository taskcardsRepo;
-    private MpdAccessesRepository accessesRepo;
-    private MpdAccessesRepository zonesRepo;
+    private AircraftAccessRepo accessesRepo;
+    private AircraftZonesRepo zonesRepo;
     private RevisionRepository revisionRepo;
 
     /**
@@ -92,7 +93,7 @@ public class MaintenanceCardsService {
     public List<MaintenanceCard> findAllByProject(String project) {
         return StreamSupport.stream(cardsRepo.findCardsByProject(project).spliterator(), false).toList();
     }
-    
+
     public List<MaintenanceCard> findAllByProjectActive(String project) {
         return StreamSupport.stream(cardsRepo.findCardsByProject(project).spliterator(), false).toList();
     }
@@ -120,12 +121,14 @@ public class MaintenanceCardsService {
         return StreamSupport.stream(cardsRepo.findAll(Example.of(mc)).spliterator(), false).toList();
     };
 
-    public List<MpdAccess> findByModel(String model) {
-        return accessesRepo.findByModel(model);
+    public List<AircraftAccess> findByModel(MajorModel model) {
+        return accessesRepo.findByModel(model.getArangoId());
     }
 
-    public Optional<MpdAccess> getAccess(MajorModel model, String number) {
-        MpdAccess access = new MpdAccess(model, number);
+    public Optional<AircraftAccess> getAccess(MajorModel model, String number) {
+        AircraftAccess access = new AircraftAccess();
+        access.setModel(model);
+        access.setNumber(number);
         return accessesRepo.findOne(Example.of(access));
     }
 
@@ -140,7 +143,7 @@ public class MaintenanceCardsService {
 
             for (int i = 0; i < accesses.length; i++) {
                 if (!accesses[i].isBlank()) {
-                    MpdAccess acc = service.getAccess(model, accesses[i]).get();
+                    AircraftAccess acc = service.getAccess(model, accesses[i]).get();
                     // AccessLink alink = new AccessLink()
                 }
             }

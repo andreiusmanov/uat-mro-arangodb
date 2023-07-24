@@ -11,7 +11,7 @@ import com.arangodb.springframework.annotation.Ref;
 import lombok.Data;
 
 @Data
-@Document("accesses")
+@Document("aircraft_accesses")
 public class AircraftAccess {
     @Id
     private String id;

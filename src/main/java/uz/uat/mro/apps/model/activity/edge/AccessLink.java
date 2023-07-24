@@ -8,7 +8,7 @@ import com.arangodb.springframework.annotation.From;
 import com.arangodb.springframework.annotation.To;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.library.entity.MpdAccess;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 @Data
@@ -21,9 +21,9 @@ public class AccessLink {
     @From
     private MaintenanceCard card;
     @To
-    private MpdAccess access;
+    private AircraftAccess access;
 
-    public AccessLink(MaintenanceCard card, MpdAccess access) {
+    public AccessLink(MaintenanceCard card, AircraftAccess access) {
         this.access = access;
         this.card = card;
     }

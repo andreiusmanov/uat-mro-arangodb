@@ -23,14 +23,14 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftZone;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdItem;
 import uz.uat.mro.apps.model.library.entity.MpdMh;
-import uz.uat.mro.apps.model.library.entity.MpdSubzone;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
-import uz.uat.mro.apps.model.library.entity.MpdZone;
 import uz.uat.mro.apps.model.library.service.DataImportService;
 
 public class ImportMpd {
@@ -41,7 +41,7 @@ public class ImportMpd {
             return;
         }
         Set<String[]> set = new HashSet<>();
-        Set<MpdZone> zones = new HashSet<>(0);
+        Set<AircraftZone> zones = new HashSet<>(0);
         try (Reader reader = Files.newBufferedReader(Path.of(fileName))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
                 String[] line;
@@ -50,7 +50,7 @@ public class ImportMpd {
                 }
             }
             set.stream().forEach(strings -> {
-                MpdZone zone = new MpdZone();
+                AircraftZone zone = new AircraftZone();
                 zone.setModel(model);
                 zone.setCode(strings[0]);
                 zone.setName(strings[1]);
@@ -68,8 +68,8 @@ public class ImportMpd {
             return;
         }
         List<String[]> list = new ArrayList<>();
-        Set<MpdSubzone> subzones = new HashSet<>(0);
-        Map<String, MpdZone> zonesMap = service.getAllZones(model.getArangoId());
+        Set<AircraftSubzone> subzones = new HashSet<>(0);
+        Map<String, AircraftZone> zonesMap = service.getAllZones(model);
         try (Reader reader = Files.newBufferedReader(Path.of(filePath))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
                 list = csvReader.readAll();
@@ -77,7 +77,7 @@ public class ImportMpd {
 
             List<String> codes = new ArrayList<>(0);
             list.stream().forEach(array -> {
-                MpdSubzone subzone = new MpdSubzone();
+                AircraftSubzone subzone = new AircraftSubzone();
                 subzone.setModel(model);
                 if (!codes.contains(array[0])) {
                     codes.add(array[0]);
@@ -98,8 +98,8 @@ public class ImportMpd {
         if (accessesFile.isBlank()) {
             return;
         }
-        Set<MpdAccess> accesses = new HashSet<>(0);
-        Map<String, MpdSubzone> subzonesMap = service.getAllSubzones(model.getArangoId());
+        Set<AircraftAccess> accesses = new HashSet<>(0);
+        Map<String, AircraftSubzone> subzonesMap = service.getAllSubzones(model);
         List<String[]> accessesArray = normalizeAccesses(accessesFile);
 
         List<String> d = new ArrayList<>();
@@ -107,7 +107,8 @@ public class ImportMpd {
         accessesArray.stream().forEach(array -> {
             if (!d.contains(array[0])) {
                 d.add(array[0]);
-                MpdAccess access = new MpdAccess(model);
+                AircraftAccess access = new AircraftAccess();
+                access.setModel(model);
                 access.setSynthetic(false);
                 access.setSubzone(subzonesMap.get(array[5]));
                 access.setNumber(array[0]);
@@ -127,14 +128,15 @@ public class ImportMpd {
         if (syntheticAccessesFile.isBlank()) {
             return;
         }
-        Set<MpdAccess> accesses = new HashSet<>(0);
-        Map<String, MpdSubzone> subzonesMap = service.getAllSubzones(model.getArangoId());
+        Set<AircraftAccess> accesses = new HashSet<>(0);
+        Map<String, AircraftSubzone> subzonesMap = service.getAllSubzones(model);
         List<String[]> synthAccessesArray = normalizeAccesses(syntheticAccessesFile);
         List<String> d = new ArrayList<>();
         synthAccessesArray.stream().forEach(array -> {
             if (!d.contains(array[0])) {
                 d.add(array[0]);
-                MpdAccess access2 = new MpdAccess(model);
+                AircraftAccess access2 = new AircraftAccess();
+                access2.setModel(model);
                 access2.setSynthetic(true);
                 access2.setSubzone(subzonesMap.get(array[0].substring(0, 3)));
                 access2.setNumber(String.valueOf(array[0]));

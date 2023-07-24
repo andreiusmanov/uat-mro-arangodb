@@ -10,47 +10,47 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftZone;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftAccessRepo;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftSubzonesRepo;
+import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftZonesRepo;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.MajorModelRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
+import uz.uat.mro.apps.model.alt.library.MpdMh;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
-import uz.uat.mro.apps.model.library.entity.MpdAccess;
 import uz.uat.mro.apps.model.library.entity.MpdItem;
-import uz.uat.mro.apps.model.library.entity.MpdMh;
-import uz.uat.mro.apps.model.library.entity.MpdSubzone;
 import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
-import uz.uat.mro.apps.model.library.entity.MpdZone;
-import uz.uat.mro.apps.model.library.repository.MpdAccessesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdItemsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdMhsRepository;
-import uz.uat.mro.apps.model.library.repository.MpdSubzonesRepository;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
-import uz.uat.mro.apps.model.library.repository.MpdZonesRepository;
 
 @AllArgsConstructor
 @Service
 public class DataImportService {
-    private MpdZonesRepository zonesRepo;
-    private MpdSubzonesRepository subzonesRepo;
-    private MpdAccessesRepository accessesRepo;
+    private AircraftZonesRepo zonesRepo;
+    private AircraftSubzonesRepo subzonesRepo;
+    private AircraftAccessRepo accessesRepo;
     private MpdItemsRepository itemsRepo;
     private MpdTaskcardsRepository taskcardsRepo;
     private MpdMhsRepository mhsRepo;
     private MajorModelRepo majorModelRepo;
     private MpdEditionRepo editionRepo;
 
-    public Map<String, MpdZone> getAllZones(String model) {
-        Map<String, MpdZone> map = new HashMap<>();
-        List<MpdZone> findByModel = zonesRepo.findByModel(model);
-        for (MpdZone mpdZone : findByModel) {
-            map.put(mpdZone.getCode(), mpdZone);
+    public Map<String, AircraftZone> getAllZones(MajorModel model) {
+        Map<String, AircraftZone> map = new HashMap<>();
+        List<AircraftZone> zones = zonesRepo.findByModel(model.getArangoId());
+        for (AircraftZone zone : zones) {
+            map.put(zone.getCode(), zone);
         }
         return map;
     }
 
-    public Map<String, MpdSubzone> getAllSubzones(String model) {
-        List<MpdSubzone> findByModel = subzonesRepo.findSubzonesByModel(model);
-        return findByModel.stream().collect(Collectors.toMap(MpdSubzone::getCode, subzone -> subzone));
+    public Map<String, AircraftSubzone> getAllSubzones(MajorModel model) {
+        List<AircraftSubzone> subzones = subzonesRepo.findByModel(model.getArangoId());
+        return subzones.stream().collect(Collectors.toMap(AircraftSubzone::getCode, subzone -> subzone));
     }
 
     public Map<String, MpdItem> getAllMpdItems(MpdEdition edition) {
@@ -59,15 +59,15 @@ public class DataImportService {
         return itemsList.stream().collect(Collectors.toMap(MpdItem::getNumber, mpdItem -> mpdItem));
     }
 
-    public List<MpdZone> saveAllZones(Collection<MpdZone> entities) {
+    public List<AircraftZone> saveAllZones(Collection<AircraftZone> entities) {
         return StreamSupport.stream(zonesRepo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<MpdSubzone> saveAllSubzones(Collection<MpdSubzone> entities) {
+    public List<AircraftSubzone> saveAllSubzones(Collection<AircraftSubzone> entities) {
         return StreamSupport.stream(subzonesRepo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<MpdAccess> saveAllAccesses(Collection<MpdAccess> entities) {
+    public List<AircraftAccess> saveAllAccesses(Collection<AircraftAccess> entities) {
         return StreamSupport.stream(accessesRepo.saveAll(entities).spliterator(), false).toList();
     }
 

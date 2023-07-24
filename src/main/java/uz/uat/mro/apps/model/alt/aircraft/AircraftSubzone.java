@@ -7,10 +7,9 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.alt.library.MpdZone;
 
 @Data
-@Document("subzones")
+@Document("aircraft_subzones")
 public class AircraftSubzone {
     @Id
     private String id;
@@ -19,7 +18,7 @@ public class AircraftSubzone {
     private String code;
     private String name;
     @Ref(lazy = false)
-    private MpdZone zone;
+    private AircraftZone zone;
     @Ref(lazy = false)
     private MajorModel model;
 }

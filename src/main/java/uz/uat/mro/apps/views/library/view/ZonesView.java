@@ -33,19 +33,10 @@ public class ZonesView extends VerticalLayout {
         this.model = edition.getModel();
 
         grid();
-        menu();
-        add(menu, grid);
+        add(grid);
     }
 
-    private void menu() {
-        this.menu = new MenuBar();
-        this.menu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
-        menu.addItem("Импорт данных из MPD", e -> {
-
-        });
-    }
-
-    private void grid() {
+        private void grid() {
         this.grid = new GridCrud<>(AircraftZone.class);
         this.grid.getGrid().setColumns("code", "name", "model.name");
         this.grid.getGrid().getColumnByKey("code").setHeader("Код");

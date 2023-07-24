@@ -8,7 +8,7 @@ import com.arangodb.springframework.annotation.From;
 import com.arangodb.springframework.annotation.To;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.library.entity.MpdAccess;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.library.entity.MpdMh;
 
 @Data
@@ -19,7 +19,7 @@ public class RelatedAccess {
     @ArangoId
     private String arangoId;
     @To
-    private MpdAccess access;
+    private AircraftAccess access;
     @From
     private MpdMh mh;
     

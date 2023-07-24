@@ -35,7 +35,7 @@ public class AircraftZoneService {
     }
 
     public List<AircraftZone> getAllZonesByModel(MajorModel model) {
-        return aircraftZonesRepo.findByModel(model);
+        return aircraftZonesRepo.findByModel(model.getArangoId());
     }
 
     // Aircraft Subzones
@@ -53,7 +53,7 @@ public class AircraftZoneService {
     }
 
     public List<AircraftSubzone> getAllSubzonesByModel(MajorModel model) {
-        return aircraftSubzonesRepo.findByModel(model);
+        return aircraftSubzonesRepo.findByModel(model.getArangoId());
     }
 
     // Aircraft Acceses
@@ -72,6 +72,10 @@ public class AircraftZoneService {
 
     public List<AircraftAccess> getAllAccessesBySubzone(AircraftSubzone subzone) {
         return aircraftAccessRepo.findBySubzone(subzone);
+    }
+
+    public List<AircraftAccess> getAllAccessesByModel(MajorModel model) {
+        return aircraftAccessRepo.findByModel(model.getArangoId());
     }
 
 }

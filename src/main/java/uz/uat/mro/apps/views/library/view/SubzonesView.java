@@ -18,8 +18,6 @@ import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftZone;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.entity.MpdSubzone;
-import uz.uat.mro.apps.model.library.entity.MpdZone;
 import uz.uat.mro.apps.model.library.service.ZonesService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;

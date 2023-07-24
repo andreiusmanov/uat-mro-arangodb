@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.service.ZonesService;
+import uz.uat.mro.apps.model.services.aircraft.AircraftZoneService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
@@ -17,12 +17,12 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 @PageTitle(value = "Доступы")
 @Route(value = "mpd/accesses", layout = MpdLayout.class)
 public class AccessesView extends VerticalLayout {
-    private ZonesService service;
+    private AircraftZoneService service;
     private MpdEdition edition;
     private MajorModel model;
     private GridCrud<AircraftAccess> grid;
 
-    public AccessesView(ZonesService service) {
+    public AccessesView(AircraftZoneService service) {
         this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         this.model = edition.getModel();
@@ -48,9 +48,8 @@ public class AccessesView extends VerticalLayout {
         grid.setAddOperation(service::saveAccess);
         grid.setUpdateOperation(service::saveAccess);
         grid.setDeleteOperation(service::deleteAccess);
-        grid.setFindAllOperation(() -> service.findAllAccessByModel(model));
+        grid.setFindAllOperation(() -> service.getAllAccessesByModel(model));
 
     }
 
-   
 }
