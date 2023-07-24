@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.entity.MpdItem;
-import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
+import uz.uat.mro.apps.model.alt.library.MpdItem;
+import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.library.repository.MpdItemsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 
@@ -18,7 +18,6 @@ public class MpdService {
 
     private MpdItemsRepository itemsRepo;
     private MpdTaskcardsRepository cardsRepo;
-    
 
     public MpdItem save(MpdItem item) {
         return itemsRepo.save(item);
@@ -47,5 +46,4 @@ public class MpdService {
         return cardsRepo.findCardsByEdition(edition);
     }
 
-  
 }

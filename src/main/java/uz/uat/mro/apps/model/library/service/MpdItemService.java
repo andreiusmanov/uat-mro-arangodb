@@ -1,7 +1,7 @@
 package uz.uat.mro.apps.model.library.service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.library.entity.MpdItem;
+import uz.uat.mro.apps.model.alt.library.MpdItem;
 import uz.uat.mro.apps.model.library.repository.MpdItemsRepository;
 
 @AllArgsConstructor

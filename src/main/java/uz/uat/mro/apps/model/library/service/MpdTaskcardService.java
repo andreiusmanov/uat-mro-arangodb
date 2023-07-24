@@ -1,7 +1,7 @@
 package uz.uat.mro.apps.model.library.service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
+import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 
 @AllArgsConstructor

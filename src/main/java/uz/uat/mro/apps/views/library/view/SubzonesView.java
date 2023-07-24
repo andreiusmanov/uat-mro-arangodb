@@ -18,7 +18,7 @@ import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftZone;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.service.ZonesService;
+import uz.uat.mro.apps.model.services.aircraft.AircraftZoneService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.MpdLayout;
@@ -26,14 +26,14 @@ import uz.uat.mro.apps.views.library.layout.MpdLayout;
 @PageTitle(value = "Субзоны")
 @Route(value = "mpd/subzones", layout = MpdLayout.class)
 public class SubzonesView extends VerticalLayout {
-    private ZonesService service;
+    private AircraftZoneService service;
     private GridCrud<AircraftSubzone> grid;
     private MpdEdition edition;
     private MajorModel model;
     private MenuBar menu;
     private GridListDataView<AircraftSubzone> listDataView;
 
-    public SubzonesView(ZonesService service) {
+    public SubzonesView(AircraftZoneService service) {
         this.service = service;
         this.edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
         this.model = edition.getModel();
@@ -45,7 +45,7 @@ public class SubzonesView extends VerticalLayout {
     private void menu() {
         this.menu = new MenuBar();
         this.menu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
-        List<AircraftZone> zones = service.findZoneByModel(model);
+        List<AircraftZone> zones = service.getAllZonesByModel(model);
 
         MenuItem allZones = menu.addItem("Все Зоны");
         allZones.addClickListener(e -> listDataView.removeFilters());
@@ -69,7 +69,7 @@ public class SubzonesView extends VerticalLayout {
         grid.setAddOperation(service::saveSubzone);
         grid.setUpdateOperation(service::saveSubzone);
         grid.setDeleteOperation(service::deleteSubzone);
-        grid.setFindAllOperation(() -> service.findAllSubzones(model));
+        grid.setFindAllOperation(() -> service.getAllSubzonesByModel(model));
 
         // filter
         listDataView = grid.getGrid().getListDataView();
@@ -90,7 +90,7 @@ public class SubzonesView extends VerticalLayout {
         });
 
         factory.setFieldProvider("zone", element -> {
-            ComboBox<MajorModel> c = new ComboBox<>("Код зоны", e -> service.findZoneByModel(model));
+            ComboBox<MajorModel> c = new ComboBox<>("Код зоны", e -> service.getAllZonesByModel(model));
             c.setItemLabelGenerator(e -> e.getCode());
             return c;
         });

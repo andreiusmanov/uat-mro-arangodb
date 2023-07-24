@@ -7,7 +7,8 @@ import org.springframework.data.repository.query.Param;
 import com.arangodb.springframework.annotation.Query;
 import com.arangodb.springframework.repository.ArangoRepository;
 
-import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
+import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
+
 
 public interface MpdTaskcardsRepository extends ArangoRepository<MpdTaskcard,String>{
     

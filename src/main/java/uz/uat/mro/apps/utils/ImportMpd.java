@@ -28,9 +28,9 @@ import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftZone;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.entity.MpdItem;
-import uz.uat.mro.apps.model.library.entity.MpdMh;
-import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
+import uz.uat.mro.apps.model.alt.library.MpdItem;
+import uz.uat.mro.apps.model.alt.library.MpdMh;
+import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.library.service.DataImportService;
 
 public class ImportMpd {

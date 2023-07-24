@@ -1,9 +1,9 @@
 package uz.uat.mro.apps.model.library.service;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -19,10 +19,10 @@ import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftSubzonesRepo;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftZonesRepo;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.MajorModelRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
+import uz.uat.mro.apps.model.alt.library.MpdItem;
 import uz.uat.mro.apps.model.alt.library.MpdMh;
+import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
-import uz.uat.mro.apps.model.library.entity.MpdItem;
-import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
 import uz.uat.mro.apps.model.library.repository.MpdItemsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdMhsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
@@ -59,27 +59,27 @@ public class DataImportService {
         return itemsList.stream().collect(Collectors.toMap(MpdItem::getNumber, mpdItem -> mpdItem));
     }
 
-    public List<AircraftZone> saveAllZones(Collection<AircraftZone> entities) {
+    public List<AircraftZone> saveAllZones(Set<AircraftZone> entities) {
         return StreamSupport.stream(zonesRepo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<AircraftSubzone> saveAllSubzones(Collection<AircraftSubzone> entities) {
+    public List<AircraftSubzone> saveAllSubzones(Set<AircraftSubzone> entities) {
         return StreamSupport.stream(subzonesRepo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<AircraftAccess> saveAllAccesses(Collection<AircraftAccess> entities) {
+    public List<AircraftAccess> saveAllAccesses(Set<AircraftAccess> entities) {
         return StreamSupport.stream(accessesRepo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<MpdItem> saveAllMpdItems(Collection<MpdItem> entities) {
+    public List<MpdItem> saveAllMpdItems(List<MpdItem> entities) {
         return StreamSupport.stream(itemsRepo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<MpdTaskcard> saveAllTaskcards(Collection<MpdTaskcard> entities) {
+    public List<MpdTaskcard> saveAllTaskcards(List<MpdTaskcard> entities) {
         return StreamSupport.stream(taskcardsRepo.saveAll(entities).spliterator(), false).toList();
     }
 
-    public List<MpdMh> saveAllMhs(Collection<MpdMh> entities) {
+    public List<MpdMh> saveAllMhs(List<MpdMh> entities) {
         return StreamSupport.stream(mhsRepo.saveAll(entities).spliterator(), false).toList();
     }
 

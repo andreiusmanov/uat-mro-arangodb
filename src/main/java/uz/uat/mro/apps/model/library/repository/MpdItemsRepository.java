@@ -8,7 +8,7 @@ import com.arangodb.springframework.annotation.Query;
 import com.arangodb.springframework.repository.ArangoRepository;
 
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.library.entity.MpdItem;
+import uz.uat.mro.apps.model.alt.library.MpdItem;
 
 public interface MpdItemsRepository extends ArangoRepository<MpdItem, String> {
 
