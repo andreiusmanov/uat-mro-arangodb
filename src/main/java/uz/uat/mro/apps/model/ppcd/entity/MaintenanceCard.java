@@ -10,7 +10,7 @@ import lombok.Data;
 import uz.uat.mro.apps.model.activity.entity.MaintenanceArea;
 import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
-import uz.uat.mro.apps.model.library.entity.MpdTaskcard;
+import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 
 @Data
