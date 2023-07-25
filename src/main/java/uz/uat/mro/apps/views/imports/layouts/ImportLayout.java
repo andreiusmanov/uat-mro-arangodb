@@ -25,6 +25,7 @@ public class ImportLayout extends AppLayout {
         setDrawerOpened(true);
         addDrawerContent();
         addHeaderContent();
+        this.setDrawerOpened(true);
     }
 
     private void addHeaderContent() {

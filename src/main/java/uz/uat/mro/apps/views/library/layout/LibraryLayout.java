@@ -32,6 +32,7 @@ public class LibraryLayout extends AppLayout {
         menu();
         addDrawerContent();
         addHeaderContent();
+        this.setDrawerOpened(true);
     }
 
     private void menu() {

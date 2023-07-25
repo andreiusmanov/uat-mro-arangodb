@@ -46,11 +46,16 @@ public class AircraftImportView extends VerticalLayout {
         this.majorModelComboBox.addValueChangeListener(event -> {
             this.majorModel = event.getValue();
         });
-majorModelComboBox.setLabel("Выберите модель ВС");
+        majorModelComboBox.setLabel("Выберите модель ВС");
+        majorModelComboBox.addValueChangeListener(event -> {
+            accordion.setVisible(event.getValue() != null);
+            importButton.setEnabled(event.getValue() != null);
+        });
     }
 
     private void accordion() {
         this.accordion = new Accordion();
+        this.accordion.setVisible(majorModelComboBox.getValue() != null);
         this.zonesPanel = new CsvFilePanel("Импорт зон ВС");
         this.subzonesPanel = new CsvFilePanel("Импорт субзон ВС");
         this.accessesPanel = new CsvFilePanel("Импорт доступов ВС");
@@ -76,5 +81,6 @@ majorModelComboBox.setLabel("Выберите модель ВС");
                 e.printStackTrace();
             }
         });
+        this.importButton.setEnabled(majorModelComboBox.getValue() != null);
     }
 }

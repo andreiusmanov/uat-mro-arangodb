@@ -7,7 +7,6 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 @Document("aircraft_zones")

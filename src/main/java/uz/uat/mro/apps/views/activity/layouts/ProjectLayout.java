@@ -31,6 +31,7 @@ public class ProjectLayout extends AppLayout {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
+        this.setDrawerOpened(true);
     }
 
     private void addHeaderContent() {

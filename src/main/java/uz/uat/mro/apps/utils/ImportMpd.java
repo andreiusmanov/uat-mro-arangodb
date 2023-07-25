@@ -22,6 +22,7 @@ import org.apache.poi.ss.usermodel.CellType;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
+import com.vaadin.flow.component.notification.Notification;
 
 import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
@@ -38,6 +39,7 @@ public class ImportMpd {
     public static void importBoeingZones(DataImportService service, String fileName, MajorModel model)
             throws IOException, CsvValidationException {
         if (fileName.isBlank()) {
+            Notification.show("Файл не найден. Проверьте путь к файлу.");
             return;
         }
         Set<String[]> set = new HashSet<>();
@@ -96,6 +98,7 @@ public class ImportMpd {
     public static void importBoeingAccesses(DataImportService service, String accessesFile, MajorModel model)
             throws IOException, CsvValidationException {
         if (accessesFile.isBlank()) {
+            Notification.show("Файл не найден. Проверьте путь к файлу.");
             return;
         }
         Set<AircraftAccess> accesses = new HashSet<>(0);
@@ -126,6 +129,7 @@ public class ImportMpd {
     public static void importBoeingAccessesSynth(DataImportService service, String syntheticAccessesFile,
             MajorModel model) throws IOException, CsvValidationException {
         if (syntheticAccessesFile.isBlank()) {
+            Notification.show("Файл не найден. Проверьте путь к файлу.");
             return;
         }
         Set<AircraftAccess> accesses = new HashSet<>(0);
@@ -184,9 +188,9 @@ public class ImportMpd {
             MpdEdition edition)
             throws FileNotFoundException, IOException {
         if (fileName.isBlank()) {
+            Notification.show("Файл не найден. Проверьте путь к файлу.");
             return;
         }
-
         // Load the XLS file
         FileInputStream fis = new FileInputStream(fileName);
         List<MpdItem> items = new ArrayList<>();
@@ -244,6 +248,7 @@ public class ImportMpd {
             MpdEdition edition)
             throws FileNotFoundException, IOException {
         if (fileName.isBlank()) {
+            Notification.show("Файл не найден. Проверьте путь к файлу.");
             return;
         }
 

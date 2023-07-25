@@ -45,8 +45,19 @@ public class MpdImportView extends VerticalLayout {
                 (edition) -> edition.getNumber() + " " + edition.getDate() + " " + edition.getMessage());
         this.editionComboBox.addValueChangeListener(event -> {
             this.edition = event.getValue();
+            this.accordion.setVisible(editionComboBox.getValue() != null);
+            this.importButton.setEnabled(editionComboBox.getValue() != null);
         });
         editionComboBox.setLabel("Выберите издание MPD");
+        editionComboBox.setPlaceholder("Выберите издание MPD");
+        editionComboBox.setRequired(true);
+        editionComboBox.setErrorMessage("Выберите издание MPD");
+        editionComboBox.setRequiredIndicatorVisible(true);
+        editionComboBox.setSizeFull();
+        editionComboBox.addValueChangeListener(event -> {
+            accordion.setVisible(event.getValue() != null);
+            importButton.setEnabled(event.getValue() != null);
+        });
     }
 
     private void accordion() {
@@ -58,6 +69,7 @@ public class MpdImportView extends VerticalLayout {
         accordion.add(taskcardsPanel);
         accordion.add(mhsPanel);
         accordion.setSizeFull();
+        accordion.setVisible(editionComboBox.getValue() != null);
     }
 
     private void button() {
@@ -67,9 +79,11 @@ public class MpdImportView extends VerticalLayout {
                 ImportMpd.importMpdItems(service, itemsPanel.getFileName(), itemsPanel.getSheets(), edition);
                 ImportMpd.importMpdTaskcards(service, taskcardsPanel.getFileName(), taskcardsPanel.getSheet(), edition);
                 ImportMpd.importBoeingMhs(service, mhsPanel.getFileName(), edition);
-            } catch (CsvValidationException | IOException  e) {
+            } catch (CsvValidationException | IOException e) {
                 e.printStackTrace();
             }
         });
+
+        importButton.setEnabled(editionComboBox.getValue() != null);
     }
 }
