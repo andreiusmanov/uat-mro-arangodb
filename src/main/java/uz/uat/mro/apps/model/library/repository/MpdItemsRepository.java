@@ -12,7 +12,6 @@ import uz.uat.mro.apps.model.alt.library.MpdItem;
 
 public interface MpdItemsRepository extends ArangoRepository<MpdItem, String> {
 
-
     public List<MpdItem> findByEdition(String edition);
 
     @Query(value = "for i in mpd_items filter i.number == @number && i.edition == @edition return i")
@@ -20,7 +19,5 @@ public interface MpdItemsRepository extends ArangoRepository<MpdItem, String> {
 
     @Query(value = "for i in mpd_items filter i.edition == @edition return i")
     public List<MpdItem> getMpdItems(@Param("edition") String edition);
-
-
 
 }

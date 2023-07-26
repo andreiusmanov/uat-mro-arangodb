@@ -54,8 +54,10 @@ public class DataImportService {
     }
 
     public Map<String, MpdItem> getAllMpdItems(MpdEdition edition) {
+        Iterable<MpdItem> items = itemsRepo.getMpdItems(edition.getArangoId());
+        
         List<MpdItem> itemsList = StreamSupport
-                .stream(itemsRepo.getMpdItems(edition.getArangoId()).spliterator(), false).toList();
+                .stream(items.spliterator(), false).toList();
         return itemsList.stream().collect(Collectors.toMap(MpdItem::getNumber, mpdItem -> mpdItem));
     }
 
