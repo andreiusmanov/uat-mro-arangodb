@@ -9,14 +9,14 @@ import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.MpdItem;
 import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
-import uz.uat.mro.apps.model.library.repository.MpdItemsRepository;
+import uz.uat.mro.apps.model.alt.library.repository.MpdItemsRepo;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 
 @AllArgsConstructor
 @Service
 public class MpdService {
 
-    private MpdItemsRepository itemsRepo;
+    private MpdItemsRepo itemsRepo;
     private MpdTaskcardsRepository cardsRepo;
 
     public MpdItem save(MpdItem item) {

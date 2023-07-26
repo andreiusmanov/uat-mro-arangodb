@@ -23,7 +23,7 @@ import uz.uat.mro.apps.model.alt.library.MpdItem;
 import uz.uat.mro.apps.model.alt.library.MpdMh;
 import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
-import uz.uat.mro.apps.model.library.repository.MpdItemsRepository;
+import uz.uat.mro.apps.model.alt.library.repository.MpdItemsRepo;
 import uz.uat.mro.apps.model.library.repository.MpdMhsRepository;
 import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
 
@@ -33,7 +33,7 @@ public class DataImportService {
     private AircraftZonesRepo zonesRepo;
     private AircraftSubzonesRepo subzonesRepo;
     private AircraftAccessRepo accessesRepo;
-    private MpdItemsRepository itemsRepo;
+    private MpdItemsRepo itemsRepo;
     private MpdTaskcardsRepository taskcardsRepo;
     private MpdMhsRepository mhsRepo;
     private MajorModelRepo majorModelRepo;
@@ -54,8 +54,8 @@ public class DataImportService {
     }
 
     public Map<String, MpdItem> getAllMpdItems(MpdEdition edition) {
-        Iterable<MpdItem> items = itemsRepo.getMpdItems(edition.getArangoId());
-        
+        Iterable<MpdItem> items = itemsRepo.findByEdition(edition.getArangoId());
+
         List<MpdItem> itemsList = StreamSupport
                 .stream(items.spliterator(), false).toList();
         return itemsList.stream().collect(Collectors.toMap(MpdItem::getNumber, mpdItem -> mpdItem));

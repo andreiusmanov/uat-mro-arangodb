@@ -13,6 +13,7 @@ import com.arangodb.springframework.annotation.Relations.Direction;
 import lombok.Data;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
+import uz.uat.mro.apps.model.alt.library.MpdItem;
 import uz.uat.mro.apps.model.library.edges.RelatedAccess;
 
 @Data
