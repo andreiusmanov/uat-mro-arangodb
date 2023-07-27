@@ -1,5 +1,6 @@
 package uz.uat.mro.apps.model.library.service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,12 +54,12 @@ public class DataImportService {
         return subzones.stream().collect(Collectors.toMap(AircraftSubzone::getCode, subzone -> subzone));
     }
 
-    public Map<String, MpdItem> getAllMpdItems(MpdEdition edition) {
-        Iterable<MpdItem> items = itemsRepo.findByEdition(edition.getArangoId());
+    public void setMpdItems2Taskcards(MpdEdition edition) {
+        taskcardsRepo.setMpdItems2Taskcards(edition.getArangoId());
+    }
 
-        List<MpdItem> itemsList = StreamSupport
-                .stream(items.spliterator(), false).toList();
-        return itemsList.stream().collect(Collectors.toMap(MpdItem::getNumber, mpdItem -> mpdItem));
+    public void setMpdItems2Mhs(MpdEdition edition) {
+        mhsRepo.setMpdItems2Mhs(edition.getArangoId());
     }
 
     public List<AircraftZone> saveAllZones(Set<AircraftZone> entities) {
@@ -86,8 +87,11 @@ public class DataImportService {
     }
 
     public MpdItem findByNumberAndEdition(String number, MpdEdition edition) {
-        return itemsRepo.findByEdition(edition.getArangoId()).stream().filter(e -> e.getNumber().equals(number))
-                .findFirst().get();
+        Object items = itemsRepo.findByEdition2(edition.getArangoId());
+        return null;
+        // return StreamSupport.stream(items.spliterator(), false).filter(e ->
+        // e.getNumber().equals(number)).findFirst()
+        // .get();
     }
 
     public List<MajorModel> getMajorModels() {

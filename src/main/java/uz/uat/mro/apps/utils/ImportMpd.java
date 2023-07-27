@@ -256,22 +256,19 @@ public class ImportMpd {
         FileInputStream fis = new FileInputStream(fileName);
         List<MpdTaskcard> cards = new ArrayList<>();
         HSSFWorkbook workbook = new HSSFWorkbook(fis);
-
         HSSFSheet taskcardsSheet = workbook.getSheet(sheetName);
-        // create map of String,MpdItem for the edition
-        Map<String, MpdItem> items = service.getAllMpdItems(edition);
-
         // taskcards load
         for (int i = 0; i < taskcardsSheet.getLastRowNum() + 1; i++) {
             HSSFRow row = taskcardsSheet.getRow(i);
             HSSFCell uCell = row.getCell(0);
             if (uCell != null) {
-                MpdTaskcard card = processTaskcardsSheet(row, edition, service, items);
+                MpdTaskcard card = processTaskcardsSheet(row, edition, service);
                 cards.add(card);
             }
         }
         service.saveAllTaskcards(cards);
         workbook.close();
+        service.setMpdItems2Taskcards(edition);
     }
 
     private static MpdItem processSystemSheet(HSSFRow row) {
@@ -355,8 +352,7 @@ public class ImportMpd {
         return item;
     }
 
-    private static MpdTaskcard processTaskcardsSheet(HSSFRow row, MpdEdition edition, DataImportService service,
-            Map<String, MpdItem> items) {
+    private static MpdTaskcard processTaskcardsSheet(HSSFRow row, MpdEdition edition, DataImportService service) {
         MpdTaskcard card = new MpdTaskcard();
         String[] array = new String[7];
 
@@ -366,7 +362,6 @@ public class ImportMpd {
             array[arrayIndex] = parseCell(cell);
         }
         card.setNumber(array[0]);
-        card.setMpdItem(items.get(array[1]));
         card.setMpdItemString(array[1]);
         card.setMrbItem(array[2].replace("\n", ", ").trim());
         card.setRelatedTasksString(array[3].replace("\n", ", ").trim());
@@ -381,15 +376,12 @@ public class ImportMpd {
         if (fileName.isBlank()) {
             return;
         }
-
-        Map<String, MpdItem> items = service.getAllMpdItems(edition);
         List<String[]> set = normalizeAccesses(fileName);
         List<MpdMh> mhs = new ArrayList<>(0);
 
         set.stream().forEach(strings -> {
             MpdMh mh = new MpdMh();
             mh.setEdition(edition);
-            mh.setMpdItem(items.get(strings[0]));
             mh.setMpdItemString(strings[0]);
             mh.setAccessMh(strings[1]);
             mh.setTaskcardMh(strings[2]);
@@ -398,6 +390,7 @@ public class ImportMpd {
             mhs.add(mh);
         });
         service.saveAllMhs(mhs);
+        service.setMpdItems2Mhs(edition);
     }
 
     private static String parseCell(HSSFCell cell) {
