@@ -11,14 +11,14 @@ import uz.uat.mro.apps.model.alt.aircraft.repositories.MajorModelRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.MpdMh;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
-import uz.uat.mro.apps.model.library.repository.MpdMhsRepository;
+import uz.uat.mro.apps.model.alt.library.repository.MpdMhsRepo;
 
 @Service
 @AllArgsConstructor
 public class MpdService2 {
     private MpdEditionRepo mpdEditionRepo;
     private MajorModelRepo majorModelRepo;
-    private MpdMhsRepository mhsRepo;
+    private MpdMhsRepo mhsRepo;
 
     // mpd edition
 

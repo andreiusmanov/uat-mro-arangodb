@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.library.repository;
+package uz.uat.mro.apps.model.alt.library.repository;
 
 import org.springframework.data.repository.query.Param;
 
@@ -7,7 +7,7 @@ import com.arangodb.springframework.repository.ArangoRepository;
 
 import uz.uat.mro.apps.model.alt.library.MpdMh;
 
-public interface MpdMhsRepository extends ArangoRepository<MpdMh, String> {
+public interface MpdMhsRepo extends ArangoRepository<MpdMh, String> {
 
     @Query("for i in mpd_mhs filter i.edition == @edition sort i.mpdItemString asc return i")
     public Iterable<MpdMh> findMhByEdition(String edition);

@@ -19,7 +19,7 @@ import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftAccessRepo;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftZonesRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
-import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
+import uz.uat.mro.apps.model.alt.library.repository.MpdTaskcardsRepo;
 import uz.uat.mro.apps.model.marketing.entity.Project;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
@@ -28,7 +28,7 @@ import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 public class MaintenanceCardsService {
     private MaintenanceCardsRepository cardsRepo;
     private TaskGroupsRepository taskgroupRepo;
-    private MpdTaskcardsRepository taskcardsRepo;
+    private MpdTaskcardsRepo taskcardsRepo;
     private AircraftAccessRepo accessesRepo;
     private AircraftZonesRepo zonesRepo;
     private RevisionRepository revisionRepo;

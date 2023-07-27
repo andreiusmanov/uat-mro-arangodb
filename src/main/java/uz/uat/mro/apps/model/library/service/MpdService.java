@@ -10,14 +10,14 @@ import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.MpdItem;
 import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.alt.library.repository.MpdItemsRepo;
-import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
+import uz.uat.mro.apps.model.alt.library.repository.MpdTaskcardsRepo;
 
 @AllArgsConstructor
 @Service
 public class MpdService {
 
     private MpdItemsRepo itemsRepo;
-    private MpdTaskcardsRepository cardsRepo;
+    private MpdTaskcardsRepo cardsRepo;
 
     public MpdItem save(MpdItem item) {
         return itemsRepo.save(item);

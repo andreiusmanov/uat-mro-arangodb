@@ -19,4 +19,7 @@ public interface MpdItemsRepo extends ArangoRepository<MpdItem, String> {
 
     @Query(value = "for i in mpd_items filter i.number == @number && i.edition == @edition return i")
     public List<MpdItem> findByNumberAndEdition(@Param("number") String number, @Param("edition") MpdEdition edition);
+
+@Query(value = "for i mpd_items for card in mpd_taskcards filter i.edition == @edition && card.mpdItem == i._id update i with {taskcards:item._id} in mpd_mhs")
+
 }

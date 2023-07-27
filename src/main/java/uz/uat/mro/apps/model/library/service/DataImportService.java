@@ -1,6 +1,5 @@
 package uz.uat.mro.apps.model.library.service;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +24,8 @@ import uz.uat.mro.apps.model.alt.library.MpdMh;
 import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
 import uz.uat.mro.apps.model.alt.library.repository.MpdItemsRepo;
-import uz.uat.mro.apps.model.library.repository.MpdMhsRepository;
-import uz.uat.mro.apps.model.library.repository.MpdTaskcardsRepository;
+import uz.uat.mro.apps.model.alt.library.repository.MpdMhsRepo;
+import uz.uat.mro.apps.model.alt.library.repository.MpdTaskcardsRepo;
 
 @AllArgsConstructor
 @Service
@@ -35,8 +34,8 @@ public class DataImportService {
     private AircraftSubzonesRepo subzonesRepo;
     private AircraftAccessRepo accessesRepo;
     private MpdItemsRepo itemsRepo;
-    private MpdTaskcardsRepository taskcardsRepo;
-    private MpdMhsRepository mhsRepo;
+    private MpdTaskcardsRepo taskcardsRepo;
+    private MpdMhsRepo mhsRepo;
     private MajorModelRepo majorModelRepo;
     private MpdEditionRepo editionRepo;
 

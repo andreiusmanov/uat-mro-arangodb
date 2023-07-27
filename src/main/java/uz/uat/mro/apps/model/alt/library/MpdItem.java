@@ -1,5 +1,7 @@
 package uz.uat.mro.apps.model.alt.library;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 
 import com.arangodb.springframework.annotation.ArangoId;
@@ -31,5 +33,8 @@ public class MpdItem {
     private String mh;
     private String description;
     private String type;
-
+    @Ref(lazy = false)
+    private List<MpdTaskcard> taskcards;
+    @Ref(lazy = false)
+    private List<MpdMh> mhs;
 }
