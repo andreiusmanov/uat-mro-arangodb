@@ -86,8 +86,8 @@ public class MpdLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        MpdEdition edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
-        return title == null ? "" : title.value() + " " + edition.getNumber() + " dd. " + edition.getDate();
+        // MpdEdition edition = (MpdEdition) MyUtils.getAttribute(Keys.MPD_EDITION);
+        return title == null ? "" : title.value(); // + " " + edition.getNumber() + " dd. " + edition.getDate();
     }
 
 }
