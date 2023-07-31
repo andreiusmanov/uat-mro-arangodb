@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -86,11 +87,10 @@ public class DataImportService {
     }
 
     public MpdItem findByNumberAndEdition(String number, MpdEdition edition) {
-        Object items = itemsRepo.findByEdition2(edition.getArangoId());
-        return null;
-        // return StreamSupport.stream(items.spliterator(), false).filter(e ->
-        // e.getNumber().equals(number)).findFirst()
-        // .get();
+        MpdItem item = new MpdItem();
+        item.setEdition(edition);
+        item.setNumber(number);
+        return itemsRepo.findOne(Example.of(item)).orElseThrow();
     }
 
     public List<MajorModel> getMajorModels() {
@@ -103,4 +103,11 @@ public class DataImportService {
         return StreamSupport.stream(editions.spliterator(), false).toList();
     }
 
+    public void setMhs2MpdItems(MpdEdition edition) {
+        itemsRepo.setMhs2MpdItems(edition.getArangoId());
+    }
+    public void setTaskcards2MpdItems(MpdEdition edition) {
+        itemsRepo.setTaskcards2MpdItems(edition.getArangoId());
+    }
+    
 }

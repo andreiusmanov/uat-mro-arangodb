@@ -14,7 +14,7 @@ public interface MpdTaskcardsRepo extends ArangoRepository<MpdTaskcard, String> 
     @Query(value = "for i in mpd_taskcards filter i.edition ==@edition return i")
     public List<MpdTaskcard> findCardsByEdition(@Param("edition") String edition);
 
-    @Query(value = "for card in mpd_taskcards for item in mpd_items filter card.edition ==@edition && item.edition == @edition && item.number == card.mpdItemString update card with {mpdItem:item._id} in mpd_taskcards")
+    @Query(value = "for i in mpd_taskcards let a = (for m in mpd_items filter m.number == i.mpdItemString && m.edition == @edition return m) filter i.edition == @edition update i with {mpdItem:a} in mpd_taskcards")
     public void setMpdItems2Taskcards(@Param("edition") String edition);
 
 }

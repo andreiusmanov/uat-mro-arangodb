@@ -103,7 +103,7 @@ public class ImportMpd {
         }
         Set<AircraftAccess> accesses = new HashSet<>(0);
         Map<String, AircraftSubzone> subzonesMap = service.getAllSubzones(model);
-        List<String[]> accessesArray = normalizeAccesses(accessesFile);
+        List<String[]> accessesArray = normalizeTable(accessesFile);
 
         List<String> d = new ArrayList<>();
 
@@ -134,7 +134,7 @@ public class ImportMpd {
         }
         Set<AircraftAccess> accesses = new HashSet<>(0);
         Map<String, AircraftSubzone> subzonesMap = service.getAllSubzones(model);
-        List<String[]> synthAccessesArray = normalizeAccesses(syntheticAccessesFile);
+        List<String[]> synthAccessesArray = normalizeTable(syntheticAccessesFile);
         List<String> d = new ArrayList<>();
         synthAccessesArray.stream().forEach(array -> {
             if (!d.contains(array[0])) {
@@ -155,7 +155,7 @@ public class ImportMpd {
         service.saveAllAccesses(accesses);
     }
 
-    private static List<String[]> normalizeAccesses(String fileName) throws IOException, CsvValidationException {
+    private static List<String[]> normalizeTable(String fileName) throws IOException, CsvValidationException {
         try (Reader reader = Files.newBufferedReader(Path.of(fileName))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
                 String[] line;
@@ -269,6 +269,7 @@ public class ImportMpd {
         service.saveAllTaskcards(cards);
         workbook.close();
         service.setMpdItems2Taskcards(edition);
+        service.setTaskcards2MpdItems(edition);
     }
 
     private static MpdItem processSystemSheet(HSSFRow row) {
@@ -376,21 +377,23 @@ public class ImportMpd {
         if (fileName.isBlank()) {
             return;
         }
-        List<String[]> set = normalizeAccesses(fileName);
+        List<String[]> set = normalizeTable(fileName);
         List<MpdMh> mhs = new ArrayList<>(0);
 
         set.stream().forEach(strings -> {
             MpdMh mh = new MpdMh();
-            mh.setEdition(edition);
             mh.setMpdItemString(strings[0]);
+            mh.setAccessString(strings[4].trim().replaceAll(" ", ", "));
+            mh.setEdition(edition);
+
             mh.setAccessMh(strings[1]);
             mh.setTaskcardMh(strings[2]);
             mh.setTotalMh(strings[3]);
-            mh.setAccessString(strings[4].trim().replaceAll(" ", ", "));
             mhs.add(mh);
         });
         service.saveAllMhs(mhs);
         service.setMpdItems2Mhs(edition);
+        service.setMhs2MpdItems(edition);
     }
 
     private static String parseCell(HSSFCell cell) {
