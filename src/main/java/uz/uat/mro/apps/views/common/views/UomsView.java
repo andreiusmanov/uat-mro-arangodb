@@ -7,21 +7,21 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.common.entity.Uom;
-import uz.uat.mro.apps.model.common.service.UomService;
+import uz.uat.mro.apps.model.alt.common.Uom;
+import uz.uat.mro.apps.model.services.common.CommonService;
 import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Ед. Измерения")
 @Route(value = "common/uoms", layout = AdminLayout.class)
 public class UomsView extends VerticalLayout {
 
-    private UomService service;
+    private CommonService service;
     private GridCrud<Uom> grid;
 
     /**
      * 
      */
-    public UomsView(UomService service) {
+    public UomsView(CommonService service) {
         this.service = service;
         grid();
         add(grid);
@@ -37,9 +37,9 @@ public class UomsView extends VerticalLayout {
         factory.setVisibleProperties("id", "description");
         factory.setFieldCaptions("Код", "Описание");
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(service::findAll);
+        grid.setAddOperation(service::saveUom);
+        grid.setUpdateOperation(service::saveUom);
+        grid.setDeleteOperation(service::deleteUom);
+        grid.setFindAllOperation(service::findAllUom);
     }
 }

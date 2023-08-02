@@ -7,7 +7,7 @@ import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
 import uz.uat.mro.apps.model.activity.entity.Revision;
-import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.alt.marketing.Project;
 
 /**
  * Class for registration of imported data on maintenance cards

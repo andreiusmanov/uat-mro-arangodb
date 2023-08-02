@@ -12,16 +12,8 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
-import uz.uat.mro.apps.model.marketing.entity.Project;
-import uz.uat.mro.apps.utils.Keys;
-import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.activity.views.MaintenancePlanView;
-import uz.uat.mro.apps.views.ppcd.views.AcrsView;
-import uz.uat.mro.apps.views.ppcd.views.ClosedCardsView;
-import uz.uat.mro.apps.views.ppcd.views.JobcardsView;
 import uz.uat.mro.apps.views.ppcd.views.MroCoefficentView;
-import uz.uat.mro.apps.views.ppcd.views.NonRoutineCardsView;
-import uz.uat.mro.apps.views.ppcd.views.PpcdStartView;
 import uz.uat.mro.apps.views.ppcd.views.ProjectView;
 
 public class PlanningLayout extends AppLayout {

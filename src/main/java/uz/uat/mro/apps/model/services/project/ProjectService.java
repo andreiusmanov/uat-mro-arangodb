@@ -1,4 +1,4 @@
-package uz.uat.mro.apps.model.marketing.service;
+package uz.uat.mro.apps.model.services.project;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -12,10 +12,10 @@ import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
+import uz.uat.mro.apps.model.alt.marketing.Project;
+import uz.uat.mro.apps.model.alt.marketing.repositories.ProjectRepository;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
-import uz.uat.mro.apps.model.marketing.entity.Project;
-import uz.uat.mro.apps.model.marketing.repository.ProjectRepository;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 @AllArgsConstructor

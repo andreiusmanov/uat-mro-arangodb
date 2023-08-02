@@ -9,10 +9,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.alt.common.Department;
+import uz.uat.mro.apps.model.alt.common.Sector;
 import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
-import uz.uat.mro.apps.model.common.entity.Sector;
-import uz.uat.mro.apps.model.common.service.SectorService;
+import uz.uat.mro.apps.model.services.common.CommonService;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.common.layouts.DepartmentLayout;
 
@@ -20,12 +19,12 @@ import uz.uat.mro.apps.views.common.layouts.DepartmentLayout;
 @Route(value = "department/sectors", layout = DepartmentLayout.class)
 public class SectorsView extends VerticalLayout {
 
-    private SectorService service;
+    private CommonService service;
     private OrganizationUnit department;
     private Sector sector;
     private GridCrud<Sector> grid;
 
-    public SectorsView(SectorService service) {
+    public SectorsView(CommonService service) {
         this.service = service;
         this.department = (OrganizationUnit) MyUtils.getAttribute("department");
         grid();
@@ -48,10 +47,10 @@ public class SectorsView extends VerticalLayout {
             return cb;
         });
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findByDepartment(department.getArangoId()));
+        grid.setAddOperation(service::saveSector);
+        grid.setUpdateOperation(service::saveSector);
+        grid.setDeleteOperation(service::deleteSector);
+        grid.setFindAllOperation(() -> service.findByDepartmentId(department.getArangoId()));
 
         grid.getCrudFormFactory().setNewInstanceSupplier(() -> {
             Sector dept = new Sector();

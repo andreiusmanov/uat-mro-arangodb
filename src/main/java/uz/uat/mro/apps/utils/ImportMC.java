@@ -33,7 +33,7 @@ import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
-import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.alt.marketing.Project;
 import uz.uat.mro.apps.model.ppcd.entity.ImportedCard;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 import uz.uat.mro.apps.model.ppcd.service.ImportedCardsService;

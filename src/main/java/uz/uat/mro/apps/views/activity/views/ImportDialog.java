@@ -9,7 +9,7 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
-import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.alt.marketing.Project;
 import uz.uat.mro.apps.utils.ImportMC;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;

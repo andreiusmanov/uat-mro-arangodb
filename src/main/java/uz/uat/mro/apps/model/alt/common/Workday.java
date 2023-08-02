@@ -10,8 +10,8 @@ import com.arangodb.springframework.annotation.Document;
 import lombok.Data;
 
 @Data
-@Document("workday")
-public class WorkDay {
+@Document("workdays")
+public class Workday {
     @Id
     private String id;
     @ArangoId

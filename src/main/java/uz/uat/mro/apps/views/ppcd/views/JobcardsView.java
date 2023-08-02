@@ -1,7 +1,5 @@
 package uz.uat.mro.apps.views.ppcd.views;
 
-import java.security.Provider.Service;
-
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.menubar.MenuBar;
@@ -12,7 +10,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
-import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.alt.marketing.Project;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.ppcd.adds.RoutineGrid;
 import uz.uat.mro.apps.views.ppcd.layouts.PlanningLayout;

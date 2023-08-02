@@ -2,7 +2,6 @@ package uz.uat.mro.apps.views.ppcd.views;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -11,8 +10,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.marketing.entity.Project;
-import uz.uat.mro.apps.model.marketing.service.ProjectService;
+import uz.uat.mro.apps.model.alt.marketing.Project;
+import uz.uat.mro.apps.model.services.project.ProjectService;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.ppcd.layouts.PlanningLayout;
 
@@ -55,7 +54,7 @@ public class MroCoefficentView extends VerticalLayout {
         this.saveButton.setEnabled(false);
         this.saveButton.addClickListener(click -> {
             project.setCoefficent(coefficentField.getValue());
-            service.save(project);
+            service.saveCurrency(project);
             saveButton.setEnabled(false);
             editButton.setEnabled(true);
             coefficentField.setReadOnly(true);

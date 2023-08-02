@@ -9,6 +9,7 @@ import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
+import uz.uat.mro.apps.model.alt.organization.OrganizationUnit;
 
 @Data
 @Document("sectors")
@@ -21,10 +22,9 @@ public class Sector {
     private String name;
     private String code;
     private String shortName;
-    @Ref
-    private Department department;
-    //@Relations(edges = ForeignKey.class, lazy = false)
+    @Ref(lazy = false)
+    private OrganizationUnit department;
+    // @Relations(edges = ForeignKey.class, lazy = false)
     private Collection<Person> staff;
-    
-   
+
 }

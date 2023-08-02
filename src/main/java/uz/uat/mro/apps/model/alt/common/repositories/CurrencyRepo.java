@@ -4,6 +4,6 @@ import com.arangodb.springframework.repository.ArangoRepository;
 
 import uz.uat.mro.apps.model.alt.common.Currency;
 
-public interface CurrenciesRepository extends ArangoRepository<Currency, String>{
+public interface CurrencyRepo extends ArangoRepository<Currency, String>{
     
 }

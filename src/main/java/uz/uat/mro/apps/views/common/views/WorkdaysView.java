@@ -10,38 +10,38 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import uz.uat.mro.apps.model.common.entity.WorkDay;
-import uz.uat.mro.apps.model.common.service.WorkDayService;
+import uz.uat.mro.apps.model.alt.common.Workday;
+import uz.uat.mro.apps.model.services.common.CommonService;
 import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Расписание")
 @Route(value = "common/workdays", layout = AdminLayout.class)
-public class WorkDaysView extends VerticalLayout {
+public class WorkdaysView extends VerticalLayout {
 
-    private WorkDayService service;
-    private GridCrud<WorkDay> grid;
+    private CommonService service;
+    private GridCrud<Workday> grid;
 
     /**
      * 
      */
-    public WorkDaysView(WorkDayService service) {
+    public WorkdaysView(CommonService service) {
         this.service = service;
         grid();
         add(new H3("Рабочие дни"), grid);
     }
 
     private void grid() {
-        this.grid = new GridCrud<>(WorkDay.class);
-        List<WorkDay> list = service.findAll();
+        this.grid = new GridCrud<>(Workday.class);
+        List<Workday> list = service.findAllWorkDays();
         this.grid.getGrid().setItems(list);
 
-        CrudFormFactory<WorkDay> factory = grid.getCrudFormFactory();
-        factory.setVisibleProperties( "date");
+        CrudFormFactory<Workday> factory = grid.getCrudFormFactory();
+        factory.setVisibleProperties("date");
         factory.setFieldCaptions("Дата");
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(service::findAll);
+        grid.setAddOperation(service::saveWorkDay);
+        grid.setUpdateOperation(service::saveWorkDay);
+        grid.setDeleteOperation(service::deleteWorkDay);
+        grid.setFindAllOperation(service::findAllWorkDays);
     }
 }

@@ -9,20 +9,20 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.common.Currency;
-import uz.uat.mro.apps.model.common.service.CurrencyService;
+import uz.uat.mro.apps.model.services.common.CommonService;
 import uz.uat.mro.apps.views.common.layouts.AdminLayout;
 
 @PageTitle(value = "Валюты")
 @Route(value = "common/currencies", layout = AdminLayout.class)
 public class CurrenciesView extends VerticalLayout {
 
-    private CurrencyService service;
+    private CommonService service;
     private GridCrud<Currency> grid;
 
     /**
      * 
      */
-    public CurrenciesView(CurrencyService service) {
+    public CurrenciesView(CommonService service) {
         this.service = service;
         grid();
         add(new H3("Валюты"), grid);
@@ -40,9 +40,9 @@ public class CurrenciesView extends VerticalLayout {
         factory.setVisibleProperties("id", "numeric", "name");
         factory.setFieldCaptions("Код", "Цифр. код", "Наименование");
 
-        grid.setAddOperation(service::save);
-        grid.setUpdateOperation(service::save);
-        grid.setDeleteOperation(service::delete);
-        grid.setFindAllOperation(() -> service.findAll());
+        grid.setAddOperation(service::saveCurrency);
+        grid.setUpdateOperation(service::saveCurrency);
+        grid.setDeleteOperation(service::deleteCurrency);
+        grid.setFindAllOperation(() -> service.findAllCurrencies());
     }
 }

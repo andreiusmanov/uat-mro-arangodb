@@ -4,17 +4,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import uz.uat.mro.apps.model.common.entity.WorkDate;
-import uz.uat.mro.apps.model.common.service.WorkDateService;
+import uz.uat.mro.apps.model.alt.common.WorkDate;
+import uz.uat.mro.apps.model.services.common.CommonService;
 
 public class DateUtil {
 
-    private static WorkDateService service;
+    private static CommonService service;
 
     /**
      * @param repo
      */
-    public DateUtil(WorkDateService service) {
+    public DateUtil(CommonService service) {
         this.service = service;
     }
 

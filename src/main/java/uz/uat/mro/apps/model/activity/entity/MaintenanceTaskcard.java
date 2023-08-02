@@ -5,7 +5,7 @@ import com.arangodb.springframework.annotation.Ref;
 
 import lombok.Data;
 import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
-import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.alt.marketing.Project;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 /**

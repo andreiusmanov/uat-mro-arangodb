@@ -20,7 +20,7 @@ import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftZonesRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.alt.library.repository.MpdTaskcardsRepo;
-import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.alt.marketing.Project;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
 @AllArgsConstructor
