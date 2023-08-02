@@ -9,16 +9,22 @@ import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.MajorModelRepo;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
+import uz.uat.mro.apps.model.alt.library.MpdItem;
 import uz.uat.mro.apps.model.alt.library.MpdMh;
+import uz.uat.mro.apps.model.alt.library.MpdTaskcard;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
+import uz.uat.mro.apps.model.alt.library.repository.MpdItemsRepo;
 import uz.uat.mro.apps.model.alt.library.repository.MpdMhsRepo;
+import uz.uat.mro.apps.model.alt.library.repository.MpdTaskcardsRepo;
 
 @Service
 @AllArgsConstructor
-public class MpdService2 {
+public class MpdService {
     private MpdEditionRepo mpdEditionRepo;
     private MajorModelRepo majorModelRepo;
     private MpdMhsRepo mhsRepo;
+    private MpdItemsRepo itemsRepo;
+    private MpdTaskcardsRepo taskcardsRepo;
 
     // mpd edition
 
@@ -50,4 +56,22 @@ public class MpdService2 {
         Iterable<MpdMh> mhs = mhsRepo.findMhByEdition(edition.getArangoId());
         return StreamSupport.stream(mhs.spliterator(), false).toList();
     }
+    // mpd items
+
+    public MpdItem saveMpdItem(MpdItem mpdItem) {
+        return itemsRepo.save(mpdItem);
+    }
+
+    public void deleteMpdItem(MpdItem item) {
+        itemsRepo.delete(item);
+    }
+
+    public List<MpdItem> findItemsByEdition(String edition) {
+        return itemsRepo.findByEdition(edition);
+    }
+
+    public List<MpdTaskcard> findCardsByEdition(String edition) {
+        return taskcardsRepo.findCardsByEdition(edition);
+    }
+
 }

@@ -13,7 +13,7 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
-import uz.uat.mro.apps.model.services.mpd.MpdService2;
+import uz.uat.mro.apps.model.services.mpd.MpdService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.library.layout.LibraryLayout;
@@ -21,12 +21,12 @@ import uz.uat.mro.apps.views.library.layout.LibraryLayout;
 @PageTitle(value = "MPD издания")
 @Route(value = "library/mpd-editions", layout = LibraryLayout.class)
 public class MpdEditionsView extends VerticalLayout {
-    private MpdService2 service;
+    private MpdService service;
     private GridCrud<MpdEdition> grid;
     private Button details;
     private MpdEdition edition;
 
-    public MpdEditionsView(MpdService2 service) {
+    public MpdEditionsView(MpdService service) {
         this.service = service;
         details();
         grid();
