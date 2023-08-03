@@ -8,8 +8,8 @@ import com.arangodb.springframework.annotation.From;
 import com.arangodb.springframework.annotation.To;
 
 import lombok.Data;
-import uz.uat.mro.apps.model.common.entity.Maintenance;
-import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.alt.common.Maintenance;
+import uz.uat.mro.apps.model.alt.marketing.Project;
 
 @Data
 @Edge("maintenance_types")

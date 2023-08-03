@@ -54,7 +54,7 @@ public class MroCoefficentView extends VerticalLayout {
         this.saveButton.setEnabled(false);
         this.saveButton.addClickListener(click -> {
             project.setCoefficent(coefficentField.getValue());
-            service.saveCurrency(project);
+            service.save(project);
             saveButton.setEnabled(false);
             editButton.setEnabled(true);
             coefficentField.setReadOnly(true);

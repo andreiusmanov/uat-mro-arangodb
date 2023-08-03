@@ -20,7 +20,7 @@ import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.service.MaintenanceCardsService;
-import uz.uat.mro.apps.model.marketing.entity.Project;
+import uz.uat.mro.apps.model.alt.marketing.Project;
 import uz.uat.mro.apps.model.ppcd.entity.ImportedCard;
 import uz.uat.mro.apps.model.ppcd.service.ImportedCardsService;
 import uz.uat.mro.apps.utils.ImportMC;
