@@ -9,7 +9,6 @@ import com.arangodb.springframework.repository.ArangoRepository;
 
 import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
-import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 
 public interface AircraftAccessRepo extends ArangoRepository<AircraftAccess, String> {
 
