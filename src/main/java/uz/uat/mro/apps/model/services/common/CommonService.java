@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.alt.common.Currency;
+import uz.uat.mro.apps.model.alt.common.Maintenance;
 import uz.uat.mro.apps.model.alt.common.Sector;
 import uz.uat.mro.apps.model.alt.common.Uom;
 import uz.uat.mro.apps.model.alt.common.WorkDate;
@@ -15,6 +16,7 @@ import uz.uat.mro.apps.model.alt.common.repositories.CurrencyRepo;
 import uz.uat.mro.apps.model.alt.common.repositories.SectorRepo;
 import uz.uat.mro.apps.model.alt.common.repositories.UomRepo;
 import uz.uat.mro.apps.model.alt.common.repositories.WorkdayRepo;
+import uz.uat.mro.apps.model.alt.marketing.repositories.MaintenanceRepo;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +25,7 @@ public class CommonService {
     private CurrencyRepo currencyRepo;
     private SectorRepo sectorRepo;
     private WorkdayRepo workdayRepo;
+    private MaintenanceRepo maintenanceRepo;
 
     public List<WorkDate> saveAll(List<WorkDate> list) {
         return null;
@@ -89,6 +92,21 @@ public class CommonService {
     public List<Workday> findAllWorkDays() {
         Iterable<Workday> workdays = workdayRepo.findAll();
         return StreamSupport.stream(workdays.spliterator(), false).toList();
+    }
+
+    // Maintenance
+
+    public Maintenance saveMaintenance(Maintenance maintenance) {
+        return maintenanceRepo.save(maintenance);
+    }
+
+    public void deleteMaintenance(Maintenance maintenance) {
+        maintenanceRepo.delete(maintenance);
+    }
+
+    public List<Maintenance> findAllMaintenances() {
+        Iterable<Maintenance> maintenance = maintenanceRepo.findAll();
+        return StreamSupport.stream(maintenance.spliterator(), false).toList();
     }
 
 }

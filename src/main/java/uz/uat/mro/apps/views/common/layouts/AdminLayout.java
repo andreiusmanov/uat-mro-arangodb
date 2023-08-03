@@ -16,6 +16,7 @@ import uz.uat.mro.apps.components.appnav.AppNav;
 import uz.uat.mro.apps.components.appnav.AppNavItem;
 import uz.uat.mro.apps.views.common.views.CountriesView;
 import uz.uat.mro.apps.views.common.views.CurrenciesView;
+import uz.uat.mro.apps.views.common.views.MaintenancesView;
 import uz.uat.mro.apps.views.common.views.StationsView;
 import uz.uat.mro.apps.views.common.views.UomsView;
 import uz.uat.mro.apps.views.organization.views.OrganizationsView;
@@ -61,6 +62,7 @@ public class AdminLayout extends AppLayout {
         nav.addItem(new AppNavItem("Валюты", CurrenciesView.class, VaadinIcon.MONEY.create()));
         nav.addItem(new AppNavItem("Организации", OrganizationsView.class, VaadinIcon.OFFICE.create()));
         nav.addItem(new AppNavItem("Ед. измерения", UomsView.class, VaadinIcon.RECORDS.create()));
+        nav.addItem(new AppNavItem("Виды обслуживания", MaintenancesView.class, VaadinIcon.TOOLBOX.create()));
 
         return nav;
     }
