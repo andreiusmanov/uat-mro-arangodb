@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
-import uz.uat.mro.apps.model.activity.repository.MaintenanceTypeRepository;
 import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftRepo;
+import uz.uat.mro.apps.model.alt.common.Maintenance;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
 import uz.uat.mro.apps.model.alt.marketing.Project;
+import uz.uat.mro.apps.model.alt.marketing.repositories.MaintenanceRepo;
 import uz.uat.mro.apps.model.alt.marketing.repositories.ProjectRepository;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
@@ -22,11 +23,11 @@ import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 @Service
 public class ProjectService {
     private ProjectRepository projectRepo;
-    private MaintenanceTypeRepository linkRepo;
     private OrganizationRepo firmRepo;
     private AircraftRepo acRepo;
     private MaintenanceCardsRepository cardRepo;
     private MpdEditionRepo editionRepo;
+    private MaintenanceRepo maintenanceRepo;
 
     public Project save(Project project) {
         return projectRepo.save(project);
@@ -80,4 +81,19 @@ public class ProjectService {
         return StreamSupport.stream(editionRepo.findAll().spliterator(), false).toList();
     }
 
+    // Project
+
+    public Project saveProject(Project project) {
+        return projectRepo.save(project);
+    }
+
+    public Project saveMaintenance(Project project) {
+        Project p = saveProject(project);
+        projectRepo.saveMaintenance(p.getMaintenance(), p.getId());
+        return p;
+    }
+
+    public List<Maintenance> findAllMaintenances() {
+        return StreamSupport.stream(maintenanceRepo.findAllMaintenances().spliterator(), false).toList();
+    }
 }

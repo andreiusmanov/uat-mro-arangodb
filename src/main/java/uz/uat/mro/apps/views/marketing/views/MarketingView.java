@@ -48,14 +48,14 @@ public class MarketingView extends VerticalLayout {
 
         grid.getGrid().setColumns("status", "number", "date", "customer.shortName", "supplier.shortName",
                 "aircraft.regNumber",
-                "maintenanceString");
+                "maintenance");
         grid.getGrid().getColumnByKey("status").setHeader("Статус");
         grid.getGrid().getColumnByKey("number").setHeader("Номер");
         grid.getGrid().getColumnByKey("date").setHeader("Дата");
         grid.getGrid().getColumnByKey("customer.shortName").setHeader("Заказчик");
         grid.getGrid().getColumnByKey("supplier.shortName").setHeader("Исполнитель");
         grid.getGrid().getColumnByKey("aircraft.regNumber").setHeader("ВС номер");
-        grid.getGrid().getColumnByKey("maintenanceString").setHeader("Тип ТОиР");
+        grid.getGrid().getColumnByKey("maintenance").setHeader("Тип ТОиР");
 
         grid.setAddOperation(service::save);
         grid.setUpdateOperation(service::save);
@@ -101,16 +101,24 @@ public class MarketingView extends VerticalLayout {
             return editions;
         });
 
+        factory.setFieldProvider("maintenance", m -> {
+            return new MaintenancesField(project.getMaintenance(), service.findAllMaintenances());
+        });
+
         viewButton = new Button(VaadinIcon.EYE.create());
         viewButton.setEnabled(false);
-        viewButton.addClickListener(click -> {
+        viewButton.addClickListener(click ->
+
+        {
             MyUtils.setAttribute(Keys.PROJECT, project);
             UI.getCurrent().navigate(ContractView.class);
         });
         this.listDataView = grid.getGrid().getListDataView();
         grid.getCrudLayout().addToolbarComponent(viewButton);
+
         statusesFilter();
         grid.getCrudLayout().addFilterComponent(statuses);
+
     }
 
     private void statusesFilter() {
