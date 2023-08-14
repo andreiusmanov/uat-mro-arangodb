@@ -3,30 +3,32 @@ package uz.uat.mro.apps.views.marketing.views;
 import java.util.List;
 
 import com.github.appreciated.apexcharts.config.annotations.Label;
-import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.AbstractCompositeField;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.shared.Registration;
 
 import uz.uat.mro.apps.model.alt.common.Maintenance;
 
-public class MaintenancesField extends Div implements HasValue {
+public class MaintenancesField extends AbstractCompositeField<Div, MaintenancesField, List<Maintenance>> {
+
+    public MaintenancesField(List<Maintenance> maintenances) {
+        super(maintenances);
+        // Initialize the component and set the desired inner layout
+        getContent().add(new Div());
+    }
+
+//extends Abstra implements HasValue<VerticalLayout, List<Maintenance>> {
     private List<Maintenance> service;
     private List<Maintenance> maintenances;
     private Label label;
     private Button editButton;
 
-    public MaintenancesField(List<Maintenance> maintenances, List<Maintenance> service) {
-        this.maintenances = maintenances;
-        button();
-        labelField();
-
-    }
-
+    
     private void labelField() {
         this.label = new Label();
         StringBuilder sb = new StringBuilder();
@@ -62,6 +64,44 @@ public class MaintenancesField extends Div implements HasValue {
         div.add(group, confirm, cancel);
         return div;
 
+    }
+
+    @Override
+    public void setValue(List<Maintenance> value) {
+        this.service = value;
+    }
+
+    @Override
+    public List<Maintenance> getValue() {
+        return service;
+    }
+
+
+    @Override
+    public void setReadOnly(boolean readOnly) {
+    this.setReadOnly(readOnly);
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return this.isReadOnly();
+        
+    }
+
+    @Override
+    public void setRequiredIndicatorVisible(boolean requiredIndicatorVisible) {
+    }
+
+    @Override
+    public boolean isRequiredIndicatorVisible() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isRequiredIndicatorVisible'");
+    }
+
+    @Override
+    protected void setPresentationValue(List<Maintenance> newPresentationValue) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPresentationValue'");
     }
 
 }

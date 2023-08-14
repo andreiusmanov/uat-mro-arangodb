@@ -102,7 +102,9 @@ public class MarketingView extends VerticalLayout {
         });
 
         factory.setFieldProvider("maintenance", m -> {
-            return new MaintenancesField(project.getMaintenance(), service.findAllMaintenances());
+            MComposite composite = new MComposite(service.findAllMaintenances());
+            composite.setValue(project.getMaintenance());
+            return  composite; 
         });
 
         viewButton = new Button(VaadinIcon.EYE.create());
