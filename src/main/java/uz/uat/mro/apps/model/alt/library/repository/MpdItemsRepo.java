@@ -28,4 +28,7 @@ public interface MpdItemsRepo extends ArangoRepository<MpdItem, String> {
 
     @Query(value = "for i in mpd_items let a = (for t in mpd_taskcards filter t.mpdItem == i._id return t._id) filter i.edition == @edition update i with {taskcards:a} in mpd_items")
     public void setTaskcards2MpdItems(String edition);
+
+    @Query(value = "for i in mpd_items return distinct(i.edition")
+    public List<String> getEditionsMpdItems();
 }

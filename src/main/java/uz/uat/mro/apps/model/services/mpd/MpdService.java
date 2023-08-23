@@ -74,4 +74,8 @@ public class MpdService {
         return taskcardsRepo.findCardsByEdition(edition);
     }
 
+    public List<String> getEditionsMpdItems() {
+        return itemsRepo.getEditionsMpdItems();
+    }
+
 }
