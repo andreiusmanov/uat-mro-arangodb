@@ -2,11 +2,13 @@ package uz.uat.mro.apps.views.library.view;
 
 import org.vaadin.crudui.crud.impl.GridCrud;
 
+import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
+import uz.uat.mro.apps.model.alt.aircraft.AircraftSubzone;
 import uz.uat.mro.apps.model.alt.aircraft.MajorModel;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.services.aircraft.AircraftZoneService;
@@ -21,6 +23,7 @@ public class AccessesView extends VerticalLayout {
     private MpdEdition edition;
     private MajorModel model;
     private GridCrud<AircraftAccess> grid;
+    private GridListDataView<AircraftAccess> listDataView;
 
     public AccessesView(AircraftZoneService service) {
         this.service = service;
@@ -49,7 +52,15 @@ public class AccessesView extends VerticalLayout {
         grid.setUpdateOperation(service::saveAccess);
         grid.setDeleteOperation(service::deleteAccess);
         grid.setFindAllOperation(() -> service.getAllAccessesByModel(model));
-
+   
+   
+   listDataView = grid.getGrid().setItems(service.getAllAccessesByModel(model));
+   
+   
     }
+
+
+
+
 
 }

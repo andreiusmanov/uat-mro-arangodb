@@ -84,15 +84,15 @@ public class SubzonesView extends VerticalLayout {
         factory.setFieldCaptions("Модель ВС", "Код зоны", "Код субзоны", "Наименование", "Описание");
 
         factory.setFieldProvider("model", element -> {
-            ComboBox<MajorModel> c = new ComboBox<>("Модель ВС", model);
-            c.setItemLabelGenerator(e -> e.getName());
-            return c;
+            ComboBox<MajorModel> cBox = new ComboBox<>("Модель ВС", model);
+            cBox.setItemLabelGenerator(e -> e.getName());
+            return cBox;
         });
 
         factory.setFieldProvider("zone", element -> {
-            ComboBox<MajorModel> c = new ComboBox<>("Код зоны", e -> service.getAllZonesByModel(model));
-            c.setItemLabelGenerator(e -> e.getCode());
-            return c;
+            ComboBox<AircraftZone> cBox = new ComboBox<>("Код зоны", service.getAllZonesByModel(model));
+            cBox.setItemLabelGenerator(zone -> zone.getCode());
+            return cBox;
         });
 
     }
