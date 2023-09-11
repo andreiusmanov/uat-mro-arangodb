@@ -28,7 +28,7 @@ public class LibraryLayout extends AppLayout {
     private MenuBar menu;
 
     public LibraryLayout() {
-        setPrimarySection(Section.DRAWER);
+        setPrimarySection(Section.NAVBAR);
         menu();
         addDrawerContent();
         addHeaderContent();
