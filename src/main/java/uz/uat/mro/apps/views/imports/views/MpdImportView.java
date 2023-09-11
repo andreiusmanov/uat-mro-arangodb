@@ -5,14 +5,15 @@ import java.io.IOException;
 import com.opencsv.exceptions.CsvValidationException;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.library.service.DataImportService;
 import uz.uat.mro.apps.utils.ImportMpd;
+import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.imports.layouts.ImportLayout;
 import uz.uat.mro.apps.views.library.view.CsvFilePanel;
 import uz.uat.mro.apps.views.library.view.XlsMpdItemsFilePanel;
@@ -28,36 +29,24 @@ public class MpdImportView extends VerticalLayout {
     private XlsMpdItemsFilePanel itemsPanel;
     private XlsMpdTaskcardsFilePanel taskcardsPanel;
     private Button importButton;
-    private ComboBox<MpdEdition> editionComboBox;
+    private TextField editionBox;
 
     public MpdImportView(DataImportService service) {
         this.service = service;
-        combobox();
+        this.edition = (MpdEdition) MyUtils.getAttribute("mpd-edition");
+        textField();
         accordion();
         button();
-        add(editionComboBox, accordion, importButton);
+        add(editionBox, accordion, importButton);
     }
 
-    private void combobox() {
-        this.editionComboBox = new ComboBox<>();
-        this.editionComboBox.setItems(service.getMpdEditions());
-        this.editionComboBox.setItemLabelGenerator(
-                (edition) -> edition.getNumber() + " " + edition.getDate() + " " + edition.getMessage());
-        this.editionComboBox.addValueChangeListener(event -> {
-            this.edition = event.getValue();
-            this.accordion.setVisible(editionComboBox.getValue() != null);
-            this.importButton.setEnabled(editionComboBox.getValue() != null);
-        });
-        editionComboBox.setLabel("Выберите издание MPD");
-        editionComboBox.setPlaceholder("Выберите издание MPD");
-        editionComboBox.setRequired(true);
-        editionComboBox.setErrorMessage("Выберите издание MPD");
-        editionComboBox.setRequiredIndicatorVisible(true);
-        editionComboBox.setSizeFull();
-        editionComboBox.addValueChangeListener(event -> {
-            accordion.setVisible(event.getValue() != null);
-            importButton.setEnabled(event.getValue() != null);
-        });
+    private void textField() {
+        this.editionBox = new TextField();
+        this.editionBox.setValue(edition.getNumber() + " " + edition.getDate() + " " + edition.getMessage());
+        this.editionBox.setReadOnly(true);
+        this.editionBox.setLabel("Издание MPD");
+        this.editionBox.setRequiredIndicatorVisible(true);        
+            this.editionBox.setSizeFull();
     }
 
     private void accordion() {
@@ -69,8 +58,8 @@ public class MpdImportView extends VerticalLayout {
         accordion.add(taskcardsPanel);
         accordion.add(mhsPanel);
         accordion.setSizeFull();
-        accordion.setVisible(editionComboBox.getValue() != null);
-    }
+        accordion.setVisible(!editionBox.getValue().isBlank());
+        }
 
     private void button() {
         this.importButton = new Button("Загрузить");
@@ -83,7 +72,6 @@ public class MpdImportView extends VerticalLayout {
                 e.printStackTrace();
             }
         });
-
-        importButton.setEnabled(editionComboBox.getValue() != null);
+        importButton.setEnabled(!editionBox.getValue().isBlank());
     }
 }
