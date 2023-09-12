@@ -34,13 +34,14 @@ public class MpdTaskcardsView extends VerticalLayout {
     private void grid() {
         this.grid = new Grid<>(MpdTaskcard.class);
         this.grid.setItems(service.findCardsByEdition(edition.getArangoId()));
+        grid.setItems(service.findCardsByEdition(edition.getArangoId()));
         this.grid.setColumns("number", "mpdItemString", "mrbItem", "task", "title", "relatedTasksString");
         this.grid.getColumnByKey("number").setHeader("Number");
         this.grid.getColumnByKey("mpdItemString").setHeader("MPD Item");
         this.grid.getColumnByKey("mrbItem").setHeader("MRB Item");
         this.grid.getColumnByKey("task").setHeader("Task");
         this.grid.getColumnByKey("title").setHeader("Title");
-        this.grid.getColumnByKey("relatedTaskString").setHeader("Related Tasks");
+        this.grid.getColumnByKey("relatedTasksString").setHeader("Related Tasks");
     }
 
     private void menu() {
