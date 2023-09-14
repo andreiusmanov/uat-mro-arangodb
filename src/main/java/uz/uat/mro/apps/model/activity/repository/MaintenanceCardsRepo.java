@@ -8,7 +8,7 @@ import com.arangodb.springframework.repository.ArangoRepository;
 import uz.uat.mro.apps.model.activity.service.LinkServiceClass;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 
-public interface MaintenanceCardsRepository extends ArangoRepository<MaintenanceCard, String> {
+public interface MaintenanceCardsRepo extends ArangoRepository<MaintenanceCard, String> {
 
     @Query(value = "for i in maintenance_cards filter i.project == @project && i.status == 'active' return i")
     public Iterable<MaintenanceCard> findCardsByProject(@Param("project") String project);

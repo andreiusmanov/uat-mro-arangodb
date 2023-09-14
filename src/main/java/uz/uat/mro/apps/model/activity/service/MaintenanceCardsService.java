@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import uz.uat.mro.apps.model.activity.entity.Revision;
 import uz.uat.mro.apps.model.activity.entity.TaskGroup;
-import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
+import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepo;
 import uz.uat.mro.apps.model.activity.repository.RevisionRepository;
 import uz.uat.mro.apps.model.activity.repository.TaskGroupsRepository;
 import uz.uat.mro.apps.model.alt.aircraft.AircraftAccess;
@@ -26,7 +26,7 @@ import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 @AllArgsConstructor
 @Service
 public class MaintenanceCardsService {
-    private MaintenanceCardsRepository cardsRepo;
+    private MaintenanceCardsRepo cardsRepo;
     private TaskGroupsRepository taskgroupRepo;
     private MpdTaskcardsRepo taskcardsRepo;
     private AircraftAccessRepo accessesRepo;

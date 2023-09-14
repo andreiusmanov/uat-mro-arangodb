@@ -10,6 +10,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.marketing.Project;
+import uz.uat.mro.apps.model.services.project.ProjectService;
 import uz.uat.mro.apps.utils.Keys;
 import uz.uat.mro.apps.utils.MyUtils;
 import uz.uat.mro.apps.views.marketing.layouts.ContractLayout;
@@ -18,6 +19,7 @@ import uz.uat.mro.apps.views.marketing.layouts.ContractLayout;
 @Route(value = "marketing/contract", layout = ContractLayout.class)
 public class ContractView extends VerticalLayout {
 
+    private ProjectService service;
     private FormLayout form;
     private TextField number;
     private TextField date;
@@ -26,11 +28,12 @@ public class ContractView extends VerticalLayout {
     private TextField aircraft;
     private TextField startDate;
     private TextField endDate;
-    private TextField maintenanceString;
+    private TextField maintenances;
     private TextField edition;
     private Project project;
 
-    ContractView() {
+    ContractView(ProjectService service) {
+        this.service = service;
         this.project = (Project) MyUtils.getAttribute(Keys.PROJECT);
         form();
         add(form);
@@ -60,13 +63,13 @@ public class ContractView extends VerticalLayout {
         supplier = new TextField("Исполнитель");
         supplier.setValue(project.getSupplier().getShortName());
         supplier.setReadOnly(true);
-        maintenanceString = new TextField("Виды сервиса");
-        maintenanceString.setValue(project.getMaintenanceString());
-        maintenanceString.setReadOnly(true);
+        maintenances = new TextField("Виды сервиса");
+        maintenances.setValue(service.maintenance2String(project.getMaintenance()));
+        maintenances.setReadOnly(true);
         edition = new TextField("MPD version");
         edition.setValue(project.getEdition().getNumber() + " " + project.getEdition().getDate());
         edition.setReadOnly(true);
 
-        form.add(number, date, customer, supplier, aircraft, edition, startDate, endDate, maintenanceString);
+        form.add(number, date, customer, supplier, aircraft, edition, startDate, endDate, maintenances);
     }
 }

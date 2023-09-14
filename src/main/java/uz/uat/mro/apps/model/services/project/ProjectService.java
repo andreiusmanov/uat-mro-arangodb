@@ -6,7 +6,7 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepository;
+import uz.uat.mro.apps.model.activity.repository.MaintenanceCardsRepo;
 import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
 import uz.uat.mro.apps.model.alt.aircraft.repositories.AircraftRepo;
 import uz.uat.mro.apps.model.alt.common.Maintenance;
@@ -14,7 +14,7 @@ import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.library.repository.MpdEditionRepo;
 import uz.uat.mro.apps.model.alt.marketing.Project;
 import uz.uat.mro.apps.model.alt.marketing.repositories.MaintenanceRepo;
-import uz.uat.mro.apps.model.alt.marketing.repositories.ProjectRepository;
+import uz.uat.mro.apps.model.alt.marketing.repositories.ProjectRepo;
 import uz.uat.mro.apps.model.alt.organization.Organization;
 import uz.uat.mro.apps.model.alt.organization.repositories.OrganizationRepo;
 import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
@@ -22,10 +22,10 @@ import uz.uat.mro.apps.model.ppcd.entity.MaintenanceCard;
 @AllArgsConstructor
 @Service
 public class ProjectService {
-    private ProjectRepository projectRepo;
+    private ProjectRepo projectRepo;
     private OrganizationRepo firmRepo;
     private AircraftRepo acRepo;
-    private MaintenanceCardsRepository cardRepo;
+    private MaintenanceCardsRepo cardRepo;
     private MpdEditionRepo editionRepo;
     private MaintenanceRepo maintenanceRepo;
 
@@ -96,4 +96,16 @@ public class ProjectService {
     public List<Maintenance> findAllMaintenances() {
         return StreamSupport.stream(maintenanceRepo.findAllMaintenances().spliterator(), false).toList();
     }
+
+    public String maintenance2String(List<Maintenance> maintenance) {
+        String result = "";
+        if (!maintenance.isEmpty() || maintenance == null) {
+            for (Maintenance m : maintenance) {
+                result += m.getCode() + m.getIndex() + ", ";
+            }
+            return result.substring(0, result.length() - 2);
+        }
+        return result;
+    }
+
 }

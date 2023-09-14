@@ -55,11 +55,10 @@ public class ContractLayout extends AppLayout {
 
     private AppNav createNavigation() {
         AppNav nav = new AppNav();
-        nav.addItem(new AppNavItem("Контракт", ContractView.class, "la la-file"));
-        nav.addItem(new AppNavItem("Отчеты", ContractReportsView.class, "la la-file"));
         nav.addItem(new AppNavItem("Маркетинг", MarketingView.class, VaadinIcon.ARROW_LEFT.create()));
         nav.addItem(new AppNavItem("Home", MainView.class, VaadinIcon.ARROW_LEFT.create()));
-
+        nav.addItem(new AppNavItem("Контракт", ContractView.class, "la la-file"));
+        nav.addItem(new AppNavItem("Отчеты", ContractReportsView.class, "la la-file"));
         return nav;
     }
 
