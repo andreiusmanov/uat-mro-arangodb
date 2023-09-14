@@ -1,5 +1,6 @@
 package uz.uat.mro.apps.views.marketing.views;
 
+import org.vaadin.crudui.crud.AddOperationListener;
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.CrudFormFactory;
 
@@ -62,6 +63,29 @@ public class MarketingView extends VerticalLayout {
         grid.setDeleteOperation(service::delete);
         grid.setFindAllOperation(service::findAll);
 
+        grid.getAddButton().setVisible(false);
+        grid.getUpdateButton().setVisible(false);
+        grid.getDeleteButton().setVisible(false);
+
+grid.setAddOperation(new AddOperationListener<Project>() {
+    @Override
+    public Project perform(Project project) {
+        MyUtils.setAttribute(Keys.PROJECT, project);
+        UI.getCurrent().navigate(ContractView.class);
+        return null;
+    }
+});
+
+
+
+        grid.getCrudLayout().addToolbarComponent(new Button("Добавить", VaadinIcon.PLUS.create(), click -> {
+            MyUtils.setAttribute(Keys.PROJECT, new Project());
+            UI.getCurrent().navigate(ContractView.class);
+        }));
+
+
+
+        
         CrudFormFactory<Project> factory = grid.getCrudFormFactory();
         factory.setVisibleProperties("status", "number", "date", "customer", "supplier", "aircraft", "edition",
                 "startDate", "endDate", "maintenanceString");
@@ -104,7 +128,7 @@ public class MarketingView extends VerticalLayout {
         factory.setFieldProvider("maintenance", m -> {
             MComposite composite = new MComposite(service.findAllMaintenances());
             composite.setValue(project.getMaintenance());
-            return  composite; 
+            return composite;
         });
 
         viewButton = new Button(VaadinIcon.EYE.create());

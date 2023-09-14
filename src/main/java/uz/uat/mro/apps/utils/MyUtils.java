@@ -21,4 +21,8 @@ public class MyUtils {
     public static void showCancelNotification(String string) {
         Notification.show(string, 3000, Position.TOP_CENTER).addThemeVariants(NotificationVariant.LUMO_ERROR);
     }
+
+    public static void showErrorNotification(String string) {
+        Notification.show(string, 3000, Position.TOP_CENTER).addThemeVariants(NotificationVariant.LUMO_ERROR);
+    }
 }

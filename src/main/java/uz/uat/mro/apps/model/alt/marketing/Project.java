@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Persistent;
 
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
@@ -38,8 +37,6 @@ public class Project {
   private Organization supplier;
   @Ref(lazy = false)
   private Aircraft aircraft;
-  private String maintenanceString;
-  @Persistent()
   @Relations(edges = { ProjectMaintenance.class }, lazy = false, direction = Direction.OUTBOUND)
   private List<Maintenance> maintenance;
   private String status;
