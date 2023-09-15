@@ -2,7 +2,6 @@ package uz.uat.mro.apps.model.alt.marketing;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
