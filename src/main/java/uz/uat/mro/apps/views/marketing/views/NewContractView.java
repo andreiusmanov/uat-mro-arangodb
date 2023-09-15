@@ -103,7 +103,7 @@ public class NewContractView extends VerticalLayout {
         maintenances.setItems(service.findAllMaintenances());
         maintenances.setValue(project.getMaintenance());
         maintenances.setItemLabelGenerator(maintenance -> maintenance.getIndex() + " " + maintenance.getCode());
-        maintenances.setReadOnly(true);
+
         edition = new ComboBox<>("MPD version");
         edition.setItems(service.findAllEditions());
         edition.setItemLabelGenerator(edition -> edition.getNumber() + " " + edition.getDate());

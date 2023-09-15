@@ -1,12 +1,14 @@
 package uz.uat.mro.apps.views.marketing.views;
 
-import org.vaadin.crudui.crud.AddOperationListener;
+import java.util.Collections;
+
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.CrudFormFactory;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -14,6 +16,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import uz.uat.mro.apps.model.alt.aircraft.Aircraft;
+import uz.uat.mro.apps.model.alt.common.Maintenance;
 import uz.uat.mro.apps.model.alt.library.MpdEdition;
 import uz.uat.mro.apps.model.alt.marketing.Project;
 import uz.uat.mro.apps.model.alt.organization.Organization;
@@ -63,32 +66,9 @@ public class MarketingView extends VerticalLayout {
         grid.setDeleteOperation(service::delete);
         grid.setFindAllOperation(service::findAll);
 
-        grid.getAddButton().setVisible(false);
-        grid.getUpdateButton().setVisible(false);
-        grid.getDeleteButton().setVisible(false);
-
-grid.setAddOperation(new AddOperationListener<Project>() {
-    @Override
-    public Project perform(Project project) {
-        MyUtils.setAttribute(Keys.PROJECT, project);
-        UI.getCurrent().navigate(ContractView.class);
-        return null;
-    }
-});
-
-
-
-        grid.getCrudLayout().addToolbarComponent(new Button("Добавить", VaadinIcon.PLUS.create(), click -> {
-            MyUtils.setAttribute(Keys.PROJECT, new Project());
-            UI.getCurrent().navigate(ContractView.class);
-        }));
-
-
-
-        
         CrudFormFactory<Project> factory = grid.getCrudFormFactory();
         factory.setVisibleProperties("status", "number", "date", "customer", "supplier", "aircraft", "edition",
-                "startDate", "endDate", "maintenanceString");
+                "startDate", "endDate", "maintenance");
         factory.setFieldCaptions("Статус", "Номер", "Дата", "Заказчик", "Исполнитель", "ВС номер", "Издание MPD",
                 "Дата начала", "Дата окончания", "Виды работ");
 
@@ -125,10 +105,12 @@ grid.setAddOperation(new AddOperationListener<Project>() {
             return editions;
         });
 
-        factory.setFieldProvider("maintenance", m -> {
-            MComposite composite = new MComposite(service.findAllMaintenances());
-            composite.setValue(project.getMaintenance());
-            return composite;
+        factory.setFieldProvider("maintenance", user -> {
+            MultiSelectComboBox<Maintenance> maintenances = new MultiSelectComboBox<>("Виды сервиса");
+            maintenances.setItems(Collections.checkedCollection(service.findAllMaintenances(), Maintenance.class));
+            //maintenances.setValue(project.getMaintenance());
+            maintenances.setItemLabelGenerator(maintenance -> maintenance.getIndex() + " " + maintenance.getCode());
+            return maintenances;
         });
 
         viewButton = new Button(VaadinIcon.EYE.create());
@@ -144,7 +126,7 @@ grid.setAddOperation(new AddOperationListener<Project>() {
 
         statusesFilter();
         grid.getCrudLayout().addFilterComponent(statuses);
-
+        grid.getCrudFormFactory().setNewInstanceSupplier(() -> new Project());
     }
 
     private void statusesFilter() {

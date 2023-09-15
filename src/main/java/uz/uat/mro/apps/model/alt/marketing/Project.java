@@ -1,6 +1,7 @@
 package uz.uat.mro.apps.model.alt.marketing;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -38,7 +39,7 @@ public class Project {
   @Ref(lazy = false)
   private Aircraft aircraft;
   @Relations(edges = { ProjectMaintenance.class }, lazy = false, direction = Direction.OUTBOUND)
-  private List<Maintenance> maintenance;
+  private Collection<Maintenance> maintenance;
   private String status;
   private Double coefficent;
 }

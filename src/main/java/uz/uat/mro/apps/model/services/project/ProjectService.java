@@ -1,5 +1,6 @@
 package uz.uat.mro.apps.model.services.project;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -97,7 +98,7 @@ public class ProjectService {
         return StreamSupport.stream(maintenanceRepo.findAllMaintenances().spliterator(), false).toList();
     }
 
-    public String maintenance2String(List<Maintenance> maintenance) {
+    public String maintenance2String(Collection<Maintenance> maintenance) {
         String result = "";
         if (!maintenance.isEmpty() || maintenance == null) {
             for (Maintenance m : maintenance) {
