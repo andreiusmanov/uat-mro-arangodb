@@ -52,7 +52,7 @@
     "@vaadin/polymer-legacy-adapter": "23.3.11",
     "@vaadin/progress-bar": "23.3.11",
     "@vaadin/radio-group": "23.3.11",
-    "@vaadin/router": "1.7.5",
+    "@vaadin/router": "2.0.0",
     "@vaadin/scroller": "23.3.11",
     "@vaadin/select": "23.3.11",
     "@vaadin/split-layout": "23.3.11",
